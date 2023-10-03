@@ -5,10 +5,7 @@ import accesoADatos.ClienteData;
 import accesoADatos.Conexion;
 import entidades.Cliente;
 
-/**
- *
- * @author Pablo
- */
+
 public class Grupo33FraveMax {
 
     public static void main(String[] args) {
