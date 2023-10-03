@@ -1,4 +1,4 @@
-// Actualizado dia: 03/10/23 hs: 15:26
+// Actualizado dia: 03/10/23 hs: 15:31
 package grupo33fravemax;
 
 import accesoADatos.ClienteData;
@@ -45,7 +45,7 @@ public class Grupo33FraveMax {
 //        cli.eliminarCliente(2);
         
 
-    //Método buscar Alumno por Id 
+      //Método buscar cliente por Id 
 //        ClienteData cli=new ClienteData();
 //        Cliente clienteEncontrado=cli.buscarCliente(2,0);
 //        System.out.println(clienteEncontrado.toString());
