@@ -1,15 +1,17 @@
-// Actualizado dia: 03/10/23 hs: 15:31
+// Actualizado dia: 03/10/23 hs: 17:48
 package grupo33fravemax;
 
 import accesoADatos.ClienteData;
 import accesoADatos.Conexion;
+import accesoADatos.ProductoData;
 import entidades.Cliente;
+import entidades.Producto;
 
 
 public class Grupo33FraveMax {
 
     public static void main(String[] args) {
-        
+
         
         //Llamamos a la conexion
         Conexion.getConexion();
@@ -50,119 +52,78 @@ public class Grupo33FraveMax {
 //        Cliente clienteEncontrado=cli.buscarCliente(2,0);
 //        System.out.println(clienteEncontrado.toString());
 
+
     //Método buscar Cliente por Dni 
-        ClienteData cli=new ClienteData();
-        Cliente clienteEncontrado=cli.buscarClientePorDni(23345678);
-        if (clienteEncontrado!=null){
-        System.out.println(clienteEncontrado.toString());
-        }
-        
-    //Método listar alumno
-//        AlumnoData alu=new AlumnoData();
-//        for(Alumno alumno:alu.listarAlumnos()){
-//            System.out.println(alumno.getDni());
-//            System.out.println(alumno.getApellido());
-//            System.out.println(alumno.getNombre());
-//            System.out.println(alumno.getFechaNac());
-//            System.out.println("");  
+//        ClienteData cli=new ClienteData();
+//        Cliente clienteEncontrado=cli.buscarClientePorDni(21234623);
+//        if (clienteEncontrado!=null){
+//        System.out.println(clienteEncontrado.toString());
+//        }
+ 
+
+    //Método listar cliente (combobox)
+//        ClienteData cli=new ClienteData();
+//        for(Cliente cliente:cli.listarClientes(0)){
+//            System.out.println(cliente.toString() + "/n");
 //            }
 
-            
+//    //Método recuperar Cliente
+//        ClienteData cli=new ClienteData();
+//        cli.recuperarCliente(2);
+  
 //#########################################################################
-// CONEXIONES A MATERIADATA
-//#########################################################################   
-    //Metodo guardar materia
-//        Materia materia1= new Materia ("Biología", 2023, true);
-//        MateriaData mat=new MateriaData();
-//        mat.guardarMateria(materia1);
-          
+// CONEXIONES A PRODUCTODATA
+//#########################################################################
 
-    //Método buscar Materia
-//        MateriaData mat=new MateriaData();
-//        Materia materiaEncontrada=mat.buscarMateria(2);
-//        System.out.println("Nombre " + materiaEncontrada.getNombre());
-//        System.out.println("Año " + materiaEncontrada.getAño());
+////    Método guardar Producto
+//        Producto p1= new Producto("Jabón", "en polvo 800gr",450.00, 50, true);
+//        Producto p2= new Producto("Jabón", "de tocador 100gr",250.00, 100, true);
+//        Producto p3= new Producto("Arroz", "blanco doble carolina",550.00, 80, true);
+//        Producto p4= new Producto("Papel Higiénico", "Higienol 50mt x 4",720.00, 70, true);
+//        Producto p5= new Producto("Shampoo", "Sedal con ceramidas x 500cm3",970.00, 120, true);
+//        Producto p6= new Producto("Leche en polvo", "Nido x 500gr",1800.00, 200, true);
+//       
+//        ProductoData pro=new ProductoData();
+//        pro.guardarProducto(p1);
+//        pro.guardarProducto(p2);
+//        pro.guardarProducto(p3);
+//        pro.guardarProducto(p4);
+//        pro.guardarProducto(p5);
+//        pro.guardarProducto(p6);
+
+
+//    //Método modificar Producto
+//        ProductoData pro=new ProductoData();
+//        Producto p1= new Producto(1,"Jabón", "en polvo 500gr",450.00, 50, true);
+//        pro.modificarProducto(p1);
+
+//    //Método eliminar Producto
+//        ProductoData pro=new ProductoData();
+//        pro.eliminarProducto(2);
         
-    //Método modificar Materia
-//          Materia materia1= new Materia (2,"Matemática", 2022, true);
-//          MateriaData mat=new MateriaData();
-//          mat.modificarMateria(materia1);
-
-    //Método eliminar Materia
-//        MateriaData mat=new MateriaData();
-//        mat.eliminarMateria(2);
-
-    //Método listar materia
-//        MateriaData mat=new MateriaData();
-//        for(Materia materia:mat.listarMaterias()){
-//            System.out.println(materia.getNombre());
-//            System.out.println(materia.getAño());
-//            System.out.println("");  
+      //Método buscar producto por Id 
+//        ProductoData pro=new ProductoData();
+//        Producto productoEncontrado=pro.buscarProducto(2,0);
+//        System.out.println(productoEncontrado.toString());
+    
+    //Método listar producto (combobox)
+//        ProductoData pro=new ProductoData();
+//        for(Producto producto:pro.listarProductos(0)){
+//            System.out.println(producto.toString() + "/n");
 //            }
 
+//    //Método recuperar Producto
+//        ProductoData pro=new ProductoData();
+//        pro.recuperarProducto(2);
+
 //#########################################################################
-// CONEXIONES A INSCRIPCIONDATA
+// CONEXIONES A VENTADATA
 //#########################################################################  
-       
-           
-    //Metodo guardar inscripcion    
-//        Alumno alu = new Alumno (1);        
-//        Materia mat = new Materia (1);            
-//        Inscripcion inscripcion1 = new Inscripcion (alu, mat, 8);        
-//        InscripcionData insc1 = new InscripcionData();
-//        insc1.guardarInscripcion(inscripcion1);
-       
 
-    //Metodo actualizar nota
-//          InscripcionData insc1 = new InscripcionData();
-//          insc1.actualizarNota(3, 3, 10);
-
-      
-    //Método borrar inscripcion materia alumno
-//            InscripcionData insc1 = new InscripcionData();
-//            insc1.borrarInscripcionMateriaAlumno(3, 3);
-
-    //Método obtener inscripciones
-//        InscripcionData insc=new InscripcionData();
-//        for(String inscripcion:insc.obtenerInscripciones())
-//        {
-//            System.out.println(inscripcion);            
-//        }
-      
-    //Método obtener inscripciones por alumno
-//        InscripcionData insc=new InscripcionData();
-//        Alumno alu= new Alumno (1);        
-//        for(String inscripcion:insc.obtenerInscripcionesPorAlumno(alu.getIdAlumno()))
-//        {
-//            System.out.println(inscripcion);            
-//        }
-
-    //Método obtener alumnos por materia
-//        InscripcionData insc=new InscripcionData();        
-//        Materia mat= new Materia (2);            
-//        for(String inscripcion:insc.obtenerAlumnosXMateria(mat.getIdMateria()))        
-//        {
-//            System.out.println(inscripcion);            
-//        }
-        
-    //Método obtener materias cursadas
-//        InscripcionData insc=new InscripcionData();
-//        Alumno alu= new Alumno (1);        
-//        for(Materia materias:insc.obtenerMateriasCursadas(alu.getIdAlumno()))
-//        {
-//            System.out.println(materias.getNombre());            
-//        }
-        
-    //Método obtener materias no cursadas
-//        InscripcionData insc=new InscripcionData();
-//        Alumno alu= new Alumno (1);        
-//        for(Materia materias:insc.obtenerMateriasNoCursadas(alu.getIdAlumno()))
-//        {
-//            System.out.println(materias.getNombre());            
-//        }
+//#########################################################################
+// CONEXIONES A DETALLEVENTAADATA
+//######################################################################### 
     
-    
-        
     }
     
 }
