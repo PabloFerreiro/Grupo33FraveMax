@@ -1,11 +1,13 @@
 // Actualizado dia: 03/10/23 hs: 17:48
 package grupo33fravemax;
-
+import accesoADatos.VentaData;
 import accesoADatos.ClienteData;
 import accesoADatos.Conexion;
 import accesoADatos.ProductoData;
 import entidades.Cliente;
 import entidades.Producto;
+import entidades.Venta;
+import java.time.LocalDate;
 
 
 public class Grupo33FraveMax {
@@ -120,10 +122,45 @@ public class Grupo33FraveMax {
 // CONEXIONES A VENTADATA
 //#########################################################################  
 
+////    Método guardar Venta
+//        Cliente cli= new Cliente();
+//        VentaData vta=new VentaData();
+//        cli.setIdCliente(2);
+//        //Venta venta1 = new Venta(cli,LocalDate.of(2023, 10, 04),true);
+//        Venta venta1 = new Venta(cli,LocalDate.now(),true);
+//        vta.guardarVenta(venta1);
+        
+        
+////    Método modificar Venta
+//        Cliente cli= new Cliente();
+//        VentaData vta=new VentaData();
+//        cli.setIdCliente(4);
+//        Venta venta1 = new Venta(1,cli,LocalDate.of(2022, 10, 04),false);
+//        vta.modificarVenta(venta1);
+
+        
+////    Método eliminar Venta
+//        VentaData vta=new VentaData();
+//        vta.eliminarVenta(2);
+        
+////    Método recuperar Venta
+//        VentaData vta=new VentaData();
+//        vta.recuperarVenta(2);
+        
+////    Método buscar venta por Id 
+        VentaData vta=new VentaData();
+        Venta ventaEncontrada=vta.buscarVenta(2,1);
+        System.out.println(ventaEncontrada.toString());
+
+
 //#########################################################################
 // CONEXIONES A DETALLEVENTAADATA
 //######################################################################### 
     
+
+
+
+
     }
     
 }
