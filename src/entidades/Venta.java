@@ -59,12 +59,14 @@ public class Venta implements Comparable<Venta>{
 
     @Override
     public String toString() {
-        return "Venta{" + "idVenta=" + idVenta + ", cliente=" + cliente + ", fechaVenta=" + fechaVenta + ", estado=" + estado + '}';
+        return "Venta{ " + "idVenta= " + idVenta + ", cliente= " + cliente.toString() + ", fechaVenta= " + fechaVenta + ", estado= " + estado + '}';
     }
 
     @Override
-    public int compareTo(Venta otroidCliente) {
-       return this.idCliente.compareTo(otroidCliente.idCliente); 
+    public int compareTo(Venta otroidVenta) {
+        String idv1= Integer. toString(idVenta);
+        String idv2= Integer. toString(otroidVenta.getIdVenta());
+        return idv1.compareTo(idv2); 
     }
 
 

@@ -3,8 +3,10 @@ package grupo33fravemax;
 import accesoADatos.VentaData;
 import accesoADatos.ClienteData;
 import accesoADatos.Conexion;
+import accesoADatos.DetalleVentaData;
 import accesoADatos.ProductoData;
 import entidades.Cliente;
+import entidades.DetalleVenta;
 import entidades.Producto;
 import entidades.Venta;
 import java.time.LocalDate;
@@ -148,18 +150,53 @@ public class Grupo33FraveMax {
 //        vta.recuperarVenta(2);
         
 ////    Método buscar venta por Id 
-        VentaData vta=new VentaData();
-        Venta ventaEncontrada=vta.buscarVenta(2,1);
-        System.out.println(ventaEncontrada.toString());
+//        VentaData vta=new VentaData();
+//        Venta ventaEncontrada=vta.buscarVenta(2,1);
+//        System.out.println(ventaEncontrada.toString());
 
+////    Método listar ventas para combobox
+//        VentaData vta=new VentaData();
+//        for(Venta venta:vta.listarVentas(1)){
+//            System.out.println(venta.toString());  
+//            }
 
 //#########################################################################
 // CONEXIONES A DETALLEVENTAADATA
 //######################################################################### 
     
+////    Método guardar detalleVenta
+//        Cliente cli= new Cliente();
+//        Producto pro = new Producto();
+//        DetalleVenta dvta= new DetalleVenta();
+//        Venta vta = new Venta();
+//        DetalleVentaData dvtadata = new DetalleVentaData();
+//
+//        cli.setIdCliente(2);
+//        pro.setIdProducto(3);
+//        pro.setPrecioActual(550);
+//        vta.setIdVenta(2);
+//        dvta.setCantidad(10);
+//        dvta.setPrecioVenta(pro.getPrecioActual()*dvta.getCantidad());
+//
+//        DetalleVenta detalleventa1 = new DetalleVenta(dvta.getCantidad(), vta, dvta.getPrecioVenta(), pro, true);
+//        dvtadata.guardarDetalleVenta(detalleventa1);
 
+////    Método modificar detalleVenta
+        Cliente cli= new Cliente();
+        Producto pro = new Producto();
+        DetalleVenta dvta= new DetalleVenta();
+        Venta vta = new Venta();
+        DetalleVentaData dvtadata = new DetalleVentaData();
 
+        cli.setIdCliente(2);
+        pro.setIdProducto(3);
+        pro.setPrecioActual(550);
+        vta.setIdVenta(2);
+        dvta.setCantidad(20);
+        dvta.setPrecioVenta(pro.getPrecioActual()*dvta.getCantidad());
 
+        DetalleVenta detalleventa1 = new DetalleVenta(1, dvta.getCantidad(), vta, dvta.getPrecioVenta(), pro, true);
+        dvtadata.modificarDetalleVenta(detalleventa1);
 
     }
     

@@ -49,7 +49,6 @@ public class VentaData {
         }
         return exito;
     }
-   
     
 //  método modificar venta
     public int modificarVenta(Venta venta) {        
@@ -141,7 +140,7 @@ public class VentaData {
                 venta.setIdVenta(id);
                 venta.setCliente(cliente);
                 venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
-                venta.setEstado(rs.getBoolean("estado"));
+                venta.setEstado(rs.getBoolean("venta.estado"));
                 // no se hace esta asignacion porque se entiende por defecto de que lo que 
                 // esta trayendo del sql son registros activos-true-
                 //venta.setEstado(rs.getBoolean("estado"));
@@ -156,66 +155,79 @@ public class VentaData {
     }
     
     
-    
-   //Método listarVentas para buscar en un COMBOBOX
+//  Método listarVentas para buscar en un COMBOBOX
     public List<Venta> listarVentas(int bajaActivo) {
-        String sql = "SELECT idAlumno, dni, apellido, nombre, fechaNacimiento, estado FROM alumno WHERE estado = ?"
-                + " ORDER BY apellido, nombre ";
-        ArrayList<Alumno> alumnos = new ArrayList<>();
+        String sql = "SELECT idVenta, venta.idCliente, fechaVenta, venta.estado, cliente.* "
+                + "FROM venta, cliente WHERE venta.estado=? AND venta.idCliente = cliente.idCliente"
+                + " ORDER BY idVenta ";
+        ArrayList<Venta> ventas = new ArrayList<>();
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1, bajaActivo);
             ResultSet rs=ps.executeQuery();
             while (rs.next()) {
-                Alumno alumno=new Alumno();
-                alumno.setIdAlumno(rs.getInt("idAlumno"));
-                alumno.setDni(rs.getInt("dni"));
-                alumno.setApellido(rs.getString("apellido"));
-                alumno.setNombre(rs.getString("nombre"));
-                alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());                
-                alumno.setActivo(rs.getBoolean("estado"));                
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("cliente.idCliente"));
+                cliente.setApellido(rs.getString("cliente.apellido"));
+                cliente.setNombre(rs.getString("cliente.nombre"));
+                cliente.setDomicilio(rs.getString("cliente.domicilio"));
+                cliente.setTelefono(rs.getString("cliente.telefono"));
+                cliente.setDni(rs.getInt("cliente.dni"));
+                cliente.setEstado(rs.getBoolean("cliente.estado"));
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setCliente(cliente);
+                venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
+                venta.setEstado(rs.getBoolean("venta.estado"));               
                 // no se hace esta asignacion porque se entiende por defecto de que lo que 
                 // esta trayendo del sql son registros activos-true-
-                //alumno.setActivo(rs.getBoolean("estado"));
-                alumnos.add(alumno);                
+                //venta.setEstado(rs.getBoolean("venta.estado"));
+                ventas.add(venta);                
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno. No se pudo buscar el alumno");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Venta. No se pudo buscar la venta");
         }        
-        return alumnos;
+        return ventas;
     }
     
-    //Método listarVentas para buscar en una JTABLE
+//  Método listarVentas para buscar en una JTABLE
       public TreeSet<Venta> listarVentasJTable(int bajaActivo){                  
-        String sql = "SELECT idAlumno, dni, apellido, nombre, fechaNacimiento, estado FROM alumno WHERE estado = ?"
-                + " ORDER BY apellido, nombre ";
-        TreeSet<Alumno> alumnos=new TreeSet<>();
+        String sql = "SELECT idVenta, venta.idCliente, fechaVenta, venta.estado, cliente.* "
+                + "FROM venta, cliente WHERE venta.estado=? AND venta.idCliente = cliente.idCliente"
+                + " ORDER BY idVenta ";
+        TreeSet<Venta> ventas=new TreeSet<>();
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1, bajaActivo);
             ResultSet rs=ps.executeQuery();
             while (rs.next()) {
-                Alumno alumno=new Alumno();
-                alumno.setIdAlumno(rs.getInt("idAlumno"));
-                alumno.setDni(rs.getInt("dni"));
-                alumno.setApellido(rs.getString("apellido"));
-                alumno.setNombre(rs.getString("nombre"));
-                alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());                
-                alumno.setActivo(rs.getBoolean("estado"));                
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("cliente.idCliente"));
+                cliente.setApellido(rs.getString("cliente.apellido"));
+                cliente.setNombre(rs.getString("cliente.nombre"));
+                cliente.setDomicilio(rs.getString("cliente.domicilio"));
+                cliente.setTelefono(rs.getString("cliente.telefono"));
+                cliente.setDni(rs.getInt("cliente.dni"));
+                cliente.setEstado(rs.getBoolean("cliente.estado"));
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setCliente(cliente);
+                venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
+                venta.setEstado(rs.getBoolean("venta.estado"));               
                 // no se hace esta asignacion porque se entiende por defecto de que lo que 
                 // esta trayendo del sql son registros activos-true-
-                //alumno.setActivo(rs.getBoolean("estado"));
-                alumnos.add(alumno);                
+                //venta.setEstado(rs.getBoolean("venta.estado"));
+                ventas.add(venta);                
             }            
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno. No se pudo buscar el alumno");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Venta. No se pudo buscar la venta");
         }        
         catch (Exception ex2) {
             JOptionPane.showMessageDialog(null, "Error 2:"+ex2);
         }
-        return alumnos;        
+        return ventas;        
       };
     
 }

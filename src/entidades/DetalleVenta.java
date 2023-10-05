@@ -8,23 +8,26 @@ public class DetalleVenta {
     private Venta venta;
     private double precioVenta;
     private Producto producto;
+    private boolean estado;
 
     public DetalleVenta() {
     }
 
-    public DetalleVenta(int idDetalleVenta, int cantidad, Venta venta, double precioVenta, Producto producto) {
+    public DetalleVenta(int idDetalleVenta, int cantidad, Venta venta, double precioVenta, Producto producto, boolean estado) {
         this.idDetalleVenta = idDetalleVenta;
         this.cantidad = cantidad;
         this.venta = venta;
         this.precioVenta = precioVenta;
         this.producto = producto;
+        this.estado = estado;
     }
 
-    public DetalleVenta(int cantidad, Venta venta, double precioVenta, Producto producto) {
+    public DetalleVenta(int cantidad, Venta venta, double precioVenta, Producto producto, boolean estado) {
         this.cantidad = cantidad;
         this.venta = venta;
         this.precioVenta = precioVenta;
         this.producto = producto;
+        this.estado = estado;
     }
 
     public int getIdDetalleVenta() {
@@ -67,10 +70,20 @@ public class DetalleVenta {
         this.producto = producto;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "DetalleVenta{" + "idDetalleVenta=" + idDetalleVenta + ", cantidad=" + cantidad + ", venta=" + venta + ", precioVenta=" + precioVenta + ", producto=" + producto + '}';
+        return "DetalleVenta{" + "idDetalleVenta=" + idDetalleVenta + ", cantidad=" + cantidad + ", venta=" + venta + ", precioVenta=" + precioVenta + ", producto=" + producto + ", estado=" + estado + '}';
     }
+
+    
     
     
     
