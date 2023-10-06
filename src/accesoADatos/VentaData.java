@@ -1,6 +1,7 @@
 
 package accesoADatos;
 import entidades.Cliente;
+import entidades.DetalleVenta;
 import entidades.Producto;
 import entidades.Venta;
 import java.sql.Connection;
@@ -229,6 +230,68 @@ public class VentaData {
         }
         return ventas;        
       };
-    
+ 
+      
+      
+//  Método listarVentasConProducto para buscar en un COMBOBOX
+    public List<DetalleVenta> listarVentasConProducto(int buscarIdVenta,int bajaActivo) {
+        String sql = "SELECT venta.idVenta, venta.idCliente, fechaVenta, venta.estado, cliente.*,detalleventa.*, producto.* "
+                + "FROM venta, cliente, detalleventa, producto WHERE venta.idVenta=? AND venta.estado=? "
+                + "AND venta.idCliente = cliente.idCliente AND detalleventa.idVenta = venta.idVenta AND detalleventa.idProducto = producto.idProducto"
+                + " ORDER BY venta.idVenta ";
+        ArrayList<DetalleVenta> detalleventas = new ArrayList<>();
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, buscarIdVenta);
+            ps.setInt(2, bajaActivo);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                Venta venta = new Venta();
+                DetalleVenta detalleventa = new DetalleVenta();
+                Producto producto = new Producto();
+                
+                cliente.setIdCliente(rs.getInt("cliente.idCliente"));
+                cliente.setApellido(rs.getString("cliente.apellido"));
+                cliente.setNombre(rs.getString("cliente.nombre"));
+                cliente.setDomicilio(rs.getString("cliente.domicilio"));
+                cliente.setTelefono(rs.getString("cliente.telefono"));
+                cliente.setDni(rs.getInt("cliente.dni"));
+                cliente.setEstado(rs.getBoolean("cliente.estado"));
+                
+                venta.setIdVenta(rs.getInt("venta.idVenta"));
+                venta.setCliente(cliente);
+                venta.setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
+                venta.setEstado(rs.getBoolean("venta.estado")); 
+                
+                producto.setIdProducto(rs.getInt("producto.idProducto"));
+                producto.setNombreProducto(rs.getString("producto.nombreProducto"));
+                producto.setDescripcion(rs.getString("producto.descripcion"));
+                producto.setPrecioActual(rs.getDouble("producto.precioActual"));
+                producto.setStock(rs.getInt("producto.stock"));
+                producto.setEstado(rs.getBoolean("producto.estado"));
+                
+                detalleventa.setIdDetalleVenta(rs.getInt("detalleventa.idDetalleVenta"));
+                detalleventa.setCantidad(rs.getInt("detalleventa.cantidad"));
+                detalleventa.setPrecioVenta(rs.getDouble("detalleventa.precioVenta"));
+                detalleventa.setEstado(rs.getBoolean("detalleventa.estado"));
+                detalleventa.setVenta(venta);
+                detalleventa.setProducto(producto);
+                
+                
+                
+                
+                // no se hace esta asignacion porque se entiende por defecto de que lo que 
+                // esta trayendo del sql son registros activos-true-
+                //venta.setEstado(rs.getBoolean("venta.estado"));
+                detalleventas.add(detalleventa);                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Venta. No se pudo buscar la venta");
+        }        
+        return detalleventas;
+    }      
+      
 }
 

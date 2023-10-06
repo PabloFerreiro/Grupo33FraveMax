@@ -1,4 +1,4 @@
-// Actualizado dia: 03/10/23 hs: 17:48
+// Actualizado dia: 06/10/23 hs: 17:40
 package grupo33fravemax;
 import accesoADatos.VentaData;
 import accesoADatos.ClienteData;
@@ -160,6 +160,24 @@ public class Grupo33FraveMax {
 //            System.out.println(venta.toString());  
 //            }
 
+////    Método listar ventas con producto para combobox
+        VentaData dvta=new VentaData();
+        int bandera=0;
+        
+        for(DetalleVenta detalleventa:dvta.listarVentasConProducto(2,1)){
+            if(bandera==0){
+            bandera=1;
+            System.out.println(detalleventa.getVenta().toString());  
+            System.out.println(detalleventa.getVenta().getCliente().toString());
+            System.out.println(detalleventa.toString());}
+            
+            System.out.println(detalleventa.getProducto().toString());
+            
+            System.out.println();
+            }
+
+
+
 //#########################################################################
 // CONEXIONES A DETALLEVENTAADATA
 //######################################################################### 
@@ -182,22 +200,31 @@ public class Grupo33FraveMax {
 //        dvtadata.guardarDetalleVenta(detalleventa1);
 
 ////    Método modificar detalleVenta
-        Cliente cli= new Cliente();
-        Producto pro = new Producto();
-        DetalleVenta dvta= new DetalleVenta();
-        Venta vta = new Venta();
-        DetalleVentaData dvtadata = new DetalleVentaData();
+//        Cliente cli= new Cliente();
+//        Producto pro = new Producto();
+//        DetalleVenta dvta= new DetalleVenta();
+//        Venta vta = new Venta();
+//        DetalleVentaData dvtadata = new DetalleVentaData();
+//
+//        cli.setIdCliente(2);
+//        pro.setIdProducto(3);
+//        pro.setPrecioActual(550);
+//        vta.setIdVenta(2);
+//        dvta.setCantidad(20);
+//        dvta.setPrecioVenta(pro.getPrecioActual()*dvta.getCantidad());
+//
+//        DetalleVenta detalleventa1 = new DetalleVenta(1, dvta.getCantidad(), vta, dvta.getPrecioVenta(), pro, true);
+//        dvtadata.modificarDetalleVenta(detalleventa1);
+//
+   
+////    Método eliminar detalleVenta
+//        DetalleVentaData dvta=new DetalleVentaData();
+//        dvta.eliminarDetalleVenta(1);
 
-        cli.setIdCliente(2);
-        pro.setIdProducto(3);
-        pro.setPrecioActual(550);
-        vta.setIdVenta(2);
-        dvta.setCantidad(20);
-        dvta.setPrecioVenta(pro.getPrecioActual()*dvta.getCantidad());
-
-        DetalleVenta detalleventa1 = new DetalleVenta(1, dvta.getCantidad(), vta, dvta.getPrecioVenta(), pro, true);
-        dvtadata.modificarDetalleVenta(detalleventa1);
-
+////    Método recuperar Venta
+//        DetalleVentaData dvta=new DetalleVentaData();
+//        dvta.recuperarDetalleVenta(1);
+    
     }
     
 }
