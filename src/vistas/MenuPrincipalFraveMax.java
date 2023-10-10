@@ -97,7 +97,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         jdpEscritorio.setLayout(jdpEscritorioLayout);
         jdpEscritorioLayout.setHorizontalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1321, Short.MAX_VALUE)
+            .addGap(0, 1422, Short.MAX_VALUE)
         );
         jdpEscritorioLayout.setVerticalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +214,17 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiGestionVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGestionVentasActionPerformed
-        // TODO add your handling code here:
+       jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        JIFGestionVentas jifgestionventas = new JIFGestionVentas();
+        jdpEscritorio.add(jifgestionventas);
+        jifgestionventas.setVisible(true);
+
+        // Lineas para centrar el jInternalFrame dentro del desktopPane
+        Dimension desktopSize = jdpEscritorio.getSize();
+        Dimension jInternalFrameSize = jifgestionventas.getSize();
+        jifgestionventas.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+                (desktopSize.height - jInternalFrameSize.height) / 2);
     }//GEN-LAST:event_jmiGestionVentasActionPerformed
 
     private void jmiListado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListado1ActionPerformed
