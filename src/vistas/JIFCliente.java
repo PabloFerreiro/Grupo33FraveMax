@@ -1,19 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vistas;
 
+import accesoADatos.ClienteData;
+import entidades.Cliente;
+import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-/**
- *
- * @author Pablo
- */
+
 public class JIFCliente extends javax.swing.JInternalFrame {
     
         private DefaultTableModel modelo = new DefaultTableModel() {
@@ -25,6 +22,17 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         }
 
     };
+        
+        ClienteData clidata = new ClienteData();
+        Cliente cli = new Cliente();
+//    MateriaData mat = new MateriaData();
+//    InscripcionData ins = new InscripcionData();
+//    Alumno alu2 = new Alumno();
+//    Materia mat2 = new Materia();
+//    Inscripcion ins2 = new Inscripcion();
+        
+// se usara esta variable para ser referencia del idCliente a buscar    
+    int idClienteABuscar = 0;
 
     /**
      * Creates new form JIFCliente
@@ -54,7 +62,6 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         jtfDni = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jrbEstadoCliente = new javax.swing.JRadioButton();
         jbNuevo = new javax.swing.JButton();
         jbModificar = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
@@ -170,6 +177,11 @@ public class JIFCliente extends javax.swing.JInternalFrame {
                 jtfBuscarClienteActionPerformed(evt);
             }
         });
+        jtfBuscarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfBuscarClienteKeyReleased(evt);
+            }
+        });
 
         jtClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -181,6 +193,11 @@ public class JIFCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
+        jtClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,14 +241,11 @@ public class JIFCliente extends javax.swing.JInternalFrame {
                                             .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jtfDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jrbEstadoCliente)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jlEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jtfIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jtfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jlEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(28, 28, 28))))
@@ -243,7 +257,7 @@ public class JIFCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
@@ -276,11 +290,10 @@ public class JIFCliente extends javax.swing.JInternalFrame {
                         .addGap(21, 21, 21)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jrbEstadoCliente)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jlEstadoCliente))
-                .addGap(50, 50, 50)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo)
                     .addComponent(jbModificar)
@@ -323,8 +336,124 @@ public class JIFCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfIdClienteActionPerformed
 
     private void jtfBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfBuscarClienteActionPerformed
-        // TODO add your handling code here:
+        JTable jtClientes = (JTable) evt.getSource();
+        int row = jtClientes.getSelectedRow();
+        int col = jtClientes.getSelectedColumn();        
+        // obligo a que se tome el nombre del Alumno para mostrar 
+        Object data2 = (Object) jtClientes.getValueAt(row, 1);        
+        // y obligo a que se tome el codigo idMateria de la materia para buscar en las inscripciones x materia
+        Object data1 = (Object) jtClientes.getValueAt(row, 0);
+        // asigno ese nombre elegido de la jtable a mi variable jTFMateriaAbuscar (jTextField) para buscar
+        jtfBuscarCliente.setText(data2.toString());        
+        //JOptionPane.showMessageDialog(null, "VVVVVV idMateria capturado desde la tabla es: "+data1);
+        //JOptionPane.showMessageDialog(null, "VVVVVV nombre de la materia capturada desde la tabla es: "+data2);
+        //JOptionPane.showMessageDialog(null, "VVVVVV nombre del jTFMateriaAbuscar es: "+jTFMateriaAbuscar.getText());   
     }//GEN-LAST:event_jtfBuscarClienteActionPerformed
+
+    private void jtfBuscarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBuscarClienteKeyReleased
+
+        
+        borrarFilas();
+
+        for (Cliente cli : clidata.listarClientesJTableParaGestionCliente()) {
+            
+            if (jtfBuscarCliente.getText().isEmpty()) {
+                borrarFilas2();
+            }
+            
+            if ((cli.getApellido()).contains((jtfBuscarCliente.getText())) ||
+                (cli.getNombre()).contains((jtfBuscarCliente.getText())) ||
+                (String.valueOf (cli.getDni())).contains((jtfBuscarCliente.getText()))
+                    ) {
+                modelo.addRow(new Object[]{
+                    cli.getIdCliente(),
+                    cli.getDni(),
+                    cli.getApellido(),
+                    cli.getNombre(),
+                    cli.getDomicilio(),
+                    cli.getTelefono(),
+                    cli.isEstado()
+                });
+            }
+
+        }
+        // PARA CONSULTAR SI LA TABLA ESTA VACIA O NO        
+        if (jtClientes.getRowCount() == 0)
+        {
+            JOptionPane.showMessageDialog(null, "No Existen Datos de Clientes", "Advertencia",
+            JOptionPane.WARNING_MESSAGE);
+        }        
+        else
+        {        
+            int linTabla = jtClientes.getSelectedRow()+1;
+            int colTabla = jtClientes.getSelectedColumn();            
+            Object valorTabla = jtClientes.getValueAt(linTabla, 0);            
+            Cliente cli2 = new Cliente();            
+            cli2.setIdCliente((Integer) jtClientes.getValueAt(linTabla, 0));
+            cli2.setDni((Integer) jtClientes.getValueAt(linTabla, 1));
+            cli2.setApellido((String) jtClientes.getValueAt(linTabla, 2));
+            cli2.setNombre((String) jtClientes.getValueAt(linTabla, 3));
+            cli2.setDomicilio((String) jtClientes.getValueAt(linTabla, 4));
+            cli2.setTelefono((String) jtClientes.getValueAt(linTabla, 5));
+            cli2.setEstado(true);            
+//            if (cli2.getIdCliente() != 0) {
+//                idClienteABuscar = cli2.getIdCliente();
+//                if (jrbEstadoCliente.isSelected()) {
+//                    modelo.setRowCount(0);
+//                    botonMateriasInscriptas();
+//                }
+//                if (jrbjrbMateriasNoInscriptas.isSelected()) {
+//                    modelo.setRowCount(0);
+//                    botonMateriasNoInscriptas();
+//                }
+//            } else {
+//                modelo.setRowCount(0);
+//                idAlumnoABuscar = 0;
+//                jbInscribir.setEnabled(false);
+//                jbAnularInscripcion.setEnabled(false);
+//            }
+        
+        
+        }   
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+    }//GEN-LAST:event_jtfBuscarClienteKeyReleased
+
+    private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
+    
+        int filaSeleccionada=jtClientes.rowAtPoint(evt.getPoint());
+        jtfBuscarCliente.setText("");
+        jtfIdCliente.setText(jtClientes.getValueAt(filaSeleccionada, 0).toString());
+        jtfDni.setText(jtClientes.getValueAt(filaSeleccionada, 1).toString());
+        jtfApellido.setText(jtClientes.getValueAt(filaSeleccionada, 2) + "");
+        jtfNombre.setText(jtClientes.getValueAt(filaSeleccionada, 3) + "");
+        jtfDomicilio.setText(jtClientes.getValueAt(filaSeleccionada, 4) + "");
+        jtfTelefono.setText(jtClientes.getValueAt(filaSeleccionada, 5).toString());
+        
+//        if (jtClientes.getValueAt(filaSeleccionada, 6)==true){
+//        jlEstadoCliente.setText("Activo")} 
+//        else{jlEstadoCliente.setText("Baja")};
+        
+        if ((boolean) jtClientes.getValueAt(filaSeleccionada, 6)) {
+            jlEstadoCliente.setForeground(Color.blue);
+            jlEstadoCliente.setText("Activo");
+        } else {
+            jlEstadoCliente.setForeground(Color.red);
+            jlEstadoCliente.setText("Baja");
+        }
+        
+    }//GEN-LAST:event_jtClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -345,7 +474,6 @@ public class JIFCliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbRecuperar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlEstadoCliente;
-    private javax.swing.JRadioButton jrbEstadoCliente;
     private javax.swing.JTable jtClientes;
     private javax.swing.JTextField jtfApellido;
     private javax.swing.JTextField jtfBuscarCliente;
@@ -366,6 +494,7 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         modelo.addColumn("Nombre");
         modelo.addColumn("Domicilio");
         modelo.addColumn("Teléfono");
+        modelo.addColumn("Estado");
 
         jtClientes.setModel(modelo);
         
@@ -375,10 +504,26 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         columnModel.getColumn(3).setPreferredWidth(20);
         columnModel.getColumn(4).setPreferredWidth(150);
         columnModel.getColumn(5).setPreferredWidth(20);
+        columnModel.getColumn(5).setPreferredWidth(20);
 
     }
 
 
+ 
+     private void borrarFilas()
+    {
+        int filas = jtClientes.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
 
+          private void borrarFilas2()
+    {
+        int filas = jtClientes.getRowCount();
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
 
 }

@@ -1,7 +1,7 @@
 
 package entidades;
 
-public class Cliente {
+public class Cliente implements Comparable<Cliente>{
     private int idCliente;
     private String apellido;
     private String nombre;
@@ -91,6 +91,11 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" + "idCliente=" + idCliente + ", apellido=" + apellido + ", nombre=" + nombre + ", domicilio=" + domicilio + ", telefono=" + telefono + ", dni=" + dni + ", estado=" + estado + '}';
+    }
+
+    @Override
+    public int compareTo(Cliente otroApellido) {
+        return this.apellido.compareTo(otroApellido.apellido); 
     }
     
     

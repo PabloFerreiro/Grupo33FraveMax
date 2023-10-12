@@ -5,10 +5,7 @@
         <group>
             <file>file:/C:/Users/Pablo/Documents/NetBeansProjects/NetBeans8/Grupo33FraveMax/src/vistas/MenuPrincipalFraveMax.java</file>
             <file>file:/C:/Users/Pablo/Documents/NetBeansProjects/NetBeans8/Grupo33FraveMax/src/vistas/JIFCliente.java</file>
-            <file>file:/C:/Users/Pablo/Documents/NetBeansProjects/NetBeans8/Grupo33FraveMax/src/vistas/JIFProducto.java</file>
-            <file>file:/C:/Users/Pablo/Documents/NetBeansProjects/NetBeans8/Grupo33FraveMax/src/vistas/JIFGestionVentas.java</file>
-            <file>file:/C:/Users/Pablo/Documents/NetBeansProjects/NetBeans8/Grupo33FraveMax/src/vistas/JIFLogin.java</file>
-            <file>file:/C:/Users/Pablo/Documents/NetBeansProjects/NetBeans8/Grupo33FraveMax/src/grupo33fravemax/Grupo33FraveMax.java</file>
+            <file>file:/C:/Users/Pablo/Documents/NetBeansProjects/NetBeans8/Grupo33FraveMax/src/entidades/Cliente.java</file>
         </group>
     </open-files>
 </project-private>

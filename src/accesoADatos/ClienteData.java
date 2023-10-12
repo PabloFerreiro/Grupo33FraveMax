@@ -252,6 +252,39 @@ public class ClienteData {
         }
         return clientes;        
       };
+    
+    //  Método listarClientes NUEVA para buscar en una JTABLE
+    public TreeSet<Cliente> listarClientesJTableParaGestionCliente(){                  
+        String sql = "SELECT idCliente, apellido, nombre, domicilio, telefono, estado, dni FROM cliente"
+                + " ORDER BY apellido, nombre ";
+        TreeSet<Cliente> clientes=new TreeSet<>();
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+//            ps.setInt(1, bajaActivo);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {
+                Cliente cliente=new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));    
+                cliente.setApellido(rs.getString("apellido"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setDomicilio(rs.getString("domicilio"));
+                cliente.setTelefono(rs.getString("telefono"));             
+                cliente.setEstado(rs.getBoolean("estado")); 
+                cliente.setDni(rs.getInt("dni"));               
+                // no se hace esta asignacion porque se entiende por defecto de que lo que 
+                // esta trayendo del sql son registros activos-true-
+                //alumno.setActivo(rs.getBoolean("estado"));
+                clientes.add(cliente);                
+            }            
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Cliente. No se pudo buscar el cliente");
+        }        
+        catch (Exception ex2) {
+            JOptionPane.showMessageDialog(null, "Error 2:"+ex2);
+        }
+        return clientes;        
+      };
 
       
 }

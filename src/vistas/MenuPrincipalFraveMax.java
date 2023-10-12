@@ -41,6 +41,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         editarObloquearMenues(false, false, false, true);
         this.setTitle("FRAVEMAX - GRUPO 33");
+        
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../images/Grupo332023.png"));
         setIconImage(iconoPropio);
         setVisible(true);
