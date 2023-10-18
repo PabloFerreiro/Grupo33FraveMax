@@ -8,6 +8,7 @@ public class Venta implements Comparable<Venta>{
    private Cliente cliente;
    private LocalDate fechaVenta;
    private boolean estado;
+   private double totalVenta;
 
     public Venta() {
     }
@@ -19,10 +20,11 @@ public class Venta implements Comparable<Venta>{
         this.estado = estado;
     }
 
-    public Venta(Cliente cliente, LocalDate fechaVenta, boolean estado) {
+    public Venta(Cliente cliente, LocalDate fechaVenta, boolean estado, double totalVenta) {
         this.cliente = cliente;
         this.fechaVenta = fechaVenta;
         this.estado = estado;
+        this.totalVenta = totalVenta;
     }
 
     public int getIdVenta() {
@@ -57,9 +59,20 @@ public class Venta implements Comparable<Venta>{
         this.estado = estado;
     }
 
+    public double getTotalVenta() {
+        return totalVenta;
+    }
+
+    public void setTotalVenta(double totalVenta) {
+        this.totalVenta = totalVenta;
+    }
+    
+
+    
+
     @Override
     public String toString() {
-        return "Venta{ " + "idVenta= " + idVenta + ", cliente= " + cliente.toString() + ", fechaVenta= " + fechaVenta + ", estado= " + estado + '}';
+        return "Venta: " + "idVenta= " + idVenta + ", cliente= " + cliente.toString() + ", fechaVenta= " + fechaVenta + ", estado= " + estado + ", total Venta= " + totalVenta;
     }
 
     @Override

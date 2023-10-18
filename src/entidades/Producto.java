@@ -1,7 +1,7 @@
 
 package entidades;
 
-public class Producto {
+public class Producto implements Comparable<Producto>{
     
     private int idProducto;
     private String nombreProducto;
@@ -83,6 +83,10 @@ public class Producto {
         return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", descripcion=" + descripcion + ", precioActual=" + precioActual + ", stock=" + stock + ", estado=" + estado + '}';
     }
     
+    @Override
+    public int compareTo(Producto otroProducto) {
+        return this.nombreProducto.compareTo(otroProducto.nombreProducto); 
+    }
     
     
 }

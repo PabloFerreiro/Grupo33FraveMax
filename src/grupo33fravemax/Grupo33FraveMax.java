@@ -129,7 +129,7 @@ public class Grupo33FraveMax {
 //        VentaData vta=new VentaData();
 //        cli.setIdCliente(2);
 //        //Venta venta1 = new Venta(cli,LocalDate.of(2023, 10, 04),true);
-//        Venta venta1 = new Venta(cli,LocalDate.now(),true);
+//        Venta venta1 = new Venta(cli,LocalDate.now(),true,0);
 //        vta.guardarVenta(venta1);
         
         

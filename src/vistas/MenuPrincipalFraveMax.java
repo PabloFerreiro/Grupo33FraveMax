@@ -98,11 +98,11 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         jdpEscritorio.setLayout(jdpEscritorioLayout);
         jdpEscritorioLayout.setHorizontalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1497, Short.MAX_VALUE)
+            .addGap(0, 1600, Short.MAX_VALUE)
         );
         jdpEscritorioLayout.setVerticalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 823, Short.MAX_VALUE)
+            .addGap(0, 869, Short.MAX_VALUE)
         );
 
         jmGestionABMC.setText("GESTIÓN_ABMC");
@@ -161,14 +161,29 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
 
         jmiListado2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiListado2.setText("Ventas x fecha");
+        jmiListado2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListado2ActionPerformed(evt);
+            }
+        });
         jmListados.add(jmiListado2);
 
         jmiListado3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiListado3.setText("Ventas x cliente");
+        jmiListado3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListado3ActionPerformed(evt);
+            }
+        });
         jmListados.add(jmiListado3);
 
         jmiListado4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiListado4.setText("Clientes x productos");
+        jmiListado4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListado4ActionPerformed(evt);
+            }
+        });
         jmListados.add(jmiListado4);
 
         jMenuBar1.add(jmListados);
@@ -206,9 +221,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jdpEscritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jdpEscritorio)
         );
 
         pack();
@@ -229,7 +242,18 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiGestionVentasActionPerformed
 
     private void jmiListado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListado1ActionPerformed
-        // TODO add your handling code here:
+    
+       jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        JIFProductosVentaXFecha jifproductosventaxfecha = new JIFProductosVentaXFecha ();
+        jdpEscritorio.add(jifproductosventaxfecha);
+        jifproductosventaxfecha.setVisible(true);
+
+        // Lineas para centrar el jInternalFrame dentro del desktopPane
+        Dimension desktopSize = jdpEscritorio.getSize();
+        Dimension jInternalFrameSize = jifproductosventaxfecha.getSize();
+        jifproductosventaxfecha.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+                (desktopSize.height - jInternalFrameSize.height) / 2);
     }//GEN-LAST:event_jmiListado1ActionPerformed
 
     private void jmiSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSalirActionPerformed
@@ -286,6 +310,48 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         jifproducto.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
                 (desktopSize.height - jInternalFrameSize.height) / 2);
     }//GEN-LAST:event_jmiProductosActionPerformed
+
+    private void jmiListado2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListado2ActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        JIFVentasXFecha jifventasxfecha = new JIFVentasXFecha();
+        jdpEscritorio.add(jifventasxfecha);
+        jifventasxfecha.setVisible(true);
+
+        // Lineas para centrar el jInternalFrame dentro del desktopPane
+        Dimension desktopSize = jdpEscritorio.getSize();
+        Dimension jInternalFrameSize = jifventasxfecha.getSize();
+        jifventasxfecha.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+                (desktopSize.height - jInternalFrameSize.height) / 2);
+    }//GEN-LAST:event_jmiListado2ActionPerformed
+
+    private void jmiListado3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListado3ActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        JIFVentasXCliente jifventasxclientes = new JIFVentasXCliente();
+        jdpEscritorio.add(jifventasxclientes);
+        jifventasxclientes.setVisible(true);
+
+        // Lineas para centrar el jInternalFrame dentro del desktopPane
+        Dimension desktopSize = jdpEscritorio.getSize();
+        Dimension jInternalFrameSize = jifventasxclientes.getSize();
+        jifventasxclientes.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+                (desktopSize.height - jInternalFrameSize.height) / 2);
+    }//GEN-LAST:event_jmiListado3ActionPerformed
+
+    private void jmiListado4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListado4ActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        JIFClientesXProducto jifclientesxproducto = new JIFClientesXProducto();
+        jdpEscritorio.add(jifclientesxproducto);
+        jifclientesxproducto.setVisible(true);
+
+        // Lineas para centrar el jInternalFrame dentro del desktopPane
+        Dimension desktopSize = jdpEscritorio.getSize();
+        Dimension jInternalFrameSize = jifclientesxproducto.getSize();
+        jifclientesxproducto.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
+                (desktopSize.height - jInternalFrameSize.height) / 2);
+    }//GEN-LAST:event_jmiListado4ActionPerformed
 
     /**
      * @param args the command line arguments

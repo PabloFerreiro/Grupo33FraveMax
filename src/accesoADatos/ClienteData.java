@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import entidades.Cliente;
+import vistas.JIFCliente;
+
 
 public class ClienteData {
 
@@ -44,6 +46,8 @@ public class ClienteData {
                 cliente.setIdCliente(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Cliente guardado");
                 exito = 1;
+                
+
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo realizar el guardado del cliente");
             }
@@ -86,7 +90,6 @@ public class ClienteData {
 //  método eliminar cliente
     public int eliminarCliente(int id) {
         String sql = "UPDATE cliente SET estado = 0 WHERE idCliente=?";        
-        System.out.println("id=" + id);
         int exito=0;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -253,11 +256,46 @@ public class ClienteData {
         return clientes;        
       };
     
+//    //  Método listarClientes NUEVA para buscar en una JTABLE
+//    public TreeSet<Cliente> listarClientesJTableParaGestionCliente(){                  
+//        String sql = "SELECT * FROM cliente"
+//                + " ORDER by cliente.estado "
+//                ;
+//        TreeSet<Cliente> clientes=new TreeSet<>();
+//        try {
+//            PreparedStatement ps=con.prepareStatement(sql);
+////            ps.setInt(1, bajaActivo);
+//            ResultSet rs=ps.executeQuery();
+//            while (rs.next()) {
+//                Cliente cliente=new Cliente();
+//                cliente.setIdCliente(rs.getInt("idCliente"));    
+//                cliente.setApellido(rs.getString("apellido"));
+//                cliente.setNombre(rs.getString("nombre"));
+//                cliente.setDomicilio(rs.getString("domicilio"));
+//                cliente.setTelefono(rs.getString("telefono"));             
+//                cliente.setEstado(rs.getBoolean("estado")); 
+//                cliente.setDni(rs.getInt("dni"));               
+//                // no se hace esta asignacion porque se entiende por defecto de que lo que 
+//                // esta trayendo del sql son registros activos-true-
+//                //alumno.setActivo(rs.getBoolean("estado"));
+//                clientes.add(cliente);                
+//            }            
+//            ps.close();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Cliente. No se pudo buscar el cliente");
+//        }        
+//        catch (Exception ex2) {
+//            JOptionPane.showMessageDialog(null, "Error 2:"+ex2);
+//        }
+//        return clientes;        
+//      };
+    
     //  Método listarClientes NUEVA para buscar en una JTABLE
-    public TreeSet<Cliente> listarClientesJTableParaGestionCliente(){                  
-        String sql = "SELECT idCliente, apellido, nombre, domicilio, telefono, estado, dni FROM cliente"
-                + " ORDER BY apellido, nombre ";
-        TreeSet<Cliente> clientes=new TreeSet<>();
+    public ArrayList<Cliente> listarClientesJTableParaGestionCliente(){                  
+        String sql = "SELECT * FROM cliente"
+                + " ORDER by cliente.idCliente "
+                ;
+        ArrayList<Cliente> clientes=new ArrayList<>();
         try {
             PreparedStatement ps=con.prepareStatement(sql);
 //            ps.setInt(1, bajaActivo);

@@ -27,13 +27,14 @@ public class VentaData {
 
 //  método guardar venta
     public int guardarVenta(Venta venta) {
-        String sql = "INSERT INTO venta (idCliente, fechaVenta, estado) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO venta (idCliente, fechaVenta, estado, totalVenta) VALUES (?, ?, ?, ?)";
         int exito=0; 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);  
             ps.setInt(1, venta.getCliente().getIdCliente());
             ps.setDate(2, Date.valueOf(venta.getFechaVenta()));    
-            ps.setBoolean(3, venta.isEstado());       
+            ps.setBoolean(3, venta.isEstado());
+            ps.setDouble(4, venta.getTotalVenta());
             ps.executeUpdate();            
             ps.getGeneratedKeys();
             ResultSet rs = ps.getGeneratedKeys();

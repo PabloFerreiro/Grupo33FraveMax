@@ -36,7 +36,7 @@ public class DetalleVentaData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 detalleventa.setIdDetalleVenta(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Detalle de Venta guardada");
+//                JOptionPane.showMessageDialog(null, "Detalle de Venta guardada");
                 exito = 1;
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo realizar el guardado del detalle de venta");
@@ -154,7 +154,29 @@ public class DetalleVentaData {
         return venta;
     }
     
-    
+    //Método proximoIdVenta
+      public Venta proximoIdVenta() {                  
+        String sql = "SELECT idVenta FROM venta ORDER BY idVenta DESC";
+        Venta venta = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                venta = new Venta();
+                venta.setIdVenta(rs.getInt("idVenta"));                
+                //JOptionPane.showMessageDialog(null, "IdVenta ENCONTRADA");             
+            } 
+            /*
+            else {
+                //JOptionPane.showMessageDialog(null, "No existe el idVenta");
+            };
+            */
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Venta. No se pudo buscar el IdVenta");
+        }
+        return venta;
+      };
     
     
     

@@ -1,38 +1,24 @@
-
 package vistas;
 
 import accesoADatos.ClienteData;
 import entidades.Cliente;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-
 public class JIFCliente extends javax.swing.JInternalFrame {
-    
-        private DefaultTableModel modelo = new DefaultTableModel() {
-        public boolean isCellEditable(int f, int c) {
-            if (c != 2) {
-                return false;
-            }
-            return true;
-        }
 
+    private boolean guardarModificar = false;
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Hace que todas las celdas sean no editables
+        }
     };
-        
-        ClienteData clidata = new ClienteData();
-        Cliente cli = new Cliente();
-//    MateriaData mat = new MateriaData();
-//    InscripcionData ins = new InscripcionData();
-//    Alumno alu2 = new Alumno();
-//    Materia mat2 = new Materia();
-//    Inscripcion ins2 = new Inscripcion();
-        
-// se usara esta variable para ser referencia del idCliente a buscar    
-    int idClienteABuscar = 0;
+
+    ClienteData clidata = new ClienteData();
+    Cliente cli = new Cliente();
 
     /**
      * Creates new form JIFCliente
@@ -41,6 +27,17 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         this.setTitle("FRAVEMAX - Gestión de Clientes");
+        jtfDni.setEnabled(false);
+        jtfApellido.setEnabled(false);
+        jtfNombre.setEnabled(false);
+        jtfDomicilio.setEnabled(false);
+        jtfTelefono.setEnabled(false);
+        jbNuevo.setEnabled(false);
+        jbGuardar.setEnabled(false);
+        jbModificar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+        jbRecuperar.setEnabled(false);
+
     }
 
     /**
@@ -69,23 +66,24 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         jbEliminar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jlEstadoCliente = new javax.swing.JLabel();
-        jtfIdCliente = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jtfBuscarCliente = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jtClientes = new javax.swing.JTable();
+        jtfIdCliente = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Gestión de Cliente");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel2.setText("Apellido");
+        jLabel2.setText("Apellido:");
 
         jtfApellido.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel3.setText("Nombre");
+        jLabel3.setText("Nombre:");
 
         jtfNombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jtfNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -97,10 +95,10 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         jtfDomicilio.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel4.setText("Domicilio");
+        jLabel4.setText("Domicilio:");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setText("Teléfono");
+        jLabel5.setText("Teléfono:");
 
         jtfTelefono.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jtfTelefono.addActionListener(new java.awt.event.ActionListener() {
@@ -117,13 +115,13 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel6.setText("DNI");
+        jLabel6.setText("DNI:");
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel7.setText("Estado");
+        jLabel7.setText("Estado:");
 
         jbNuevo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jbNuevo.setText("Nuevo");
+        jbNuevo.setText("Limpiar");
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNuevoActionPerformed(evt);
@@ -132,9 +130,19 @@ public class JIFCliente extends javax.swing.JInternalFrame {
 
         jbModificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jbModificar.setText("Modificar");
+        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbRecuperar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jbRecuperar.setText("Recuperar");
@@ -146,9 +154,14 @@ public class JIFCliente extends javax.swing.JInternalFrame {
 
         jbEliminar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jbSalir.setText("SALIR");
+        jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);
@@ -156,27 +169,15 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         });
 
         jlEstadoCliente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jlEstadoCliente.setText("...");
-
-        jtfIdCliente.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jtfIdCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfIdClienteActionPerformed(evt);
-            }
-        });
+        jlEstadoCliente.setText(" ");
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel8.setText("Id");
+        jLabel8.setText("Id:");
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel9.setText("Buscar");
+        jLabel9.setText("Buscar por DNI");
 
         jtfBuscarCliente.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jtfBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfBuscarClienteActionPerformed(evt);
-            }
-        });
         jtfBuscarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfBuscarClienteKeyReleased(evt);
@@ -185,12 +186,18 @@ public class JIFCliente extends javax.swing.JInternalFrame {
 
         jtClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         jtClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -198,102 +205,113 @@ public class JIFCliente extends javax.swing.JInternalFrame {
                 jtClientesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jtClientes);
+        jScrollPane2.setViewportView(jtClientes);
+
+        jtfIdCliente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jtfIdCliente.setText(" ");
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoFraveMax.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbRecuperar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel2)
-                                            .addComponent(jLabel7)
                                             .addComponent(jLabel6)
-                                            .addComponent(jLabel8)
                                             .addComponent(jLabel4)
-                                            .addComponent(jLabel5))
-                                        .addGap(27, 27, 27)
+                                            .addComponent(jLabel5)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jtfIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jlEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(28, 28, 28))))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jlEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jtfTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                                .addComponent(jtfDomicilio, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jtfNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jtfApellido, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jtfDni))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jtfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(46, 46, 46)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(32, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
+                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(jtfIdCliente)
+                            .addComponent(jLabel7)
+                            .addComponent(jlEstadoCliente))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jtfDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtfDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jlEstadoCliente))
-                .addGap(52, 52, 52)
+                            .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo)
                     .addComponent(jbModificar)
@@ -301,7 +319,7 @@ public class JIFCliente extends javax.swing.JInternalFrame {
                     .addComponent(jbEliminar)
                     .addComponent(jbRecuperar)
                     .addComponent(jbSalir))
-                .addGap(56, 56, 56))
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -320,51 +338,80 @@ public class JIFCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfDniActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        // TODO add your handling code here:
+        jtfBuscarCliente.setText("");
+        jtfBuscarCliente.setEnabled(true);
+        jtfBuscarCliente.requestFocus();
+
+        jtfIdCliente.setText("");
+
+        jtfDni.setEnabled(false);
+        jtfDni.setText("");
+
+        jtfApellido.setEnabled(false);
+        jtfApellido.setText("");
+
+        jtfNombre.setEnabled(false);
+        jtfNombre.setText("");
+
+        jtfDomicilio.setEnabled(false);
+        jtfDomicilio.setText("");
+
+        jtfTelefono.setEnabled(false);
+        jtfTelefono.setText("");
+        
+        jbNuevo.setEnabled(false);
+        jbGuardar.setEnabled(false);
+        jbModificar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+        jbRecuperar.setEnabled(false);
+        jlEstadoCliente.setText("");
+        
+        borrarFilas2();
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRecuperarActionPerformed
-        // TODO add your handling code here:
+
+        String nroIdTexto = jtfIdCliente.getText();
+        int nroId = Integer.parseInt(nroIdTexto);
+        clidata.recuperarCliente(nroId);
+        jlEstadoCliente.setForeground(Color.blue);
+        jlEstadoCliente.setText("Activo");
+        jbRecuperar.setEnabled(false);
+        borrarFilas2();
+
     }//GEN-LAST:event_jbRecuperarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-    this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
-
-    private void jtfIdClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfIdClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfIdClienteActionPerformed
-
-    private void jtfBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfBuscarClienteActionPerformed
-        JTable jtClientes = (JTable) evt.getSource();
-        int row = jtClientes.getSelectedRow();
-        int col = jtClientes.getSelectedColumn();        
-        // obligo a que se tome el nombre del Alumno para mostrar 
-        Object data2 = (Object) jtClientes.getValueAt(row, 1);        
-        // y obligo a que se tome el codigo idMateria de la materia para buscar en las inscripciones x materia
-        Object data1 = (Object) jtClientes.getValueAt(row, 0);
-        // asigno ese nombre elegido de la jtable a mi variable jTFMateriaAbuscar (jTextField) para buscar
-        jtfBuscarCliente.setText(data2.toString());        
-        //JOptionPane.showMessageDialog(null, "VVVVVV idMateria capturado desde la tabla es: "+data1);
-        //JOptionPane.showMessageDialog(null, "VVVVVV nombre de la materia capturada desde la tabla es: "+data2);
-        //JOptionPane.showMessageDialog(null, "VVVVVV nombre del jTFMateriaAbuscar es: "+jTFMateriaAbuscar.getText());   
-    }//GEN-LAST:event_jtfBuscarClienteActionPerformed
 
     private void jtfBuscarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBuscarClienteKeyReleased
 
-        
-        borrarFilas();
+        borrarFilas2();
+
+        jtfIdCliente.setText("");
+        jtfDni.setEnabled(false);
+        jtfDni.setText("");
+        jtfApellido.setEnabled(false);
+        jtfApellido.setText("");
+        jtfNombre.setEnabled(false);
+        jtfNombre.setText("");
+        jtfDomicilio.setEnabled(false);
+        jtfDomicilio.setText("");
+        jtfTelefono.setEnabled(false);
+        jtfTelefono.setText("");
+        jbNuevo.setEnabled(true);
+        jbGuardar.setEnabled(false);
+        jbModificar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+        jbRecuperar.setEnabled(false);
+        jlEstadoCliente.setText("");
 
         for (Cliente cli : clidata.listarClientesJTableParaGestionCliente()) {
-            
-            if (jtfBuscarCliente.getText().isEmpty()) {
-                borrarFilas2();
-            }
-            
-            if ((cli.getApellido()).contains((jtfBuscarCliente.getText())) ||
-                (cli.getNombre()).contains((jtfBuscarCliente.getText())) ||
-                (String.valueOf (cli.getDni())).contains((jtfBuscarCliente.getText()))
-                    ) {
+
+            if ((cli.getApellido()).contains((jtfBuscarCliente.getText()))
+                    || (cli.getNombre()).contains((jtfBuscarCliente.getText()))
+                    || (String.valueOf(cli.getDni())).contains((jtfBuscarCliente.getText()))) {
                 modelo.addRow(new Object[]{
                     cli.getIdCliente(),
                     cli.getDni(),
@@ -378,61 +425,126 @@ public class JIFCliente extends javax.swing.JInternalFrame {
 
         }
         // PARA CONSULTAR SI LA TABLA ESTA VACIA O NO        
-        if (jtClientes.getRowCount() == 0)
-        {
-            JOptionPane.showMessageDialog(null, "No Existen Datos de Clientes", "Advertencia",
-            JOptionPane.WARNING_MESSAGE);
-        }        
-        else
-        {        
-            int linTabla = jtClientes.getSelectedRow()+1;
-            int colTabla = jtClientes.getSelectedColumn();            
-            Object valorTabla = jtClientes.getValueAt(linTabla, 0);            
-            Cliente cli2 = new Cliente();            
+        if (jtClientes.getRowCount() == 0) {
+            String capturarDni = jtfBuscarCliente.getText();
+            int opcion = JOptionPane.showOptionDialog(null,
+                    "No existe ese cliente. ¿Desea registrar uno nuevo?",
+                    "Advertencia",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    new Object[]{"Sí", "No"},
+                    JOptionPane.YES_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+
+                jtfBuscarCliente.setText("");
+                jtfBuscarCliente.setEnabled(false);
+                jtfDni.setEnabled(true);
+                jtfDni.setText(capturarDni);
+                jtfDni.requestFocus();
+                jtfApellido.setEnabled(true);
+                jtfNombre.setEnabled(true);
+                jtfDomicilio.setEnabled(true);
+                jtfTelefono.setEnabled(true);
+                jbGuardar.setEnabled(true);
+                jbModificar.setEnabled(false);
+                jbEliminar.setEnabled(false);
+                jbRecuperar.setEnabled(false);
+                jlEstadoCliente.setText("Activo");
+                jlEstadoCliente.setForeground(Color.blue);
+
+            } else if (opcion == JOptionPane.NO_OPTION) {
+                
+                jtfBuscarCliente.setText("");
+                jtfBuscarCliente.setEnabled(true);
+                jtfBuscarCliente.requestFocus();
+
+                jtfIdCliente.setText("");
+                jtfDni.setEnabled(false);
+                jtfDni.setText("");
+                jtfApellido.setEnabled(false);
+                jtfApellido.setText("");
+                jtfNombre.setEnabled(false);
+                jtfNombre.setText("");
+                jtfDomicilio.setEnabled(false);
+                jtfDomicilio.setText("");
+                jtfTelefono.setEnabled(false);
+                jtfTelefono.setText("");
+                jbGuardar.setEnabled(false);
+                jbModificar.setEnabled(false);
+                jbEliminar.setEnabled(false);
+                jbRecuperar.setEnabled(false);
+                jlEstadoCliente.setText("");
+
+            }
+
+        } else {
+            int linTabla = jtClientes.getSelectedRow() + 1;
+            int colTabla = jtClientes.getSelectedColumn();
+            Object valorTabla = jtClientes.getValueAt(linTabla, 0);
+            Cliente cli2 = new Cliente();
             cli2.setIdCliente((Integer) jtClientes.getValueAt(linTabla, 0));
             cli2.setDni((Integer) jtClientes.getValueAt(linTabla, 1));
             cli2.setApellido((String) jtClientes.getValueAt(linTabla, 2));
             cli2.setNombre((String) jtClientes.getValueAt(linTabla, 3));
             cli2.setDomicilio((String) jtClientes.getValueAt(linTabla, 4));
             cli2.setTelefono((String) jtClientes.getValueAt(linTabla, 5));
-            cli2.setEstado(true);            
-//            if (cli2.getIdCliente() != 0) {
-//                idClienteABuscar = cli2.getIdCliente();
-//                if (jrbEstadoCliente.isSelected()) {
-//                    modelo.setRowCount(0);
-//                    botonMateriasInscriptas();
-//                }
-//                if (jrbjrbMateriasNoInscriptas.isSelected()) {
-//                    modelo.setRowCount(0);
-//                    botonMateriasNoInscriptas();
-//                }
-//            } else {
-//                modelo.setRowCount(0);
-//                idAlumnoABuscar = 0;
-//                jbInscribir.setEnabled(false);
-//                jbAnularInscripcion.setEnabled(false);
-//            }
-        
-        
-        }   
-        
-        
-        
-        
-        
+            cli2.setEstado(true);
 
+            if (jtfBuscarCliente.getText().isEmpty()) {
+                borrarFilas2();
+            }
 
-
-
-
-
-
+        }
 
     }//GEN-LAST:event_jtfBuscarClienteKeyReleased
 
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        
+
+
+        if (guardarModificar == true) {
+            cli.setIdCliente(Integer.parseInt(jtfIdCliente.getText()));
+        }
+        cli.setDni(Integer.parseInt(jtfDni.getText()));
+        cli.setApellido(jtfApellido.getText());
+        cli.setNombre(jtfNombre.getText());
+        cli.setDomicilio(jtfDomicilio.getText());
+        cli.setTelefono(jtfTelefono.getText());
+        cli.setEstado(true);
+
+        if (guardarModificar == true) {
+
+            clidata.modificarCliente(cli);
+            guardarModificar = false;
+
+        } else {
+
+            clidata.guardarCliente(cli);
+
+        }
+
+        jtfBuscarCliente.setText("");
+        jtfBuscarCliente.setEnabled(true);
+        jtfBuscarCliente.requestFocus();
+
+        jtfDni.setEnabled(false);
+        jtfApellido.setEnabled(false);
+        jtfNombre.setEnabled(false);
+        jtfDomicilio.setEnabled(false);
+        jtfTelefono.setEnabled(false);
+        jbGuardar.setEnabled(false);
+        jbModificar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+        jbRecuperar.setEnabled(false);
+        
+        borrarFilas2();
+
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
     private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
-    
-        int filaSeleccionada=jtClientes.rowAtPoint(evt.getPoint());
+        int filaSeleccionada = jtClientes.rowAtPoint(evt.getPoint());
         jtfBuscarCliente.setText("");
         jtfIdCliente.setText(jtClientes.getValueAt(filaSeleccionada, 0).toString());
         jtfDni.setText(jtClientes.getValueAt(filaSeleccionada, 1).toString());
@@ -440,24 +552,66 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         jtfNombre.setText(jtClientes.getValueAt(filaSeleccionada, 3) + "");
         jtfDomicilio.setText(jtClientes.getValueAt(filaSeleccionada, 4) + "");
         jtfTelefono.setText(jtClientes.getValueAt(filaSeleccionada, 5).toString());
-        
-//        if (jtClientes.getValueAt(filaSeleccionada, 6)==true){
-//        jlEstadoCliente.setText("Activo")} 
-//        else{jlEstadoCliente.setText("Baja")};
-        
+
         if ((boolean) jtClientes.getValueAt(filaSeleccionada, 6)) {
             jlEstadoCliente.setForeground(Color.blue);
             jlEstadoCliente.setText("Activo");
+            jbModificar.setEnabled(true);
+            jbEliminar.setEnabled(true);
+            jbRecuperar.setEnabled(false);
         } else {
             jlEstadoCliente.setForeground(Color.red);
             jlEstadoCliente.setText("Baja");
+            jbModificar.setEnabled(false);
+            jbEliminar.setEnabled(false);
+            jbRecuperar.setEnabled(true);
         }
-        
     }//GEN-LAST:event_jtClientesMouseClicked
+
+    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+
+        guardarModificar = true;
+
+        jtfDni.setEnabled(false);
+        jtfApellido.setEnabled(true);
+        jtfNombre.setEnabled(true);
+        jtfDomicilio.setEnabled(true);
+        jtfTelefono.setEnabled(true);
+        jbGuardar.setEnabled(true);
+        jbModificar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+        jbRecuperar.setEnabled(false);
+    }//GEN-LAST:event_jbModificarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        
+        int opcionEliminar = JOptionPane.showOptionDialog(null,
+                    "¿Está seguro de eliminar el cliente?",
+                    "Advertencia",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    new Object[]{"Sí", "No"},
+                    JOptionPane.YES_OPTION);
+
+            if (opcionEliminar == JOptionPane.YES_OPTION) {
+                
+        String nroIdTexto = jtfIdCliente.getText();
+        int nroId = Integer.parseInt(nroIdTexto);
+        clidata.eliminarCliente(nroId);
+        jlEstadoCliente.setForeground(Color.red);
+        jlEstadoCliente.setText("Baja");
+        jbEliminar.setEnabled(false);
+        jbModificar.setEnabled(false);
+        borrarFilas2();
+            }
+        
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -466,7 +620,7 @@ public class JIFCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbModificar;
@@ -479,13 +633,13 @@ public class JIFCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfBuscarCliente;
     private javax.swing.JTextField jtfDni;
     private javax.swing.JTextField jtfDomicilio;
-    private javax.swing.JTextField jtfIdCliente;
+    private javax.swing.JLabel jtfIdCliente;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfTelefono;
     // End of variables declaration//GEN-END:variables
 
- private void armarCabecera() {
-     
+    private void armarCabecera() {
+
         TableColumnModel columnModel = jtClientes.getColumnModel();
 
         modelo.addColumn("Id");
@@ -495,35 +649,28 @@ public class JIFCliente extends javax.swing.JInternalFrame {
         modelo.addColumn("Domicilio");
         modelo.addColumn("Teléfono");
         modelo.addColumn("Estado");
-
         jtClientes.setModel(modelo);
-        
+
         columnModel.getColumn(0).setPreferredWidth(5);
         columnModel.getColumn(1).setPreferredWidth(20);
         columnModel.getColumn(2).setPreferredWidth(20);
         columnModel.getColumn(3).setPreferredWidth(20);
         columnModel.getColumn(4).setPreferredWidth(150);
         columnModel.getColumn(5).setPreferredWidth(20);
-        columnModel.getColumn(5).setPreferredWidth(20);
+        columnModel.getColumn(6).setPreferredWidth(5);
 
     }
 
-
- 
-     private void borrarFilas()
-    {
+    private void borrarFilas() {
         int filas = jtClientes.getRowCount() - 1;
         for (int i = filas; i >= 0; i--) {
             modelo.removeRow(i);
+
         }
     }
 
-          private void borrarFilas2()
-    {
-        int filas = jtClientes.getRowCount();
-        for (int i = filas; i >= 0; i--) {
-            modelo.removeRow(i);
-        }
+    private void borrarFilas2() {
+        modelo.setRowCount(0);
     }
 
 }
