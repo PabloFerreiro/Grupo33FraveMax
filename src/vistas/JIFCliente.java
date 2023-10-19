@@ -338,6 +338,10 @@ public class JIFCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfDniActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        
+        guardarModificar = false;
+        
+        
         jtfBuscarCliente.setText("");
         jtfBuscarCliente.setEnabled(true);
         jtfBuscarCliente.requestFocus();

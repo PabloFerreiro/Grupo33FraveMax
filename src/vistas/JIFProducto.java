@@ -5,13 +5,9 @@ package vistas;
 import accesoADatos.ProductoData;
 import entidades.Producto;
 import java.awt.Color;
-import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 
@@ -29,18 +25,10 @@ public class JIFProducto extends javax.swing.JInternalFrame {
         
         ProductoData prodata = new ProductoData();
         Producto pro = new Producto();
-//    MateriaData mat = new MateriaData();
-//    InscripcionData ins = new InscripcionData();
-//    Alumno alu2 = new Alumno();
-//    Materia mat2 = new Materia();
-//    Inscripcion ins2 = new Inscripcion();
-        
-// se usara esta variable para ser referencia del idCliente a buscar    
+   
     int idProductoABuscar = 0;
 
-    /**
-     * Creates new form JIFCliente
-     */
+    
     public JIFProducto() {
         initComponents();
         armarCabecera();
@@ -66,7 +54,6 @@ public class JIFProducto extends javax.swing.JInternalFrame {
         jbModificar.setEnabled(false);
         jbRecuperar.setEnabled(false);
         jbEliminar.setEnabled(false);
-        jbNuevo.setEnabled(true);
     }
 
     /**
@@ -86,7 +73,6 @@ public class JIFProducto extends javax.swing.JInternalFrame {
         jtfNombreProducto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jbNuevo = new javax.swing.JButton();
         jbModificar = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
         jbRecuperar = new javax.swing.JButton();
@@ -135,14 +121,6 @@ public class JIFProducto extends javax.swing.JInternalFrame {
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setText("Estado");
-
-        jbNuevo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jbNuevo.setText("Nuevo");
-        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbNuevoActionPerformed(evt);
-            }
-        });
 
         jbModificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jbModificar.setText("Modificar");
@@ -264,14 +242,12 @@ public class JIFProducto extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jbRecuperar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -282,7 +258,7 @@ public class JIFProducto extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -315,7 +291,6 @@ public class JIFProducto extends javax.swing.JInternalFrame {
                     .addComponent(jlEstadoProducto))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbNuevo)
                     .addComponent(jbGuardar)
                     .addComponent(jbModificar)
                     .addComponent(jbEliminar)
@@ -334,28 +309,6 @@ public class JIFProducto extends javax.swing.JInternalFrame {
     private void jtfNombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNombreProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfNombreProductoActionPerformed
-
-    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-
-        jtfBuscarProducto.setEnabled(false);
-        jtfBuscarProducto.setText("");
-        jtfIdproducto.setEnabled(false);
-        jbModificar.setEnabled(false);
-        jbEliminar.setEnabled(false);
-        jbRecuperar.setEnabled(false);
-        jtfNombreProducto.setText("");
-        jtfNombreProducto.setEditable(true);
-        jtfNombreProducto.setEnabled(true);
-        jtfDescripcion.setText("");
-        jtfDescripcion.setEnabled(true);
-        jtfPrecio.setText("");
-        jtfPrecio.setEnabled(true);
-        jtfStock.setText("");
-        jtfStock.setEnabled(true);
-        jlEstadoProducto.setText("...");
-        jbGuardar.setEnabled(true);
-        
-    }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRecuperarActionPerformed
         prodata.recuperarProducto(Integer.parseInt(jtfIdproducto.getText()));
@@ -380,23 +333,33 @@ public class JIFProducto extends javax.swing.JInternalFrame {
         // y obligo a que se tome el codigo idMateria de la materia para buscar en las inscripciones x materia
         Object data1 = (Object) jtProductos.getValueAt(row, 0);
         // asigno ese nombre elegido de la jtable a mi variable jTFMateriaAbuscar (jTextField) para buscar
-        jtfBuscarProducto.setText(data2.toString());        
-        //JOptionPane.showMessageDialog(null, "VVVVVV idMateria capturado desde la tabla es: "+data1);
-        //JOptionPane.showMessageDialog(null, "VVVVVV nombre de la materia capturada desde la tabla es: "+data2);
-        //JOptionPane.showMessageDialog(null, "VVVVVV nombre del jTFMateriaAbuscar es: "+jTFMateriaAbuscar.getText());   
+        jtfBuscarProducto.setText(data2.toString());     
     }//GEN-LAST:event_jtfBuscarProductoActionPerformed
 
     private void jtfBuscarProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBuscarProductoKeyReleased
 
         borrarFilas2();
 
+        jtfIdproducto.setText("");
+        jtfNombreProducto.setEnabled(false);
+        jtfNombreProducto.setText("");
+        jtfDescripcion.setEnabled(false);
+        jtfDescripcion.setText("");
+        jtfPrecio.setEnabled(false);
+        jtfPrecio.setText("");
+        jtfStock.setEnabled(false);
+        jtfStock.setText("");
+        jbGuardar.setEnabled(false);
+        jbModificar.setEnabled(false);
+        jbEliminar.setEnabled(false);
+        jbRecuperar.setEnabled(false);
+        jlEstadoProducto.setText("");
+
         for (Producto pro : prodata.listarProductosJTableParaGestionProducto()) {
 
-            
-            if ((pro.getDescripcion()).contains((jtfBuscarProducto.getText())) ||
-                (pro.getNombreProducto()).contains((jtfBuscarProducto.getText())) ||
-                (String.valueOf (pro.getIdProducto())).contains((jtfBuscarProducto.getText()))
-                    ) {
+            if ((pro.getNombreProducto()).contains((jtfBuscarProducto.getText()))
+                    || (pro.getDescripcion()).contains((jtfBuscarProducto.getText()))
+                    || (String.valueOf(pro.getIdProducto())).contains((jtfBuscarProducto.getText()))) {
                 modelo.addRow(new Object[]{
                     pro.getIdProducto(),
                     pro.getNombreProducto(),
@@ -406,47 +369,75 @@ public class JIFProducto extends javax.swing.JInternalFrame {
                     pro.isEstado()
                 });
             }
-            
+
         }
         // PARA CONSULTAR SI LA TABLA ESTA VACIA O NO        
-        if (jtProductos.getRowCount() == 0)
-        {
-            JOptionPane.showMessageDialog(null, "No Existen Datos de Producto, xxxx", "Advertencia",
-            JOptionPane.WARNING_MESSAGE);
-            
-        }        
-        else
-        {        
-            int linTabla = jtProductos.getSelectedRow()+1;
-            int colTabla = jtProductos.getSelectedColumn();            
-            Object valorTabla = jtProductos.getValueAt(linTabla, 0);            
-            Producto pro2 = new Producto();            
-            pro2.setIdProducto((int) jtProductos.getValueAt(linTabla, 0));
+        if (jtProductos.getRowCount() == 0) {
+            String capturarDni = jtfBuscarProducto.getText();
+            int opcion = JOptionPane.showOptionDialog(null,
+                    "No existe ese producto. ¿Desea registrar uno nuevo?",
+                    "Advertencia",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    new Object[]{"Sí", "No"},
+                    JOptionPane.YES_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+
+                jtfBuscarProducto.setText("");
+                jtfBuscarProducto.setEnabled(false);
+                jtfNombreProducto.setEnabled(true);
+                jtfBuscarProducto.setText("");
+                jtfDescripcion.setEnabled(true);
+                jtfPrecio.setEnabled(true);
+                jtfStock.setEnabled(true);
+                jbGuardar.setEnabled(true);
+                jbModificar.setEnabled(false);
+                jbEliminar.setEnabled(false);
+                jbRecuperar.setEnabled(false);
+                jlEstadoProducto.setText("Activo");
+                jlEstadoProducto.setForeground(Color.blue);
+
+            } else if (opcion == JOptionPane.NO_OPTION) {
+                
+                jtfBuscarProducto.setText("");
+                jtfBuscarProducto.setEnabled(true);
+                jtfBuscarProducto.requestFocus();
+
+                jtfIdproducto.setText("");
+                jtfNombreProducto.setEnabled(false);
+                jtfNombreProducto.setText("");
+                jtfDescripcion.setEnabled(false);
+                jtfDescripcion.setText("");
+                jtfPrecio.setEnabled(false);
+                jtfPrecio.setText("");
+                jtfStock.setEnabled(false);
+                jtfStock.setText("");
+                jbGuardar.setEnabled(false);
+                jbModificar.setEnabled(false);
+                jbEliminar.setEnabled(false);
+                jbRecuperar.setEnabled(false);
+                jlEstadoProducto.setText("");
+
+            }
+
+        } else {
+            int linTabla = jtProductos.getSelectedRow() + 1;
+            int colTabla = jtProductos.getSelectedColumn();
+            Object valorTabla = jtProductos.getValueAt(linTabla, 0);
+            Producto pro2 = new Producto();
+            pro2.setIdProducto((Integer) jtProductos.getValueAt(linTabla, 0));
             pro2.setNombreProducto((String) jtProductos.getValueAt(linTabla, 1));
             pro2.setDescripcion((String) jtProductos.getValueAt(linTabla, 2));
-            pro2.setPrecioActual((double) jtProductos.getValueAt(linTabla, 3));
-            pro2.setStock((int) jtProductos.getValueAt(linTabla, 4));
-            pro2.setEstado(true);            
-//            if (pro2.getIdCliente() != 0) {
-//                idClienteABuscar = pro2.getIdCliente();
-//                if (jrbEstadoCliente.isSelected()) {
-//                    modelo.setRowCount(0);
-//                    botonMateriasInscriptas();
-//                }
-//                if (jrbjrbMateriasNoInscriptas.isSelected()) {
-//                    modelo.setRowCount(0);
-//                    botonMateriasNoInscriptas();
-//                }
-//            } else {
-//                modelo.setRowCount(0);
-//                idAlumnoABuscar = 0;
-//                jbInscribir.setEnabled(false);
-//                jbAnularInscripcion.setEnabled(false);
-//            }
-        
-        if (jtfBuscarProducto.getText().isEmpty()) {
+            pro2.setPrecioActual((Double) jtProductos.getValueAt(linTabla, 3));
+            pro2.setStock((Integer) jtProductos.getValueAt(linTabla, 4));
+            pro2.setEstado(true);
+
+            if (jtfBuscarProducto.getText().isEmpty()) {
                 borrarFilas2();
             }
+
         }
 
     }//GEN-LAST:event_jtfBuscarProductoKeyReleased
@@ -469,13 +460,9 @@ public class JIFProducto extends javax.swing.JInternalFrame {
         jtfPrecio.setText(jtProductos.getValueAt(filaSeleccionada, 3) + "");
         jtfStock.setText(jtProductos.getValueAt(filaSeleccionada, 4) + "");
         jlEstadoProducto.setText(jtProductos.getValueAt(filaSeleccionada, 5).toString());
-        jbNuevo.setEnabled(false);
         jbModificar.setEnabled(true);
         jbRecuperar.setEnabled(true);
         jbEliminar.setEnabled(true);
-//        if (jtProductos.getValueAt(filaSeleccionada, 6)==true){
-//        jlEstadoCliente.setText("Activo")} 
-//        else{jlEstadoCliente.setText("Baja")};
         
         if ((boolean) jtProductos.getValueAt(filaSeleccionada, 5)) {
             jlEstadoProducto.setForeground(Color.blue);
@@ -489,19 +476,32 @@ public class JIFProducto extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         
-        pro.setIdProducto(0);
+        if (boton == true) {
+            pro.setIdProducto(Integer.parseInt(jtfIdproducto.getText()));
+        }
         pro.setNombreProducto(jtfNombreProducto.getText());
         pro.setDescripcion(jtfDescripcion.getText());
         pro.setPrecioActual(Double.parseDouble(jtfPrecio.getText()));
         pro.setStock(Integer.parseInt(jtfStock.getText()));
         pro.setEstado(true);
-        prodata.guardarProducto(pro);
-        jtfNombreProducto.setText("");
-        jtfDescripcion.setText("");
-        jtfPrecio.setText("");
-        jtfStock.setText("");
-        alComenzar();
+
+        if (boton == true) {
+
+            //clidata.modificarCliente(cli);
+            prodata.modificarProducto(pro);
+            boton = false;
+            alComenzar();
+            borrarFilas2();
+
+        } else {
+
+           prodata.guardarProducto(pro);
+           alComenzar();
         
+        borrarFilas2();
+
+        }
+
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
@@ -511,17 +511,17 @@ public class JIFProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        
-        
-        int idpro = Integer.parseInt(jtfIdproducto.getText());
-        double precpro = Double.parseDouble(jtfPrecio.getText());
-        int stock = Integer.parseInt(jtfStock.getText());
-        prodata.modificarProducto(idpro,jtfDescripcion.getText(),precpro,stock);
-        jbEliminar.setEnabled(false);
+        boton = true;
+        jtfBuscarProducto.setEnabled(false);
+        jtfNombreProducto.setEnabled(true);
+        jtfNombreProducto.setEditable(false);
+        jtfDescripcion.setEnabled(true);
+        jtfPrecio.setEnabled(true);
+        jtfStock.setEnabled(true);
+        jbGuardar.setEnabled(true);
         jbModificar.setEnabled(false);
+        jbEliminar.setEnabled(false);
         jbRecuperar.setEnabled(false);
-        borrarFilas();
-        alComenzar();
     }//GEN-LAST:event_jbModificarActionPerformed
 
 
@@ -538,7 +538,6 @@ public class JIFProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbModificar;
-    private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbRecuperar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlEstadoProducto;

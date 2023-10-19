@@ -58,7 +58,35 @@ public class ProductoData {
 
 
 //  método modificar producto
-    public int modificarProducto(int id, String nuevaDescripcion, double nuevoPrecio, int nuevoStock) {
+    public int modificarProducto(Producto producto) {
+    String sql = "UPDATE producto SET descripcion=?, precioActual=?, stock=? WHERE idProducto=?";
+    int exito = 0;
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, producto.getDescripcion());
+        ps.setDouble(2, producto.getPrecioActual());
+        ps.setInt(3, producto.getStock());
+        ps.setInt(4, producto.getIdProducto());
+        exito = ps.executeUpdate();
+        
+        if (exito >= 1) {
+            
+            
+            JOptionPane.showMessageDialog(null, "Producto modificado");
+          
+        } else {
+            JOptionPane.showMessageDialog(null, "Producto inexistente");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Producto. No se pudo modificar el producto");
+    }
+    
+    return exito;
+}
+
+    //  método modificar producto
+    public int modificarProducto2(int id, String nuevaDescripcion, double nuevoPrecio, int nuevoStock) {
     String sql = "UPDATE producto SET descripcion=?, precioActual=?, stock=? WHERE idProducto=?";
     int exito = 0;
     
@@ -72,8 +100,8 @@ public class ProductoData {
         exito = ps.executeUpdate();
         
         if (exito >= 1) {
-            JOptionPane.showMessageDialog(null, "Producto modificado");
-            
+            // se deja de mostrar este manseje para que no sea muy lento la registracion de los productos vendidos
+            //JOptionPane.showMessageDialog(null, "Producto modificado");            
         } else {
             JOptionPane.showMessageDialog(null, "Producto inexistente");
         }
@@ -83,7 +111,11 @@ public class ProductoData {
     
     return exito;
 }
-
+    
+    
+    
+    
+    
 
 //  método eliminar producto
     public int eliminarProducto(int id) {
@@ -188,10 +220,12 @@ public class ProductoData {
 //    }
     
 //  Método listarProductosJTable para buscar en una JTABLE
-    public TreeSet<Producto> listarProductosJTable(int bajaActivo){                  
+//    public TreeSet<Producto> listarProductosJTable(int bajaActivo){
+    public ArrayList<Producto> listarProductosJTable(int bajaActivo){
         String sql = "SELECT idProducto, nombreProducto, descripcion, precioActual, stock, estado FROM producto WHERE estado=? "
                 + " ORDER BY nombreProducto ";
-        TreeSet<Producto> productos=new TreeSet<>();
+        //TreeSet<Producto> productos=new TreeSet<>();
+        ArrayList<Producto> productos=new ArrayList<>();
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1, bajaActivo);
@@ -206,7 +240,6 @@ public class ProductoData {
                 producto.setEstado(rs.getBoolean("estado"));              
                 // no se hace esta asignacion porque se entiende por defecto de que lo que 
                 // esta trayendo del sql son registros activos-true-
-                //producto.setEstado(rs.getBoolean("estado"));
                 productos.add(producto);                
             }            
             ps.close();

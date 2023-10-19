@@ -772,7 +772,21 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
                 
                 // arma el constructor con los datos a enviar para grabar en detalleprodcuto        
                 DetalleVenta detalleventa1 = new DetalleVenta(cantid, venta1, precioVta, pro, true);
-                dvdata.guardarDetalleVenta(detalleventa1);                
+                dvdata.guardarDetalleVenta(detalleventa1);
+                
+// arma el constructor con los datos para actualziar el campo -stock- en producto, segun el idProducto que se vendio
+                // transforma la cantidad de la jtable jTableDetalleVenta en integer para pasar a grabar
+                value = jTableDetalleVenta.getValueAt(fila, 6);
+                int stockQueda = Integer.parseInt(value.toString());
+                String descripro = jTableDetalleVenta.getValueAt(fila, 2)+"";                
+                prodata.modificarProducto2(idPro, descripro, precioAct, stockQueda);
+                
+                
+                
+                
+                
+                
+                
             }
             JOptionPane.showMessageDialog(null, "SE REGISTRO CON EXITO LA VENTA", "Atencion-Ok",
             JOptionPane.WARNING_MESSAGE);            
@@ -943,7 +957,8 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
                 // formatea el importe con decimales                
                 String importeFormateado = df.format(prod.getPrecioActual());                
                 if ((prod.getNombreProducto()).contains((jTFbuscarproducto.getText()))
-                        || (prod.getDescripcion()).contains((jTFbuscarproducto.getText()))){
+                        || (prod.getDescripcion()).contains((jTFbuscarproducto.getText()))
+                        || (prod.getNombreProducto()+" "+prod.getDescripcion()).contains((jTFbuscarproducto.getText()))){ 
                     modelo2.addRow(new Object[]{
                         prod.getIdProducto(),
                         prod.getNombreProducto(),
@@ -1014,56 +1029,53 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBlimpiardetalleproductosActionPerformed
 
     private void jBenviaraldetalledeventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBenviaraldetalledeventaActionPerformed
+
         try {                        
             int canvta=Integer.parseInt(jTFcantidad.getText());
-            
-            
 // PASA COMAS A PUNTOS########################################
             String valorCelda = jTableBuscarProducto.getValueAt(filaSeleccionada, 3).toString(); 
             double prevta = Double.parseDouble(valorCelda.replace(",", "."));
-            
             //double prevta = Double.parseDouble(jTableBuscarProducto.getValueAt(filaSeleccionada, 3) + " ");
-           
-            
-            
             double precioAcobrar = prevta * canvta;   
-            
             // formatea el importe con decimales                
             String importeFormateado = df.format(precioAcobrar); 
-            modelo3.addRow(new Object[]{
-                jTableBuscarProducto.getValueAt(filaSeleccionada, 0),
-                jTableBuscarProducto.getValueAt(filaSeleccionada, 1),
-                jTableBuscarProducto.getValueAt(filaSeleccionada, 2),
-                jTableBuscarProducto.getValueAt(filaSeleccionada, 3),
-                canvta,
-                importeFormateado
-                //precioAcobrar
-            });
-            double preAcobrar=0;
-            double totalApagar = 0;
-            // calcula el total de la venta -jTFtotalventa-
-            int filas = modelo3.getRowCount() - 1;
-            for (int i = filas; i >= 0; i--) { 
-                
+            int stock=Integer.parseInt(jTableBuscarProducto.getValueAt(filaSeleccionada, 4).toString());            
+            // verifica si la cantidad que se esta por vender del producto seleecionado no sea mayor 
+            // al que tiene en el stock ese producto
+            if (canvta > stock) {
+                JOptionPane.showMessageDialog(null, "Error-Excedente- No puede informar una cantidad superior al Stock del producto");
+            } else {
+                // computa la cantidad que queda de ese producto despues que se confirme la venta
+                stock = stock - canvta;
+                modelo3.addRow(new Object[]{
+                    jTableBuscarProducto.getValueAt(filaSeleccionada, 0),
+                    jTableBuscarProducto.getValueAt(filaSeleccionada, 1),
+                    jTableBuscarProducto.getValueAt(filaSeleccionada, 2),
+                    jTableBuscarProducto.getValueAt(filaSeleccionada, 3),
+                    canvta,
+                    importeFormateado,
+                    //precioAcobrar
+                    stock
+                });
+                double preAcobrar = 0;
+                double totalApagar = 0;
+                // calcula el total de la venta -jTFtotalventa-
+                int filas = modelo3.getRowCount() - 1;
+                for (int i = filas; i >= 0; i--) {
 // PASA COMAS A PUNTOS########################################
-
-                String valorCelda2 = modelo3.getValueAt(i, 5).toString(); // Obtiene el valor como String
-                preAcobrar = Double.parseDouble(valorCelda2.replace(",", "."));
-                
-                //preAcobrar=Double.parseDouble(modelo3.getValueAt(i, 5)+""); 
-                
-                
-                
-                totalApagar = totalApagar + preAcobrar;
+                    String valorCelda2 = modelo3.getValueAt(i, 5).toString(); // Obtiene el valor como String
+                    preAcobrar = Double.parseDouble(valorCelda2.replace(",", "."));
+                    //preAcobrar=Double.parseDouble(modelo3.getValueAt(i, 5)+"");                
+                    totalApagar = totalApagar + preAcobrar;
+                }
+                // formatea el importe con decimales                
+                importeFormateado = df.format(totalApagar);
+                jTFtotalventa.setText("            " + importeFormateado);
+                //jTFtotalventa.setText("            " + totalApagar);
             }
-            // formatea el importe con decimales                
-            importeFormateado = df.format(totalApagar); 
-            jTFtotalventa.setText("            " + importeFormateado);
-            //jTFtotalventa.setText("            " + totalApagar);
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "Error-x- al Intentar pasar el prodcuto elegido, o sumar el total de venta, o no se ingreso un cantidad numerica " + nfe.getLocalizedMessage());
         }
-
         // limpia el buscador de datos por producto jTFbuscarproducto
         jTFbuscarproducto.setText("");
         // coloca el cursor en le primer campo jTFbuscarproducto
@@ -1077,6 +1089,73 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         jLingresecantidad.setText("");           
         jBenviaraldetalledeventa.setEnabled(false);
         jBenviaraldetalledeventa.setVisible(false);
+
+
+
+
+//        try {                        
+//            int canvta=Integer.parseInt(jTFcantidad.getText());
+//            
+//            
+//// PASA COMAS A PUNTOS########################################
+//            String valorCelda = jTableBuscarProducto.getValueAt(filaSeleccionada, 3).toString(); 
+//            double prevta = Double.parseDouble(valorCelda.replace(",", "."));
+//            
+//            //double prevta = Double.parseDouble(jTableBuscarProducto.getValueAt(filaSeleccionada, 3) + " ");
+//           
+//            
+//            
+//            double precioAcobrar = prevta * canvta;   
+//            
+//            // formatea el importe con decimales                
+//            String importeFormateado = df.format(precioAcobrar); 
+//            modelo3.addRow(new Object[]{
+//                jTableBuscarProducto.getValueAt(filaSeleccionada, 0),
+//                jTableBuscarProducto.getValueAt(filaSeleccionada, 1),
+//                jTableBuscarProducto.getValueAt(filaSeleccionada, 2),
+//                jTableBuscarProducto.getValueAt(filaSeleccionada, 3),
+//                canvta,
+//                importeFormateado
+//                //precioAcobrar
+//            });
+//            double preAcobrar=0;
+//            double totalApagar = 0;
+//            // calcula el total de la venta -jTFtotalventa-
+//            int filas = modelo3.getRowCount() - 1;
+//            for (int i = filas; i >= 0; i--) { 
+//                
+//// PASA COMAS A PUNTOS########################################
+//
+//                String valorCelda2 = modelo3.getValueAt(i, 5).toString(); // Obtiene el valor como String
+//                preAcobrar = Double.parseDouble(valorCelda2.replace(",", "."));
+//                
+//                //preAcobrar=Double.parseDouble(modelo3.getValueAt(i, 5)+""); 
+//                
+//                
+//                
+//                totalApagar = totalApagar + preAcobrar;
+//            }
+//            // formatea el importe con decimales                
+//            importeFormateado = df.format(totalApagar); 
+//            jTFtotalventa.setText("            " + importeFormateado);
+//            //jTFtotalventa.setText("            " + totalApagar);
+//        } catch (NumberFormatException nfe) {
+//            JOptionPane.showMessageDialog(null, "Error-x- al Intentar pasar el prodcuto elegido, o sumar el total de venta, o no se ingreso un cantidad numerica " + nfe.getLocalizedMessage());
+//        }
+//
+//        // limpia el buscador de datos por producto jTFbuscarproducto
+//        jTFbuscarproducto.setText("");
+//        // coloca el cursor en le primer campo jTFbuscarproducto
+//        EventQueue.invokeLater(() -> jTFbuscarproducto.requestFocusInWindow());
+//        // borra los datos desde donde se eligio en la jtable
+//        DefaultTableModel tablemodel2 = (DefaultTableModel) jTableBuscarProducto.getModel();
+//        tablemodel2.setRowCount(0); 
+//        jTFcantidad.setEditable (false);
+//        jTFcantidad.setVisible(false);
+//        jTFcantidad.setText("");
+//        jLingresecantidad.setText("");           
+//        jBenviaraldetalledeventa.setEnabled(false);
+//        jBenviaraldetalledeventa.setVisible(false);
     }//GEN-LAST:event_jBenviaraldetalledeventaActionPerformed
 
     private void jBsacarunproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsacarunproductoActionPerformed
@@ -1218,6 +1297,7 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         modelo3.addColumn("Precio Uni");
         modelo3.addColumn("Cantodad");
         modelo3.addColumn("Precio a Pagar");
+        modelo3.addColumn("Stock");
         jTableDetalleVenta.setModel(modelo3);                
         columnModel3.getColumn(0).setPreferredWidth(24);
         columnModel3.getColumn(1).setPreferredWidth(170);
@@ -1225,6 +1305,7 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         columnModel3.getColumn(3).setPreferredWidth(100);
         columnModel3.getColumn(4).setPreferredWidth(90);
         columnModel3.getColumn(5).setPreferredWidth(100);
+        columnModel3.getColumn(6).setPreferredWidth(70);
         // alinea al centro los datos en las columnas de las jtable
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -1235,6 +1316,7 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         jTableDetalleVenta.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
         jTableDetalleVenta.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
         jTableDetalleVenta.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+        jTableDetalleVenta.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
     }
     
     private void inicializaValores()

@@ -10,6 +10,7 @@ import entidades.DetalleVenta;
 import entidades.Producto;
 import entidades.Venta;
 import java.time.LocalDate;
+import vistas.MenuPrincipalFraveMax;
 
 
 public class Grupo33FraveMax {
@@ -21,7 +22,7 @@ public class Grupo33FraveMax {
         Conexion.getConexion();
 
         // PERMITE LA EJECUCION DEL SISTEMAS DESDE EL JFRAME PRINCIPAL
-        //MenuPrincipal.main(args);
+        MenuPrincipalFraveMax.main(args);
         
         
 //#########################################################################
@@ -161,20 +162,20 @@ public class Grupo33FraveMax {
 //            }
 
 ////    Método listar ventas con producto para combobox
-        VentaData dvta=new VentaData();
-        int bandera=0;
-        
-        for(DetalleVenta detalleventa:dvta.listarVentasConProducto(2,1)){
-            if(bandera==0){
-            bandera=1;
-            System.out.println(detalleventa.getVenta().toString());  
-            System.out.println(detalleventa.getVenta().getCliente().toString());
-            System.out.println(detalleventa.toString());}
-            
-            System.out.println(detalleventa.getProducto().toString());
-            
-            System.out.println();
-            }
+//        VentaData dvta=new VentaData();
+//        int bandera=0;
+//        
+//        for(DetalleVenta detalleventa:dvta.listarVentasConProducto(2,1)){
+//            if(bandera==0){
+//            bandera=1;
+//            System.out.println(detalleventa.getVenta().toString());  
+//            System.out.println(detalleventa.getVenta().getCliente().toString());
+//            System.out.println(detalleventa.toString());}
+//            
+//            System.out.println(detalleventa.getProducto().toString());
+//            
+//            System.out.println();
+//            }
 
 
 
