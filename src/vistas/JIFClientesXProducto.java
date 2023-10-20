@@ -5,17 +5,40 @@
  */
 package vistas;
 
+import java.awt.EventQueue;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author Pablo
  */
 public class JIFClientesXProducto extends javax.swing.JInternalFrame {
+    
+            private DefaultTableModel modelo1 = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+
+            private DefaultTableModel modelo2 = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
 
     /**
      * Creates new form JIFClientesXProducto
      */
     public JIFClientesXProducto() {
-        initComponents();
+        initComponents();       
+        this.setTitle("FRAVEMAX - Listados de clientes por producto");        
+        // inicializa los valores pra una nuevo detalle de a venta
+        inicializaValores();
+        armarCabecera1();
+        armarCabecera2();
     }
 
     /**
@@ -26,32 +49,213 @@ public class JIFClientesXProducto extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jtfBuscarProducto = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtListadoClientes = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtListadoProductos = new javax.swing.JTable();
+        jBsalir = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Clientes x producto");
+
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton1.setText("Limpiar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoFraveMax.png"))); // NOI18N
+
+        jtfBuscarProducto.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel9.setText("Buscar Producto");
+
+        jtListadoClientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtListadoClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "id", "Nombre", "Descripcion", "Precio Uni", "Cantidad", "Precio a Pagar"
+            }
+        ));
+        jtListadoClientes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane2.setViewportView(jtListadoClientes);
+
+        jtListadoProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+            }
+        ));
+        jScrollPane1.setViewportView(jtListadoProductos);
+
+        jBsalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jBsalir.setText("SALIR");
+        jBsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBsalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addContainerGap(752, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBsalir)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel11))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addGap(18, 18, 18)
+                            .addComponent(jtfBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 592, Short.MAX_VALUE)
+                            .addComponent(jButton1))
+                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane2)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(28, 28, 28)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtfBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(428, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jBsalir)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     inicializaValores();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
+    this.dispose();
+    }//GEN-LAST:event_jBsalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBsalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jtListadoClientes;
+    private javax.swing.JTable jtListadoProductos;
+    private javax.swing.JTextField jtfBuscarProducto;
     // End of variables declaration//GEN-END:variables
+
+     private void armarCabecera1() {     
+        TableColumnModel columnModel1 = jtListadoProductos.getColumnModel();
+        modelo1.addColumn("Id Producto");
+        modelo1.addColumn("Nombre");
+        modelo1.addColumn("Descripcion");
+
+
+        jtListadoProductos.setModel(modelo1);        
+        columnModel1.getColumn(0).setPreferredWidth(30);
+        columnModel1.getColumn(1).setPreferredWidth(40);
+        columnModel1.getColumn(2).setPreferredWidth(100);
+
+
+        // alinea al centro los datos en las columnas de las jtable
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        jtListadoProductos.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);    
+        // alinea a la derecha los datos numericos en las columnas de las jtable        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        
+    } 
+   
+   private void armarCabecera2() {     
+        TableColumnModel columnModel2 = jtListadoClientes.getColumnModel();
+        modelo2.addColumn("Id Cliente");
+        modelo2.addColumn("Dni");
+        modelo2.addColumn("Apellido");
+        modelo2.addColumn("Nombre");
+        modelo2.addColumn("Id Venta");
+        modelo2.addColumn("Total Venta");
+        
+
+
+        jtListadoClientes.setModel(modelo2);        
+        columnModel2.getColumn(0).setPreferredWidth(50);
+        columnModel2.getColumn(1).setPreferredWidth(50);
+        columnModel2.getColumn(2).setPreferredWidth(50);
+        columnModel2.getColumn(3).setPreferredWidth(50);
+        columnModel2.getColumn(4).setPreferredWidth(50);
+        columnModel2.getColumn(5).setPreferredWidth(50);
+
+        // alinea al centro los datos en las columnas de las jtable
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jtListadoClientes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jtListadoClientes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        jtListadoClientes.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        // alinea a la derecha los datos numericos en las columnas de las jtable        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        jtListadoClientes.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+    } 
+    private void inicializaValores()
+    {
+
+        
+      
+      // limpiar las 3 jtable
+        DefaultTableModel tablemodel1 = (DefaultTableModel) jtListadoProductos.getModel(); 
+        tablemodel1.setRowCount(0);
+        
+        DefaultTableModel tablemodel2 = (DefaultTableModel) jtListadoClientes.getModel(); 
+        tablemodel1.setRowCount(0);
+               
+      // coloca el cursor en le primer campo jTFbuscarclientedni
+        jtfBuscarProducto.setText("");     
+        EventQueue.invokeLater(() -> jtfBuscarProducto.requestFocusInWindow() );        
+    }
+
+
 }

@@ -102,10 +102,12 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         );
         jdpEscritorioLayout.setVerticalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 869, Short.MAX_VALUE)
+            .addGap(0, 843, Short.MAX_VALUE)
         );
 
+        jmGestionABMC.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 15, true));
         jmGestionABMC.setText("GESTIÓN_ABMC");
+        jmGestionABMC.setBorderPainted(false);
         jmGestionABMC.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmGestionABMC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +135,9 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
 
         jMenuBar1.add(jmGestionABMC);
 
+        jmVentas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 15, true));
         jmVentas.setText("VENTAS");
+        jmVentas.setBorderPainted(false);
         jmVentas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
         jmiGestionVentas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -147,7 +151,9 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
 
         jMenuBar1.add(jmVentas);
 
+        jmListados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 15, true));
         jmListados.setText("LISTADOS");
+        jmListados.setBorderPainted(false);
         jmListados.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
         jmiListado1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -188,7 +194,9 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
 
         jMenuBar1.add(jmListados);
 
+        jmLoginsalir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 15, true));
         jmLoginsalir.setText("LOGIN/SALIR");
+        jmLoginsalir.setBorderPainted(false);
         jmLoginsalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
         jmiLogin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -243,7 +251,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
 
     private void jmiListado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListado1ActionPerformed
     
-       jdpEscritorio.removeAll();
+        jdpEscritorio.removeAll();
         jdpEscritorio.repaint();
         JIFProductosVentaXFecha jifproductosventaxfecha = new JIFProductosVentaXFecha ();
         jdpEscritorio.add(jifproductosventaxfecha);

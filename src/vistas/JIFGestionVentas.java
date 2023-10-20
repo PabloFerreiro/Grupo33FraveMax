@@ -1273,10 +1273,10 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         modelo2.addColumn("Precio Actual");
         modelo2.addColumn("Stock");
         jTableBuscarProducto.setModel(modelo2);        
-        columnModel2.getColumn(0).setPreferredWidth(24);
+        columnModel2.getColumn(0).setPreferredWidth(30);
         columnModel2.getColumn(1).setPreferredWidth(120);
-        columnModel2.getColumn(2).setPreferredWidth(230);
-        columnModel2.getColumn(3).setPreferredWidth(65);
+        columnModel2.getColumn(2).setPreferredWidth(200);
+        columnModel2.getColumn(3).setPreferredWidth(80);
         columnModel2.getColumn(4).setPreferredWidth(50);
         // alinea al centro los datos en las columnas de las jtable
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -1295,17 +1295,17 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         modelo3.addColumn("Nombre");
         modelo3.addColumn("Descripción");
         modelo3.addColumn("Precio Uni");
-        modelo3.addColumn("Cantodad");
+        modelo3.addColumn("Cantidad");
         modelo3.addColumn("Precio a Pagar");
         modelo3.addColumn("Stock");
         jTableDetalleVenta.setModel(modelo3);                
-        columnModel3.getColumn(0).setPreferredWidth(24);
+        columnModel3.getColumn(0).setPreferredWidth(30);
         columnModel3.getColumn(1).setPreferredWidth(170);
-        columnModel3.getColumn(2).setPreferredWidth(350);
+        columnModel3.getColumn(2).setPreferredWidth(300);
         columnModel3.getColumn(3).setPreferredWidth(100);
         columnModel3.getColumn(4).setPreferredWidth(90);
         columnModel3.getColumn(5).setPreferredWidth(100);
-        columnModel3.getColumn(6).setPreferredWidth(70);
+        columnModel3.getColumn(6).setPreferredWidth(50);
         // alinea al centro los datos en las columnas de las jtable
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);

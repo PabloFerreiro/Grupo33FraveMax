@@ -5,17 +5,42 @@
  */
 package vistas;
 
+import java.awt.EventQueue;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author Pablo
  */
 public class JIFVentasXCliente extends javax.swing.JInternalFrame {
+    
+        private DefaultTableModel modelo1 = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
 
+            private DefaultTableModel modelo2 = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
     /**
      * Creates new form JIFVentasXCliente
      */
     public JIFVentasXCliente() {
-        initComponents();
+        initComponents();       
+        this.setTitle("FRAVEMAX - Listados de ventas por cliente");        
+        // inicializa los valores pra una nuevo detalle de a venta
+        inicializaValores();
+        armarCabecera1();
+        armarCabecera2();
     }
 
     /**
@@ -26,32 +51,215 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtListadoClientes = new javax.swing.JTable();
+        jtfBuscarCliente = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jBsalir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtIdListadoVentas = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Ventas x cliente");
+
+        jtListadoClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
+        jScrollPane2.setViewportView(jtListadoClientes);
+
+        jtfBuscarCliente.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel9.setText("Buscar");
+
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton1.setText("Limpiar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jBsalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jBsalir.setText("SALIR");
+        jBsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBsalirActionPerformed(evt);
+            }
+        });
+
+        jtIdListadoVentas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "IdVenta", "TotalVenta"
+            }
+        ));
+        jScrollPane1.setViewportView(jtIdListadoVentas);
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoFraveMax.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addContainerGap(796, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(695, 695, 695)
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addGap(18, 18, 18)
+                            .addComponent(jtfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBsalir)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel1)))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(428, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(jBsalir)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
+     this.dispose();   // TODO add your handling code here:
+    }//GEN-LAST:event_jBsalirActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      inicializaValores();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBsalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jtIdListadoVentas;
+    private javax.swing.JTable jtListadoClientes;
+    private javax.swing.JTextField jtfBuscarCliente;
     // End of variables declaration//GEN-END:variables
+
+   private void armarCabecera1() {     
+        TableColumnModel columnModel1 = jtListadoClientes.getColumnModel();
+        modelo1.addColumn("IdCliente");
+        modelo1.addColumn("Dni Cliente");
+        modelo1.addColumn("Apellido");
+        modelo1.addColumn("Nombre");
+        modelo1.addColumn("Teléfono");
+
+        jtListadoClientes.setModel(modelo1);        
+        columnModel1.getColumn(0).setPreferredWidth(30);
+        columnModel1.getColumn(1).setPreferredWidth(40);
+        columnModel1.getColumn(2).setPreferredWidth(100);
+        columnModel1.getColumn(3).setPreferredWidth(100);
+        columnModel1.getColumn(4).setPreferredWidth(70);
+
+        // alinea al centro los datos en las columnas de las jtable
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jtListadoClientes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jtListadoClientes.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        jtListadoClientes.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        jtListadoClientes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        jtListadoClientes.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        // alinea a la derecha los datos numericos en las columnas de las jtable        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        
+    } 
+   
+   private void armarCabecera2() {     
+        TableColumnModel columnModel2 = jtIdListadoVentas.getColumnModel();
+        modelo2.addColumn("Id Venta");
+        modelo2.addColumn("Total Venta");
+
+
+        jtIdListadoVentas.setModel(modelo2);        
+        columnModel2.getColumn(0).setPreferredWidth(50);
+        columnModel2.getColumn(1).setPreferredWidth(50);
+
+        // alinea al centro los datos en las columnas de las jtable
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jtIdListadoVentas.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jtIdListadoVentas.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        
+        // alinea a la derecha los datos numericos en las columnas de las jtable        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        
+    } 
+    private void inicializaValores()
+    {
+
+        
+      
+      // limpiar las 3 jtable
+        DefaultTableModel tablemodel1 = (DefaultTableModel) jtIdListadoVentas.getModel(); 
+        tablemodel1.setRowCount(0);
+        
+        DefaultTableModel tablemodel2 = (DefaultTableModel) jtIdListadoVentas.getModel(); 
+        tablemodel1.setRowCount(0);
+               
+      // coloca el cursor en le primer campo jTFbuscarclientedni
+        jtfBuscarCliente.setText("");     
+        EventQueue.invokeLater( () -> jtfBuscarCliente.requestFocusInWindow() );        
+    }
+
+
 }
+
