@@ -293,7 +293,7 @@ public class ClienteData {
     //  Método listarClientes NUEVA para buscar en una JTABLE
     public ArrayList<Cliente> listarClientesJTableParaGestionCliente(){                  
         String sql = "SELECT * FROM cliente"
-                + " ORDER by cliente.idCliente "
+                + " ORDER by cliente.apellido, cliente.nombre "
                 ;
         ArrayList<Cliente> clientes=new ArrayList<>();
         try {

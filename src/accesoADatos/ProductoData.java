@@ -223,7 +223,7 @@ public class ProductoData {
 //    public TreeSet<Producto> listarProductosJTable(int bajaActivo){
     public ArrayList<Producto> listarProductosJTable(int bajaActivo){
         String sql = "SELECT idProducto, nombreProducto, descripcion, precioActual, stock, estado FROM producto WHERE estado=? "
-                + " ORDER BY nombreProducto ";
+                + " ORDER BY nombreProducto, descripcion ";
         //TreeSet<Producto> productos=new TreeSet<>();
         ArrayList<Producto> productos=new ArrayList<>();
         try {
@@ -255,7 +255,7 @@ public class ProductoData {
     public ArrayList<Producto> listarProductosJTableParaGestionProducto(){                  
         String sql = "SELECT idProducto, nombreProducto, descripcion, precioActual, stock, estado "
                 + "FROM producto "
-                + "ORDER BY nombreProducto";
+                + "ORDER BY nombreProducto, descripcion";
         ArrayList<Producto> productos=new ArrayList<>();
         try {
             PreparedStatement ps=con.prepareStatement(sql);

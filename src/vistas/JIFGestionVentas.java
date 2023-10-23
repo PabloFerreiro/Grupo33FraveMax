@@ -42,6 +42,7 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -780,18 +781,12 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
                 int stockQueda = Integer.parseInt(value.toString());
                 String descripro = jTableDetalleVenta.getValueAt(fila, 2)+"";                
                 prodata.modificarProducto2(idPro, descripro, precioAct, stockQueda);
-                
-                
-                
-                
-                
-                
-                
             }
             JOptionPane.showMessageDialog(null, "SE REGISTRO CON EXITO LA VENTA", "Atencion-Ok",
             JOptionPane.WARNING_MESSAGE);            
     // permite generar un PDF con la factura de venta realizada
             pdf();
+            //pdf(jTFidventa,jDCFecha,jTFid,jTFdni,jTFapellido,jTFnombre,jTFtelefono,jTFdireccion,jTableDetalleVenta,jTFtotalventa);
     // procede a limpar toda la pantalla para una nueva venta
             inicializaValores();            
         }
@@ -825,13 +820,23 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
            jBmodificar.setEnabled(false);
            jBguardarcliente.setEnabled(false);
         } 
-        else { 
-            for (Cliente cli : clidata.listarClientesJTableParaGestionCliente()) {
+        else {             
+            for (Cliente cli : clidata.listarClientesJTableParaGestionCliente()) {                
+                // opcion que permite mostar todos los productos si se ingreso *            
+                char primerChar = jTFbuscarclientedni.getText().charAt(0);
+                String siTomar = "N";
+                if (primerChar == '*') {
+                   siTomar = "S";
+                } else {
                 if ((cli.getApellido()).contains((jTFbuscarclientedni.getText()))
                         || (cli.getNombre()).contains((jTFbuscarclientedni.getText()))
                         || (String.valueOf(cli.getDni())).contains((jTFbuscarclientedni.getText()))
                         || (cli.getDomicilio()).contains((jTFbuscarclientedni.getText()))
                         || (cli.getTelefono()).contains((jTFbuscarclientedni.getText()))) {
+                        siTomar = "S";
+                    }
+                }
+                if (siTomar == "S") {                                    
                     modelo1.addRow(new Object[]{
                         cli.getIdCliente(),
                         cli.getDni(),
@@ -870,24 +875,7 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
             cli2.setEstado(true);                        
             // habilita el boton jBmodificar 
             jBagregar.setEnabled(false);
-            jBmodificar.setEnabled(true);           
-//            if (cli2.getIdCliente() != 0) {
-//                idClienteABuscar = cli2.getIdCliente();
-//                if (jrbEstadoCliente.isSelected()) {
-//                    modelo.setRowCount(0);
-//                    botonMateriasInscriptas();
-//                }
-//                if (jrbjrbMateriasNoInscriptas.isSelected()) {
-//                    modelo.setRowCount(0);
-//                    botonMateriasNoInscriptas();
-//                }
-//            } else {
-//                modelo.setRowCount(0);
-//                idAlumnoABuscar = 0;
-//                jbInscribir.setEnabled(false);
-//                jbAnularInscripcion.setEnabled(false);
-//            }
-        
+            jBmodificar.setEnabled(true);                   
         } 
     }//GEN-LAST:event_jTFbuscarclientedniKeyReleased
 
@@ -956,9 +944,19 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
             for (Producto prod : prodata.listarProductosJTable(1)) {
                 // formatea el importe con decimales                
                 String importeFormateado = df.format(prod.getPrecioActual());                
+                // opcion que permite mostar todos los productos si se ingreso *            
+                char primerChar = jTFbuscarproducto.getText().charAt(0);
+                String siTomar = "N";
+                if (primerChar == '*') {
+                   siTomar = "S";
+                } else {
                 if ((prod.getNombreProducto()).contains((jTFbuscarproducto.getText()))
                         || (prod.getDescripcion()).contains((jTFbuscarproducto.getText()))
                         || (prod.getNombreProducto()+" "+prod.getDescripcion()).contains((jTFbuscarproducto.getText()))){ 
+                        siTomar = "S";
+                    }
+                }
+                if (siTomar == "S") {                                    
                     modelo2.addRow(new Object[]{
                         prod.getIdProducto(),
                         prod.getNombreProducto(),
@@ -966,7 +964,7 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
                         //prod.getPrecioActual(),
                         importeFormateado,
                         prod.getStock(),                        
-                        prod.isEstado()
+                        prod.isEstado()                            
                     });
                 }
             }
@@ -1089,73 +1087,6 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         jLingresecantidad.setText("");           
         jBenviaraldetalledeventa.setEnabled(false);
         jBenviaraldetalledeventa.setVisible(false);
-
-
-
-
-//        try {                        
-//            int canvta=Integer.parseInt(jTFcantidad.getText());
-//            
-//            
-//// PASA COMAS A PUNTOS########################################
-//            String valorCelda = jTableBuscarProducto.getValueAt(filaSeleccionada, 3).toString(); 
-//            double prevta = Double.parseDouble(valorCelda.replace(",", "."));
-//            
-//            //double prevta = Double.parseDouble(jTableBuscarProducto.getValueAt(filaSeleccionada, 3) + " ");
-//           
-//            
-//            
-//            double precioAcobrar = prevta * canvta;   
-//            
-//            // formatea el importe con decimales                
-//            String importeFormateado = df.format(precioAcobrar); 
-//            modelo3.addRow(new Object[]{
-//                jTableBuscarProducto.getValueAt(filaSeleccionada, 0),
-//                jTableBuscarProducto.getValueAt(filaSeleccionada, 1),
-//                jTableBuscarProducto.getValueAt(filaSeleccionada, 2),
-//                jTableBuscarProducto.getValueAt(filaSeleccionada, 3),
-//                canvta,
-//                importeFormateado
-//                //precioAcobrar
-//            });
-//            double preAcobrar=0;
-//            double totalApagar = 0;
-//            // calcula el total de la venta -jTFtotalventa-
-//            int filas = modelo3.getRowCount() - 1;
-//            for (int i = filas; i >= 0; i--) { 
-//                
-//// PASA COMAS A PUNTOS########################################
-//
-//                String valorCelda2 = modelo3.getValueAt(i, 5).toString(); // Obtiene el valor como String
-//                preAcobrar = Double.parseDouble(valorCelda2.replace(",", "."));
-//                
-//                //preAcobrar=Double.parseDouble(modelo3.getValueAt(i, 5)+""); 
-//                
-//                
-//                
-//                totalApagar = totalApagar + preAcobrar;
-//            }
-//            // formatea el importe con decimales                
-//            importeFormateado = df.format(totalApagar); 
-//            jTFtotalventa.setText("            " + importeFormateado);
-//            //jTFtotalventa.setText("            " + totalApagar);
-//        } catch (NumberFormatException nfe) {
-//            JOptionPane.showMessageDialog(null, "Error-x- al Intentar pasar el prodcuto elegido, o sumar el total de venta, o no se ingreso un cantidad numerica " + nfe.getLocalizedMessage());
-//        }
-//
-//        // limpia el buscador de datos por producto jTFbuscarproducto
-//        jTFbuscarproducto.setText("");
-//        // coloca el cursor en le primer campo jTFbuscarproducto
-//        EventQueue.invokeLater(() -> jTFbuscarproducto.requestFocusInWindow());
-//        // borra los datos desde donde se eligio en la jtable
-//        DefaultTableModel tablemodel2 = (DefaultTableModel) jTableBuscarProducto.getModel();
-//        tablemodel2.setRowCount(0); 
-//        jTFcantidad.setEditable (false);
-//        jTFcantidad.setVisible(false);
-//        jTFcantidad.setText("");
-//        jLingresecantidad.setText("");           
-//        jBenviaraldetalledeventa.setEnabled(false);
-//        jBenviaraldetalledeventa.setVisible(false);
     }//GEN-LAST:event_jBenviaraldetalledeventaActionPerformed
 
     private void jBsacarunproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsacarunproductoActionPerformed
@@ -1244,6 +1175,8 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
 
     private void armarCabecera1() {     
         TableColumnModel columnModel1 = jTableBuscarCliente.getColumnModel();
+        ((DefaultTableCellRenderer) jTableBuscarCliente.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        jTableBuscarCliente.setRowHeight(25);
         modelo1.addColumn("Id");
         modelo1.addColumn("Dni");
         modelo1.addColumn("Apellido");
@@ -1252,13 +1185,13 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         modelo1.addColumn("Telefono");
         modelo1.addColumn("A/B");
         jTableBuscarCliente.setModel(modelo1);    
-        columnModel1.getColumn(0).setPreferredWidth(24);
-        columnModel1.getColumn(1).setPreferredWidth(60);
+        columnModel1.getColumn(0).setPreferredWidth(40);
+        columnModel1.getColumn(1).setPreferredWidth(70);
         columnModel1.getColumn(2).setPreferredWidth(80);
         columnModel1.getColumn(3).setPreferredWidth(140);
-        columnModel1.getColumn(4).setPreferredWidth(200);
+        columnModel1.getColumn(4).setPreferredWidth(190);
         columnModel1.getColumn(5).setPreferredWidth(80);
-        columnModel1.getColumn(6).setPreferredWidth(30);
+        columnModel1.getColumn(6).setPreferredWidth(40);
         // alinea al centro los datos en las columnas de las jtable
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -1267,15 +1200,17 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
 
     private void armarCabecera2() {     
         TableColumnModel columnModel2 = jTableBuscarProducto.getColumnModel();
+        ((DefaultTableCellRenderer) jTableBuscarProducto.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        jTableBuscarProducto.setRowHeight(25);
         modelo2.addColumn("Id");
         modelo2.addColumn("Nombre");
         modelo2.addColumn("Descripción");
         modelo2.addColumn("Precio Actual");
         modelo2.addColumn("Stock");
         jTableBuscarProducto.setModel(modelo2);        
-        columnModel2.getColumn(0).setPreferredWidth(30);
+        columnModel2.getColumn(0).setPreferredWidth(40);
         columnModel2.getColumn(1).setPreferredWidth(120);
-        columnModel2.getColumn(2).setPreferredWidth(200);
+        columnModel2.getColumn(2).setPreferredWidth(195);
         columnModel2.getColumn(3).setPreferredWidth(80);
         columnModel2.getColumn(4).setPreferredWidth(50);
         // alinea al centro los datos en las columnas de las jtable
@@ -1291,6 +1226,8 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
     
         private void armarCabecera3() {     
         TableColumnModel columnModel3 = jTableDetalleVenta.getColumnModel();        
+        ((DefaultTableCellRenderer) jTableDetalleVenta.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        jTableDetalleVenta.setRowHeight(25);
         modelo3.addColumn("Id");
         modelo3.addColumn("Nombre");
         modelo3.addColumn("Descripción");
@@ -1299,8 +1236,8 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         modelo3.addColumn("Precio a Pagar");
         modelo3.addColumn("Stock");
         jTableDetalleVenta.setModel(modelo3);                
-        columnModel3.getColumn(0).setPreferredWidth(30);
-        columnModel3.getColumn(1).setPreferredWidth(170);
+        columnModel3.getColumn(0).setPreferredWidth(40);
+        columnModel3.getColumn(1).setPreferredWidth(200);
         columnModel3.getColumn(2).setPreferredWidth(300);
         columnModel3.getColumn(3).setPreferredWidth(100);
         columnModel3.getColumn(4).setPreferredWidth(90);
@@ -1402,6 +1339,7 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
     }
     
 // metodo que permite emitir un comprobante de la venta realizada en un PDF    
+    //private void pdf(String jTFidventa,LocalDate jDCFecha,String jTFid,String jTFdni,String jTFapellido,String jTFnombre,String jTFtelefono,String jTFdireccion,jTableDetalleVenta,String jTFtotalventa)
     private void pdf()
     {
         try {
@@ -1435,8 +1373,8 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
             String cuit = "33-12345678-9";
             String nom = "FraveMax - Grupo 33";
             String tel = "3878-12255668";
-            String dir = "Oran - Salta";
-            String ra = "FraveMax - Grupo 33";
+            String dir = "Capital Fed - La Rios - Salta";
+            String ra = "FraveMax Hogar - G33";
             
             Encabezado.addCell("");
             Encabezado.addCell("Cuit: "+cuit+"\nNombre: "+nom+"\nTelefono: "+tel+"\nDireccion: "+dir+"\nRazon Social: "+ra);

@@ -1,37 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
+import accesoADatos.ClienteData;
+import accesoADatos.DetalleVentaData;
+import accesoADatos.ProductoData;
+import accesoADatos.VentaData;
+import accesoADatos.ListadosData;
+import entidades.Cliente;
+import entidades.DetalleVenta;
+import entidades.Producto;
+import entidades.Venta;
+
+import accesoADatos.DetalleVentaData;
+import entidades.Venta;
 import java.awt.EventQueue;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-/**
- *
- * @author Pablo
- */
 public class JIFClientesXProducto extends javax.swing.JInternalFrame {
     
-            private DefaultTableModel modelo1 = new DefaultTableModel() {
+    private DefaultTableModel modelo1 = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
 
-            private DefaultTableModel modelo2 = new DefaultTableModel() {
+    private DefaultTableModel modelo2 = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
+            
+    ClienteData clidata = new ClienteData();
+    Cliente cli = new Cliente();
+    ProductoData prodata = new ProductoData();
+    Producto pro = new Producto();
+    VentaData vtadata = new VentaData();
+    Venta vta = new Venta();
+    DetalleVentaData dvdata = new DetalleVentaData();
+    DetalleVenta detvta = new DetalleVenta();
+    ListadosData lisdata = new ListadosData();
+    // arma el formato para numeros con decimales
+    DecimalFormat df = new DecimalFormat("#.00");
+    int filaSeleccionada=0;
 
-    /**
-     * Creates new form JIFClientesXProducto
-     */
     public JIFClientesXProducto() {
         initComponents();       
         this.setTitle("FRAVEMAX - Listados de clientes por producto");        
@@ -58,6 +78,10 @@ public class JIFClientesXProducto extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListadoProductos = new javax.swing.JTable();
         jBsalir = new javax.swing.JButton();
+        jLtotalcomprobante = new javax.swing.JLabel();
+        jLtotalProducto = new javax.swing.JLabel();
+        jLcantidadProductos = new javax.swing.JLabel();
+        jLtotalCantidad = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Clientes x producto");
@@ -73,35 +97,46 @@ public class JIFClientesXProducto extends javax.swing.JInternalFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogoFraveMax.png"))); // NOI18N
 
         jtfBuscarProducto.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jtfBuscarProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfBuscarProductoKeyReleased(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel9.setText("Buscar Producto");
 
-        jtListadoClientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jtListadoClientes.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jtListadoClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Nombre", "Descripcion", "Precio Uni", "Cantidad", "Precio a Pagar"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
             }
         ));
         jtListadoClientes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane2.setViewportView(jtListadoClientes);
 
+        jtListadoProductos.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jtListadoProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+                "Title 1", "Title 2", "Title 3"
             }
         ));
+        jtListadoProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtListadoProductosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtListadoProductos);
 
         jBsalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -112,27 +147,45 @@ public class JIFClientesXProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        jLtotalcomprobante.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLtotalcomprobante.setText("Total del Producto $ ");
+
+        jLtotalProducto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
+        jLcantidadProductos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLcantidadProductos.setText("Cantidad de Productos:");
+
+        jLtotalCantidad.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBsalir)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel11))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addGap(18, 18, 18)
-                            .addComponent(jtfBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 592, Short.MAX_VALUE)
-                            .addComponent(jButton1))
-                        .addComponent(jScrollPane1)
-                        .addComponent(jScrollPane2)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLtotalcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLtotalProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jLcantidadProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLtotalCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBsalir))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 646, Short.MAX_VALUE)
+                        .addComponent(jLabel11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtfBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -156,9 +209,15 @@ public class JIFClientesXProducto extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jBsalir)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBsalir)
+                        .addComponent(jLtotalcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLcantidadProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLtotalProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLtotalCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,6 +231,120 @@ public class JIFClientesXProducto extends javax.swing.JInternalFrame {
     this.dispose();
     }//GEN-LAST:event_jBsalirActionPerformed
 
+    private void jtfBuscarProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBuscarProductoKeyReleased
+        // borra los datos desde donde se eligio en la jtable
+        DefaultTableModel tablemodel1 = (DefaultTableModel) jtListadoProductos.getModel();
+        tablemodel1.setRowCount(0);            
+        if (jtfBuscarProducto.getText().isEmpty() || jtfBuscarProducto.getText()==null) {             
+           // borra los datos desde donde se eligio en la jtable
+           tablemodel1.setRowCount(0);           
+        } 
+        else { 
+            for (Producto pro : lisdata.listarProductosListado4()) {
+                // opcion que permite mostar todos los productos si se ingreso *                
+                char primerChar = jtfBuscarProducto.getText().charAt(0);
+                String siTomar = "N";
+                if (primerChar == '*') {
+                    siTomar = "S";
+                } else {
+                    if ((pro.getNombreProducto()).contains((jtfBuscarProducto.getText()))
+                            || (pro.getDescripcion()).contains((jtfBuscarProducto.getText()))
+                            || (pro.getNombreProducto() + " " + pro.getDescripcion()).contains((jtfBuscarProducto.getText()))
+                            || (String.valueOf(pro.getIdProducto())).contains((jtfBuscarProducto.getText()))) {
+                        siTomar = "S";
+                    }
+                }
+                if (siTomar == "S") {
+                    modelo1.addRow(new Object[]{
+                        pro.getIdProducto(),
+                        pro.getNombreProducto(),
+                        pro.getDescripcion()
+                    });
+                }
+            }
+        }
+        // PARA CONSULTAR SI LA TABLA ESTA VACIA O NO                
+        if (jtListadoProductos.getRowCount() == 0)
+        {
+            // se bloquearon para hacer mas practico la consulta
+            // bloqueo ests dos lineas para que no se amolesto el mensaje cuando no encuentre un dato
+            //JOptionPane.showMessageDialog(null, "No Existen Datos de Clientes", "Advertencia",
+            //JOptionPane.WARNING_MESSAGE);            
+        }        
+        else
+        {        
+            // no se hace nada por ahora        
+        } 
+    }//GEN-LAST:event_jtfBuscarProductoKeyReleased
+
+    private void jtListadoProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListadoProductosMouseClicked
+        // captura la linea que se eligio en la tabla jtListadoProductos
+        filaSeleccionada=jtListadoProductos.rowAtPoint(evt.getPoint());
+        // captura el idProducto que esta en la columna del jtListadoProductos
+        int idProductoABuscar = (int) jtListadoProductos.getValueAt(filaSeleccionada, 0);        
+        // borra los datos de ventas
+        DefaultTableModel tablemodel2 = (DefaultTableModel) jtListadoClientes.getModel();
+        tablemodel2.setRowCount(0);                 
+        // va a buscar a sql los datos de los produtos de la venta elegia 
+        Double acumuladoProd=0.00;
+        int cantidadProd=0;
+        for (DetalleVenta detvtas : lisdata.buscarDetalleProductoListado4(idProductoABuscar, 1)) {            
+            // toma el total de la venta de ese idVenta para configurar con dos decimales
+            Double preTotVta = (Double) detvtas.getPrecioVenta();                                    
+            String importeF1 = df.format(preTotVta);                                                    
+            // toma la cantidad para obtener el valor original por el que se cobro la venta de ese producto
+            int cantidVta = (Integer) detvtas.getCantidad();                        
+            // calcula el valor unitario del precio con que se compro en us momento en la venta el producto
+            Double precioUniVenta=preTotVta / cantidVta;
+            String importeF2 = df.format(precioUniVenta);                                                                
+            // transforma la fecha leida de la clase venta yyyy/MM/dd a dd/MM/yyyy            
+            DateTimeFormatter formatoNuevo = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String fechaVta = detvtas.getVenta().getFechaVenta().format(formatoNuevo);
+//        modelo2.addColumn("Id Cliente");
+//        modelo2.addColumn("Dni");
+//        modelo2.addColumn("Apellido");
+//        modelo2.addColumn("Nombre");
+//        modelo2.addColumn("Id Venta");
+//        modelo2.addColumn("Fecha Vta");
+//        modelo2.addColumn("Precio Uni");
+//        modelo2.addColumn("Cantidad");
+//        modelo2.addColumn("Precio Vta");            
+            modelo2.addRow(new Object[]{
+                detvtas.getVenta().getCliente().getIdCliente(),
+                detvtas.getVenta().getCliente().getDni(),
+                detvtas.getVenta().getCliente().getApellido(),
+                detvtas.getVenta().getCliente().getNombre(),
+                detvtas.getVenta().getIdVenta(),
+                fechaVta,                
+                importeF2,         
+                cantidVta,         
+                importeF1         
+            });            
+            acumuladoProd=acumuladoProd+preTotVta;
+            cantidadProd=cantidadProd+cantidVta;
+        }
+        // asigna el total vendido para porder verlo en jLtotalVta
+        // informa el total acumulado de productos vendidos
+        jLtotalProducto.setText(df.format(acumuladoProd)+"");
+        //jLtotalProducto.setText(acumuladoProd+"");
+        // informa la cantidad de productos vendidos
+        jLtotalCantidad.setText(cantidadProd+"");        
+        // PARA CONSULTAR SI LA TABLA ESTA VACIA O NO                
+        if (jtListadoProductos.getRowCount() == 0)
+        {
+            // se bloquearon para hacer mas practico la consulta
+            // bloqueo ests dos lineas para que no se amolesto el mensaje cuando no encuentre un dato
+            //JOptionPane.showMessageDialog(null, "No Existen Datos de Clientes", "Advertencia",
+            //JOptionPane.WARNING_MESSAGE);            
+        }        
+        else
+        {        
+            //int linTabla = jtListadoProductos.getSelectedRow()+1;
+            //int colTabla = jtListadoProductos.getSelectedColumn();            
+        } 
+
+    }//GEN-LAST:event_jtListadoProductosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBsalir;
@@ -179,6 +352,10 @@ public class JIFClientesXProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLcantidadProductos;
+    private javax.swing.JLabel jLtotalCantidad;
+    private javax.swing.JLabel jLtotalProducto;
+    private javax.swing.JLabel jLtotalcomprobante;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jtListadoClientes;
@@ -186,71 +363,87 @@ public class JIFClientesXProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfBuscarProducto;
     // End of variables declaration//GEN-END:variables
 
-     private void armarCabecera1() {     
+    private void armarCabecera1() {     
         TableColumnModel columnModel1 = jtListadoProductos.getColumnModel();
+        ((DefaultTableCellRenderer) jtListadoProductos.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        jtListadoProductos.setRowHeight(30);
         modelo1.addColumn("Id Producto");
         modelo1.addColumn("Nombre");
         modelo1.addColumn("Descripcion");
 
-
         jtListadoProductos.setModel(modelo1);        
-        columnModel1.getColumn(0).setPreferredWidth(30);
-        columnModel1.getColumn(1).setPreferredWidth(40);
-        columnModel1.getColumn(2).setPreferredWidth(100);
-
-
+        columnModel1.getColumn(0).setPreferredWidth(40);
+        columnModel1.getColumn(1).setPreferredWidth(150);
+        columnModel1.getColumn(2).setPreferredWidth(300);
+        
         // alinea al centro los datos en las columnas de las jtable
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        
-        jtListadoProductos.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);    
-        // alinea a la derecha los datos numericos en las columnas de las jtable        
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        leftRenderer.setHorizontalAlignment(JLabel.LEFT);
         rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        jtListadoProductos.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jtListadoProductos.getColumnModel().getColumn(1).setCellRenderer(leftRenderer);
+        jtListadoProductos.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
         
-    } 
+    }
    
-   private void armarCabecera2() {     
+    private void armarCabecera2() {     
         TableColumnModel columnModel2 = jtListadoClientes.getColumnModel();
+        ((DefaultTableCellRenderer) jtListadoClientes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        jtListadoClientes.setRowHeight(30);
         modelo2.addColumn("Id Cliente");
         modelo2.addColumn("Dni");
         modelo2.addColumn("Apellido");
         modelo2.addColumn("Nombre");
         modelo2.addColumn("Id Venta");
-        modelo2.addColumn("Total Venta");
-        
-
+        modelo2.addColumn("Fecha Vta");
+        modelo2.addColumn("Precio Uni");
+        modelo2.addColumn("Cantidad");
+        modelo2.addColumn("Precio Vta");
 
         jtListadoClientes.setModel(modelo2);        
-        columnModel2.getColumn(0).setPreferredWidth(50);
-        columnModel2.getColumn(1).setPreferredWidth(50);
-        columnModel2.getColumn(2).setPreferredWidth(50);
-        columnModel2.getColumn(3).setPreferredWidth(50);
-        columnModel2.getColumn(4).setPreferredWidth(50);
-        columnModel2.getColumn(5).setPreferredWidth(50);
+        columnModel2.getColumn(0).setPreferredWidth(70);
+        columnModel2.getColumn(1).setPreferredWidth(100);
+        columnModel2.getColumn(2).setPreferredWidth(150);
+        columnModel2.getColumn(3).setPreferredWidth(250);
+        columnModel2.getColumn(4).setPreferredWidth(70);
+        columnModel2.getColumn(5).setPreferredWidth(110);
+        columnModel2.getColumn(6).setPreferredWidth(115);
+        columnModel2.getColumn(7).setPreferredWidth(90);
+        columnModel2.getColumn(8).setPreferredWidth(115);
 
         // alinea al centro los datos en las columnas de las jtable
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        jtListadoClientes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        jtListadoClientes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        jtListadoClientes.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        // alinea a la derecha los datos numericos en las columnas de las jtable        
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
-        jtListadoClientes.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        leftRenderer.setHorizontalAlignment(JLabel.LEFT);
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);        
+        jtListadoClientes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jtListadoClientes.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        jtListadoClientes.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);        
+        jtListadoClientes.getColumnModel().getColumn(3).setCellRenderer(leftRenderer);        
+        jtListadoClientes.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);        
+        jtListadoClientes.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);        
+        jtListadoClientes.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);        
+        jtListadoClientes.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);        
+        jtListadoClientes.getColumnModel().getColumn(8).setCellRenderer(rightRenderer);        
     } 
+    
     private void inicializaValores()
     {
-
-        
-      
-      // limpiar las 3 jtable
+      // limpiar las 2 jtable
         DefaultTableModel tablemodel1 = (DefaultTableModel) jtListadoProductos.getModel(); 
         tablemodel1.setRowCount(0);
         
         DefaultTableModel tablemodel2 = (DefaultTableModel) jtListadoClientes.getModel(); 
-        tablemodel1.setRowCount(0);
+        tablemodel2.setRowCount(0);
+        
+      // limpiar el total y cantidad calculados
+        jLtotalProducto.setText("");   
+        jLtotalCantidad.setText("");
                
       // coloca el cursor en le primer campo jTFbuscarclientedni
         jtfBuscarProducto.setText("");     
