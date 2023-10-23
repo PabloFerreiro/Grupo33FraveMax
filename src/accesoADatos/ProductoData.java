@@ -30,9 +30,12 @@ public class ProductoData {
     public int guardarProducto(Producto producto) {
     String sql = "INSERT INTO `producto`(`nombreProducto`, `descripcion`, `precioActual`, `stock`, estado) "
             + "VALUES (?,?,?,?,?)";
+    
+// String sql = "INSERT INTO `producto`(`idProducto`,`nombreProducto`, `descripcion`, `precioActual`, `stock`, `estado`) VALUES (?,?,?,?,?)";
     int exito = 0;
     try {
         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        //ps.setInt(0, producto.getIdProducto());
         ps.setString(1, producto.getNombreProducto());
         ps.setString(2, producto.getDescripcion());
         ps.setDouble(3, producto.getPrecioActual());
@@ -223,7 +226,7 @@ public class ProductoData {
 //    public TreeSet<Producto> listarProductosJTable(int bajaActivo){
     public ArrayList<Producto> listarProductosJTable(int bajaActivo){
         String sql = "SELECT idProducto, nombreProducto, descripcion, precioActual, stock, estado FROM producto WHERE estado=? "
-                + " ORDER BY nombreProducto, descripcion ";
+                + " ORDER BY nombreProducto ";
         //TreeSet<Producto> productos=new TreeSet<>();
         ArrayList<Producto> productos=new ArrayList<>();
         try {
@@ -255,7 +258,7 @@ public class ProductoData {
     public ArrayList<Producto> listarProductosJTableParaGestionProducto(){                  
         String sql = "SELECT idProducto, nombreProducto, descripcion, precioActual, stock, estado "
                 + "FROM producto "
-                + "ORDER BY nombreProducto, descripcion";
+                + "ORDER BY idProducto";
         ArrayList<Producto> productos=new ArrayList<>();
         try {
             PreparedStatement ps=con.prepareStatement(sql);
