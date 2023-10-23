@@ -1373,7 +1373,7 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
             String cuit = "33-12345678-9";
             String nom = "FraveMax - Grupo 33";
             String tel = "3878-12255668";
-            String dir = "Capital Fed - La Rios - Salta";
+            String dir = "Capital Fed - San Luis - Salta";
             String ra = "FraveMax Hogar - G33";
             
             Encabezado.addCell("");
