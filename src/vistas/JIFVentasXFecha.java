@@ -172,8 +172,8 @@ public class JIFVentasXFecha extends javax.swing.JInternalFrame {
                     .addComponent(jBbuscarVenta)
                     .addComponent(jButton1))
                 .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jBsalir, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -181,7 +181,7 @@ public class JIFVentasXFecha extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(jLtotalVta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(43, 43, 43))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
