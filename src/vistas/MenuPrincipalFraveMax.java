@@ -98,11 +98,11 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         jdpEscritorio.setLayout(jdpEscritorioLayout);
         jdpEscritorioLayout.setHorizontalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1600, Short.MAX_VALUE)
+            .addGap(0, 1413, Short.MAX_VALUE)
         );
         jdpEscritorioLayout.setVerticalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 843, Short.MAX_VALUE)
+            .addGap(0, 733, Short.MAX_VALUE)
         );
 
         jmGestionABMC.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 15, true));
