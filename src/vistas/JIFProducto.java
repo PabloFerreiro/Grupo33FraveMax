@@ -383,44 +383,54 @@ public class JIFProducto extends javax.swing.JInternalFrame {
         jlEstadoProducto.setText("");
 
         if (seleccionBusqueda == "id") {
-            
-              if (!textoEnBuscarProducto.matches("\\d*")) {
+
+            if (!textoEnBuscarProducto.matches("\\d*")) {
                 JOptionPane.showMessageDialog(this, "Ingrese un id válido");
                 jtfBuscarProducto.setText("");
                 jtfBuscarProducto.requestFocus();
                 borrarFilas2();
-            }else{
-            for (Producto pro : prodata.listarProductosJTableParaGestionProducto()) {
+            } else {
+                for (Producto pro : prodata.listarProductosJTableParaGestionProducto()) {
 
-                if ((String.valueOf(pro.getIdProducto())).contains((jtfBuscarProducto.getText()))) {
-                    modelo.addRow(new Object[]{
-                        pro.getIdProducto(),
-                        pro.getNombreProducto(),
-                        pro.getDescripcion(),
-                        pro.getPrecioActual(),
-                        pro.getStock(),
-                        pro.isEstado()
-                    });
+                    if ((String.valueOf(pro.getIdProducto())).contains((jtfBuscarProducto.getText()))) {
+                        modelo.addRow(new Object[]{
+                            pro.getIdProducto(),
+                            pro.getNombreProducto(),
+                            pro.getDescripcion(),
+                            pro.getPrecioActual(),
+                            pro.getStock(),
+                            pro.isEstado()
+                        });
+                    }
+
                 }
-
             }
-              }
-            
+
         } else if (seleccionBusqueda == "nombre") {
 
             for (Producto pro : prodata.listarProductosJTableParaGestionProducto()) {
 
-                if ((pro.getNombreProducto()).contains((jtfBuscarProducto.getText()))) {
-                    modelo.addRow(new Object[]{
-                        pro.getIdProducto(),
-                        pro.getNombreProducto(),
-                        pro.getDescripcion(),
-                        pro.getPrecioActual(),
-                        pro.getStock(),
-                        pro.isEstado()
-                    });
-                }
+                String textoIngresado = jtfBuscarProducto.getText();
+                String textoIngresado2 = pro.getNombreProducto();
+                int cantidadCaracteres = textoIngresado.length();
+                int cantidadCaracteres2 = textoIngresado2.length();
+                String compara1 = textoIngresado.substring(0, cantidadCaracteres);
 
+                if (cantidadCaracteres2 >= cantidadCaracteres) {
+                    String compara2 = textoIngresado2.substring(0, cantidadCaracteres);
+
+                    if (compara1.toLowerCase().equals(compara2.toLowerCase())) {
+                        modelo.addRow(new Object[]{
+                            pro.getIdProducto(),
+                            pro.getNombreProducto(),
+                            pro.getDescripcion(),
+                            pro.getPrecioActual(),
+                            pro.getStock(),
+                            pro.isEstado()
+                        });
+                    }
+
+                }
             }
 
         } else if (seleccionBusqueda == "descripcion") {

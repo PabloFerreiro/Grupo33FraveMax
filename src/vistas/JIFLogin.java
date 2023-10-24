@@ -102,7 +102,7 @@ public class JIFLogin extends javax.swing.JInternalFrame {
         String password = new String(jpfPassLogin.getPassword());
         MenuPrincipalFraveMax menuPrincipalFraveMax = (MenuPrincipalFraveMax) getTopLevelAncestor();
 
-        if (jtfUsuarioLogin.getText().equals("") && password.equals("")) {
+        if (jtfUsuarioLogin.getText().equals("grupo33") && password.equals("33")) {
         //if (jtfUsuarioLogin.getText().equals("") && password.equals("")) {
             //MenuPrincipal menuPrincipal = (MenuPrincipal) getTopLevelAncestor();
             menuPrincipalFraveMax.editarObloquearMenues(true, true, true, false);
