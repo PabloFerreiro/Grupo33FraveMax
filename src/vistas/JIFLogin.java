@@ -1,14 +1,7 @@
-/*
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// RAMA V2
+// Actualizado dia: 25/10/23 hs: 15:38
 package vistas;
 
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class JIFLogin extends javax.swing.JInternalFrame {
@@ -103,7 +96,7 @@ public class JIFLogin extends javax.swing.JInternalFrame {
         MenuPrincipalFraveMax menuPrincipalFraveMax = (MenuPrincipalFraveMax) getTopLevelAncestor();
 
         if (jtfUsuarioLogin.getText().equals("grupo33") && password.equals("33")) {
-        //if (jtfUsuarioLogin.getText().equals("") && password.equals("")) {
+            //if (jtfUsuarioLogin.getText().equals("") && password.equals("")) {
             //MenuPrincipal menuPrincipal = (MenuPrincipal) getTopLevelAncestor();
             menuPrincipalFraveMax.editarObloquearMenues(true, true, true, false);
             JOptionPane.showMessageDialog(this, "Usuario logueado con éxito");

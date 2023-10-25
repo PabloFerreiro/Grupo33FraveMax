@@ -1,18 +1,10 @@
-// Actualizado dia: 06/10/23 hs: 17:40
 // RAMA V2
-package grupo33fravemax;
-import accesoADatos.VentaData;
-import accesoADatos.ClienteData;
-import accesoADatos.Conexion;
-import accesoADatos.DetalleVentaData;
-import accesoADatos.ProductoData;
-import entidades.Cliente;
-import entidades.DetalleVenta;
-import entidades.Producto;
-import entidades.Venta;
-import java.time.LocalDate;
-import vistas.MenuPrincipalFraveMax;
+// Actualizado dia: 25/10/23 hs: 15:38
 
+package grupo33fravemax;
+
+import accesoADatos.Conexion;
+import vistas.MenuPrincipalFraveMax;
 
 public class Grupo33FraveMax {
 

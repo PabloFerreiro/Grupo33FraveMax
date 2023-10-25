@@ -1,14 +1,16 @@
-
+// RAMA V2
+// Actualizado dia: 25/10/23 hs: 15:38
 package entidades;
+
 import java.time.LocalDate;
 
-public class Venta implements Comparable<Venta>{
-    
-   private int idVenta;
-   private Cliente cliente;
-   private LocalDate fechaVenta;
-   private boolean estado;
-   private double totalVenta;
+public class Venta implements Comparable<Venta> {
+
+    private int idVenta;
+    private Cliente cliente;
+    private LocalDate fechaVenta;
+    private boolean estado;
+    private double totalVenta;
 
     public Venta() {
     }
@@ -66,9 +68,6 @@ public class Venta implements Comparable<Venta>{
     public void setTotalVenta(double totalVenta) {
         this.totalVenta = totalVenta;
     }
-    
-
-    
 
     @Override
     public String toString() {
@@ -77,14 +76,9 @@ public class Venta implements Comparable<Venta>{
 
     @Override
     public int compareTo(Venta otroidVenta) {
-        String idv1= Integer. toString(idVenta);
-        String idv2= Integer. toString(otroidVenta.getIdVenta());
-        return idv1.compareTo(idv2); 
+        String idv1 = Integer.toString(idVenta);
+        String idv2 = Integer.toString(otroidVenta.getIdVenta());
+        return idv1.compareTo(idv2);
     }
 
-
-   
-   
-   
-   
 }

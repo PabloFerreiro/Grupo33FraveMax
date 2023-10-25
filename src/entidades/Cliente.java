@@ -1,7 +1,9 @@
-
+// RAMA V2
+// Actualizado dia: 25/10/23 hs: 15:38
 package entidades;
 
-public class Cliente implements Comparable<Cliente>{
+public class Cliente implements Comparable<Cliente> {
+
     private int idCliente;
     private String apellido;
     private String nombre;
@@ -95,10 +97,7 @@ public class Cliente implements Comparable<Cliente>{
 
     @Override
     public int compareTo(Cliente otroApellido) {
-        return this.apellido.compareTo(otroApellido.apellido); 
+        return this.apellido.compareTo(otroApellido.apellido);
     }
-    
-    
-    
-            
+
 }

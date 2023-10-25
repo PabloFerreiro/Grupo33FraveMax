@@ -1,8 +1,9 @@
-
+// RAMA V2
+// Actualizado dia: 25/10/23 hs: 15:38
 package entidades;
 
 public class DetalleVenta {
-    
+
     private int idDetalleVenta;
     private int cantidad;
     private Venta venta;
@@ -83,8 +84,4 @@ public class DetalleVenta {
         return "DetalleVenta{" + "idDetalleVenta=" + idDetalleVenta + ", cantidad=" + cantidad + ", venta=" + venta + ", precioVenta=" + precioVenta + ", producto=" + producto + ", estado=" + estado + '}';
     }
 
-    
-    
-    
-    
 }

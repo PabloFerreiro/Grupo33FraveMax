@@ -1,10 +1,10 @@
-
+// RAMA V2
+// Actualizado dia: 25/10/23 hs: 15:38
 package accesoADatos;
 
 import entidades.Cliente;
 import entidades.DetalleVenta;
 import entidades.Venta;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,24 +14,26 @@ import java.sql.Connection;
 import java.util.TreeSet;
 
 public class DetalleVentaData {
-     private Connection con = null;
-     public static TreeSet<DetalleVenta> listaDetalleVentas=new TreeSet<>();
-     public DetalleVentaData() {
+
+    private Connection con = null;
+    public static TreeSet<DetalleVenta> listaDetalleVentas = new TreeSet<>();
+
+    public DetalleVentaData() {
         con = Conexion.getConexion();
     }
-    
+
 //  método guardar detalleVenta
     public int guardarDetalleVenta(DetalleVenta detalleventa) {
         String sql = "INSERT INTO detalleventa (cantidad, idVenta, precioVenta, idProducto, estado) VALUES (?, ?, ?, ?, ?)";
-        int exito=0; 
+        int exito = 0;
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);  
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, detalleventa.getCantidad());
-            ps.setInt(2, detalleventa.getVenta().getIdVenta()); 
+            ps.setInt(2, detalleventa.getVenta().getIdVenta());
             ps.setDouble(3, detalleventa.getPrecioVenta());
             ps.setInt(4, detalleventa.getProducto().getIdProducto());
-            ps.setBoolean(5, detalleventa.isEstado());       
-            ps.executeUpdate();            
+            ps.setBoolean(5, detalleventa.isEstado());
+            ps.executeUpdate();
             ps.getGeneratedKeys();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -47,21 +49,20 @@ public class DetalleVentaData {
         }
         return exito;
     }
-    
+
 //  método modificar detalleventa
-    public int modificarDetalleVenta(DetalleVenta detalleventa) {        
+    public int modificarDetalleVenta(DetalleVenta detalleventa) {
         String sql = "UPDATE detalleventa SET cantidad=?, idVenta=?, precioVenta=?, idProducto=?, estado=? WHERE idDetalleVenta=?";
-        int exito=0; 
+        int exito = 0;
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setInt(1, detalleventa.getCantidad());
-            ps.setInt(2, detalleventa.getVenta().getIdVenta()); 
+            ps.setInt(2, detalleventa.getVenta().getIdVenta());
             ps.setDouble(3, detalleventa.getPrecioVenta());
             ps.setInt(4, detalleventa.getProducto().getIdProducto());
             ps.setBoolean(5, detalleventa.isEstado());
             ps.setInt(6, detalleventa.getIdDetalleVenta());
-
 
             exito = ps.executeUpdate();
             if (exito == 1) {
@@ -73,13 +74,13 @@ public class DetalleVentaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detalleventa. No se pudo modificar el detalle de la venta" + ex);
         }
         return exito;
-    } 
-       
+    }
+
 //  método eliminar detalleventa
     public int eliminarDetalleVenta(int id) {
-        String sql = "UPDATE detalleventa SET estado = 0 WHERE idDetalleVenta=?";        
+        String sql = "UPDATE detalleventa SET estado = 0 WHERE idDetalleVenta=?";
         System.out.println("id=" + id);
-        int exito=0;
+        int exito = 0;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -95,12 +96,12 @@ public class DetalleVentaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detalleventa. No se pudo eliminar el detalle de venta" + ex.getMessage());
         }
         return exito;
-    }  
-    
+    }
+
 //  método recuperar un detalle de venta eliminado logicamente
     public int recuperarDetalleVenta(int id) {
-        String sql = "UPDATE detalleventa SET estado = 1 WHERE idDetalleVenta=?";        
-        int exito=0;
+        String sql = "UPDATE detalleventa SET estado = 1 WHERE idDetalleVenta=?";
+        int exito = 0;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -115,8 +116,8 @@ public class DetalleVentaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detalleventa. No se pudo Recuperar el detalle de venta" + ex.getMessage());
         }
         return exito;
-    }  
-    
+    }
+
 //  método buscar detalle de venta
     public Venta buscarDetalleVenta(int id, int bajaActivo) {
         String sql = "SELECT venta.idCliente, fechaVenta, venta.estado, cliente.* FROM venta, cliente WHERE venta.idVenta=? AND venta.estado=?";
@@ -135,7 +136,7 @@ public class DetalleVentaData {
                 cliente.setTelefono(rs.getString("cliente.telefono"));
                 cliente.setDni(rs.getInt("cliente.dni"));
                 cliente.setEstado(rs.getBoolean("cliente.estado"));
-              
+
                 venta = new Venta();
                 venta.setIdVenta(id);
                 venta.setCliente(cliente);
@@ -153,32 +154,30 @@ public class DetalleVentaData {
         }
         return venta;
     }
-    
+
     //Método proximoIdVenta
-      public Venta proximoIdVenta() {                  
+    public Venta proximoIdVenta() {
         String sql = "SELECT idVenta FROM venta ORDER BY idVenta DESC";
         Venta venta = null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql);            
+            PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 venta = new Venta();
-                venta.setIdVenta(rs.getInt("idVenta"));                
+                venta.setIdVenta(rs.getInt("idVenta"));
                 //JOptionPane.showMessageDialog(null, "IdVenta ENCONTRADA");             
-            } 
+            }
             /*
             else {
                 //JOptionPane.showMessageDialog(null, "No existe el idVenta");
             };
-            */
+             */
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Venta. No se pudo buscar el IdVenta");
         }
         return venta;
-      };
-    
-    
-    
-    
+    }
+;
+
 }

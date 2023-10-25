@@ -1,15 +1,14 @@
+// RAMA V2
+// Actualizado dia: 25/10/23 hs: 15:38
 package vistas;
 
 import accesoADatos.ClienteData;
-import accesoADatos.DetalleVentaData;
 import accesoADatos.ProductoData;
 import accesoADatos.VentaData;
 import accesoADatos.ListadosData;
 import entidades.Cliente;
 import entidades.DetalleVenta;
 import entidades.Producto;
-import entidades.Venta;
-
 import accesoADatos.DetalleVentaData;
 import entidades.Venta;
 import java.awt.EventQueue;
@@ -24,15 +23,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-
 public class JIFVentasXFecha extends javax.swing.JInternalFrame {
-    
-      private DefaultTableModel modelo1 = new DefaultTableModel() {
+
+    private DefaultTableModel modelo1 = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
-    
+
     ClienteData clidata = new ClienteData();
     Cliente cli = new Cliente();
     ProductoData prodata = new ProductoData();
@@ -44,19 +42,18 @@ public class JIFVentasXFecha extends javax.swing.JInternalFrame {
     ListadosData lisdata = new ListadosData();
     // arma el formato para numeros con decimales
     DecimalFormat df = new DecimalFormat("#.00");
-    int filaSeleccionada=0;
-
+    int filaSeleccionada = 0;
 
     /**
      * Creates new form JIFVentasXFecha
      */
     public JIFVentasXFecha() {
-        initComponents();       
-        this.setTitle("FRAVEMAX - Listados de ventas por fecha");        
+        initComponents();
+        this.setTitle("FRAVEMAX - Listados de ventas por fecha");
         // inicializa los valores pra una nuevo detalle de a venta
         inicializaValores();
         armarCabecera1();
-        
+
     }
 
     /**
@@ -196,42 +193,39 @@ public class JIFVentasXFecha extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBsalirActionPerformed
 
     private void jBbuscarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarVentaActionPerformed
-     // borra los datos desde donde se eligio en la jtable y se ven los datos
+        // borra los datos desde donde se eligio en la jtable y se ven los datos
         DefaultTableModel tablemodel1 = (DefaultTableModel) jtIdListadoVentas.getModel();
-        tablemodel1.setRowCount(0);            
+        tablemodel1.setRowCount(0);
         java.util.Date fechaSeleccionada = jdcFecha.getDate();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String fechaFormateada = sdf.format(fechaSeleccionada);
         // va a buscar a sql los datos de las ventas realizadas en la fecha ingresada en jdcFecha     
-        Double acumuladoDia=0.00;
+        Double acumuladoDia = 0.00;
         for (Venta vta : lisdata.buscarDetalleVenta(fechaFormateada, 1)) {
-            String importeFormateado = df.format(vta.getTotalVenta());                
+            String importeFormateado = df.format(vta.getTotalVenta());
             modelo1.addRow(new Object[]{
                 vta.getIdVenta(),
                 vta.getCliente().getDni(),
                 vta.getCliente().getApellido(),
                 vta.getCliente().getNombre(),
-                importeFormateado                
+                importeFormateado
             });
             Double ventaDelDia = (Double) vta.getTotalVenta();
-            acumuladoDia=acumuladoDia+ventaDelDia;
+            acumuladoDia = acumuladoDia + ventaDelDia;
         }
         // asigna el total vendido para porder verlo en jLtotalVta
         // captura el dato que esta en la columna del idVenta        
-        jLtotalVta.setText(acumuladoDia+"");
+        jLtotalVta.setText(acumuladoDia + "");
         // PARA CONSULTAR SI LA TABLA ESTA VACIA O NO                
-        if (jtIdListadoVentas.getRowCount() == 0)
-        {
+        if (jtIdListadoVentas.getRowCount() == 0) {
             // se bloquearon para hacer mas practico la consulta
             // bloqueo ests dos lineas para que no se amolesto el mensaje cuando no encuentre un dato
             //JOptionPane.showMessageDialog(null, "No Existen Datos de Clientes", "Advertencia",
             //JOptionPane.WARNING_MESSAGE);            
-        }        
-        else
-        {        
+        } else {
             //int linTabla = jTableBuscarCliente.getSelectedRow()+1;
             //int colTabla = jTableBuscarCliente.getSelectedColumn();            
-        } 
+        }
     }//GEN-LAST:event_jBbuscarVentaActionPerformed
 
 
@@ -247,26 +241,24 @@ public class JIFVentasXFecha extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JTable jtIdListadoVentas;
     // End of variables declaration//GEN-END:variables
-private void armarCabecera1() {     
+private void armarCabecera1() {
         TableColumnModel columnModel1 = jtIdListadoVentas.getColumnModel();
         ((DefaultTableCellRenderer) jtIdListadoVentas.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         jtIdListadoVentas.setRowHeight(30);
-        
+
         modelo1.addColumn("IdVenta");
         modelo1.addColumn("DniCliente");
         modelo1.addColumn("Apellido");
         modelo1.addColumn("Nombre");
         modelo1.addColumn("TotalVenta");
 
-        jtIdListadoVentas.setModel(modelo1);        
+        jtIdListadoVentas.setModel(modelo1);
         columnModel1.getColumn(0).setPreferredWidth(50);
         columnModel1.getColumn(1).setPreferredWidth(40);
         columnModel1.getColumn(2).setPreferredWidth(100);
         columnModel1.getColumn(3).setPreferredWidth(100);
         columnModel1.getColumn(4).setPreferredWidth(70);
-        
-        
-        
+
         // alinea al centro los datos en las columnas de las jtable
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
@@ -278,32 +270,26 @@ private void armarCabecera1() {
         jtIdListadoVentas.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         jtIdListadoVentas.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
         jtIdListadoVentas.getColumnModel().getColumn(3).setCellRenderer(leftRenderer);
-        jtIdListadoVentas.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);        
+        jtIdListadoVentas.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
     }
-    
-       
-    
-    private void inicializaValores()
-    {
-      // coloca la fecha actual al formulario de Detal le de Venta (de una fecha LocalDate a un jDateChooser
-      //JDateChooser dateChooser = new JDateChooser(); // declaracion de un variable tipo jDateChooser
-        LocalDate hoyEs=LocalDate.now();        
+
+    private void inicializaValores() {
+        // coloca la fecha actual al formulario de Detal le de Venta (de una fecha LocalDate a un jDateChooser
+        //JDateChooser dateChooser = new JDateChooser(); // declaracion de un variable tipo jDateChooser
+        LocalDate hoyEs = LocalDate.now();
         //System.out.println(hoyEs);
         Date date = Date.from(hoyEs.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         jdcFecha.setDate(date);
-      
-        
-      
-      // limpiar la jtable
-        DefaultTableModel tablemodel1 = (DefaultTableModel) jtIdListadoVentas.getModel(); 
-        tablemodel1.setRowCount(0);
-        
-      // limpiar el total calculado
-        jLtotalVta.setText("");
-                       
-      // coloca el cursor en le primer campo jTFbuscarclientedni      
-        EventQueue.invokeLater( () -> jdcFecha.requestFocusInWindow() );        
-    }
 
+        // limpiar la jtable
+        DefaultTableModel tablemodel1 = (DefaultTableModel) jtIdListadoVentas.getModel();
+        tablemodel1.setRowCount(0);
+
+        // limpiar el total calculado
+        jLtotalVta.setText("");
+
+        // coloca el cursor en le primer campo jTFbuscarclientedni      
+        EventQueue.invokeLater(() -> jdcFecha.requestFocusInWindow());
+    }
 
 }

@@ -1,8 +1,9 @@
-
+// RAMA V2
+// Actualizado dia: 25/10/23 hs: 15:38
 package entidades;
 
-public class Producto implements Comparable<Producto>{
-    
+public class Producto implements Comparable<Producto> {
+
     private int idProducto;
     private String nombreProducto;
     private String descripcion;
@@ -82,11 +83,10 @@ public class Producto implements Comparable<Producto>{
     public String toString() {
         return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", descripcion=" + descripcion + ", precioActual=" + precioActual + ", stock=" + stock + ", estado=" + estado + '}';
     }
-    
+
     @Override
     public int compareTo(Producto otroProducto) {
-        return this.nombreProducto.compareTo(otroProducto.nombreProducto); 
+        return this.nombreProducto.compareTo(otroProducto.nombreProducto);
     }
-    
-    
+
 }

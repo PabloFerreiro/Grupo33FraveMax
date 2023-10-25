@@ -1,3 +1,5 @@
+ // RAMA V2
+// Actualizado dia: 25/10/23 hs: 15:38
 package accesoADatos;
 
 import java.sql.Connection;
@@ -8,17 +10,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import entidades.Cliente;
-import vistas.JIFCliente;
-
 
 public class ClienteData {
 
     private Connection con = null;
-    public static TreeSet<Cliente> listaClientes=new TreeSet<>();
+    public static TreeSet<Cliente> listaClientes = new TreeSet<>();
 
     public ClienteData() {
 
@@ -29,24 +27,23 @@ public class ClienteData {
 //  método guardar cliente
     public int guardarCliente(Cliente cliente) {
         String sql = "INSERT INTO cliente (apellido, nombre, domicilio, telefono, estado, dni) VALUES (?, ?, ?, ?, ?, ?)";
-        int exito=0; 
+        int exito = 0;
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setString(1, cliente.getApellido());
             ps.setString(2, cliente.getNombre());
             ps.setString(3, cliente.getDomicilio());
             ps.setString(4, cliente.getTelefono());
             ps.setBoolean(5, cliente.isEstado());
             ps.setInt(6, cliente.getDni());
-            ps.executeUpdate();            
+            ps.executeUpdate();
             ps.getGeneratedKeys();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 cliente.setIdCliente(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Cliente guardado");
                 exito = 1;
-                
 
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo realizar el guardado del cliente");
@@ -59,20 +56,20 @@ public class ClienteData {
     }
 
 //  método modificar cliente
-    public int modificarCliente(Cliente cliente) {        
+    public int modificarCliente(Cliente cliente) {
         String sql = "UPDATE cliente SET apellido=?, nombre=?, domicilio=?, telefono=?, estado=?, dni=? WHERE idCliente=?";
-        int exito=0; 
+        int exito = 0;
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setString(1, cliente.getApellido());
             ps.setString(2, cliente.getNombre());
             ps.setString(3, cliente.getDomicilio());
             ps.setString(4, cliente.getTelefono());
-            ps.setBoolean(5, cliente.isEstado());           
+            ps.setBoolean(5, cliente.isEstado());
             ps.setInt(6, cliente.getDni());
             ps.setInt(7, cliente.getIdCliente());
-           
+
             //System.out.println("idAlumno en modificar="+alumno.getIdAlumno());
             exito = ps.executeUpdate();
             if (exito == 1) {
@@ -81,7 +78,6 @@ public class ClienteData {
                 JOptionPane.showMessageDialog(null, "Cliente inexistente");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteData.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Cliente. No se pudo modificar el cliente");
         }
         return exito;
@@ -89,8 +85,8 @@ public class ClienteData {
 
 //  método eliminar cliente
     public int eliminarCliente(int id) {
-        String sql = "UPDATE cliente SET estado = 0 WHERE idCliente=?";        
-        int exito=0;
+        String sql = "UPDATE cliente SET estado = 0 WHERE idCliente=?";
+        int exito = 0;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -107,11 +103,11 @@ public class ClienteData {
         }
         return exito;
     }
-    
+
 //  método Recuperar un cliente eliminado logicamente
     public int recuperarCliente(int id) {
-        String sql = "UPDATE cliente SET estado = 1 WHERE idCliente=?";        
-        int exito=0;
+        String sql = "UPDATE cliente SET estado = 1 WHERE idCliente=?";
+        int exito = 0;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -127,7 +123,7 @@ public class ClienteData {
         }
         return exito;
     }
-    
+
 //  método buscar cliente
     public Cliente buscarCliente(int id, int bajaActivo) {
         String sql = "SELECT apellido, nombre, domicilio, telefono, estado, dni FROM cliente WHERE idCliente=? AND estado=?";
@@ -139,7 +135,7 @@ public class ClienteData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 cliente = new Cliente();
-                cliente.setIdCliente(id);           
+                cliente.setIdCliente(id);
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setDomicilio(rs.getString("domicilio"));
@@ -158,26 +154,26 @@ public class ClienteData {
         }
         return cliente;
     }
-        
+
 //  método buscar cliente por dni
     public Cliente buscarClientePorDni(int dni) {
         //String sql = "SELECT idAlumno, dni, apellido, nombre, fechaNacimiento, estado FROM alumno WHERE dni = ? AND estado = ?";
         String sql = "SELECT idCliente, apellido, nombre, domicilio, telefono, estado, dni FROM cliente WHERE dni=?";
         Cliente cliente = null;
         try {
-            PreparedStatement ps=con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
-            ResultSet rs=ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                cliente=new Cliente();
-                cliente.setIdCliente(rs.getInt("idCliente"));           
+                cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setDomicilio(rs.getString("domicilio"));
                 cliente.setTelefono(rs.getString("telefono"));
                 cliente.setEstado(rs.getBoolean("estado"));
                 cliente.setDni(rs.getInt("dni"));
-                
+
                 // no se hace esta asignacion porque se entiende por defecto de que lo que 
                 // esta trayendo del sql son registros activos-true-
                 //alumno.setActivo(rs.getBoolean("estado"));
@@ -191,70 +187,71 @@ public class ClienteData {
         }
         return cliente;
     }
-        
+
 //  Método listarClientes ANTERIOR para buscar en un COMBOBOX
     public List<Cliente> listarClientes(int bajaActivo) {
         String sql = "SELECT idCliente, apellido, nombre, domicilio, telefono, estado, dni FROM cliente WHERE estado=?"
                 + " ORDER BY apellido, nombre ";
         ArrayList<Cliente> clientes = new ArrayList<>();
         try {
-            PreparedStatement ps=con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, bajaActivo);
-            ResultSet rs=ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Cliente cliente=new Cliente();
-                cliente.setIdCliente(rs.getInt("idCliente"));    
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setDomicilio(rs.getString("domicilio"));
-                cliente.setTelefono(rs.getString("telefono"));             
-                cliente.setEstado(rs.getBoolean("estado")); 
+                cliente.setTelefono(rs.getString("telefono"));
+                cliente.setEstado(rs.getBoolean("estado"));
                 cliente.setDni(rs.getInt("dni"));
-                
+
                 // no se hace esta asignacion porque se entiende por defecto de que lo que 
                 // esta trayendo del sql son registros activos-true-
                 //alumno.setActivo(rs.getBoolean("estado"));
-                clientes.add(cliente);                
+                clientes.add(cliente);
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Cliente. No se pudo buscar el cliente");
-        }        
+        }
         return clientes;
     }
-    
+
 //  Método listarClientes NUEVA para buscar en una JTABLE
-    public TreeSet<Cliente> listarClientesJTable(int bajaActivo){                  
+    public TreeSet<Cliente> listarClientesJTable(int bajaActivo) {
         String sql = "SELECT idCliente, apellido, nombre, domicilio, telefono, estado, dni FROM cliente WHERE estado=?"
                 + " ORDER BY apellido, nombre ";
-        TreeSet<Cliente> clientes=new TreeSet<>();
+        TreeSet<Cliente> clientes = new TreeSet<>();
         try {
-            PreparedStatement ps=con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, bajaActivo);
-            ResultSet rs=ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Cliente cliente=new Cliente();
-                cliente.setIdCliente(rs.getInt("idCliente"));    
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setDomicilio(rs.getString("domicilio"));
-                cliente.setTelefono(rs.getString("telefono"));             
-                cliente.setEstado(rs.getBoolean("estado")); 
-                cliente.setDni(rs.getInt("dni"));               
+                cliente.setTelefono(rs.getString("telefono"));
+                cliente.setEstado(rs.getBoolean("estado"));
+                cliente.setDni(rs.getInt("dni"));
                 // no se hace esta asignacion porque se entiende por defecto de que lo que 
                 // esta trayendo del sql son registros activos-true-
                 //alumno.setActivo(rs.getBoolean("estado"));
-                clientes.add(cliente);                
-            }            
+                clientes.add(cliente);
+            }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Cliente. No se pudo buscar el cliente");
-        }        
-        catch (Exception ex2) {
-            JOptionPane.showMessageDialog(null, "Error 2:"+ex2);
+        } catch (Exception ex2) {
+            JOptionPane.showMessageDialog(null, "Error 2:" + ex2);
         }
-        return clientes;        
-      };
+        return clientes;
+    }
+
+    ;
     
 //    //  Método listarClientes NUEVA para buscar en una JTABLE
 //    public TreeSet<Cliente> listarClientesJTableParaGestionCliente(){                  
@@ -291,38 +288,36 @@ public class ClienteData {
 //      };
     
     //  Método listarClientes NUEVA para buscar en una JTABLE
-    public ArrayList<Cliente> listarClientesJTableParaGestionCliente(){                  
+    public ArrayList<Cliente> listarClientesJTableParaGestionCliente() {
         String sql = "SELECT * FROM cliente"
-                + " ORDER by cliente.dni "
-                ;
-        ArrayList<Cliente> clientes=new ArrayList<>();
+                + " ORDER by cliente.dni ";
+        ArrayList<Cliente> clientes = new ArrayList<>();
         try {
-            PreparedStatement ps=con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
 //            ps.setInt(1, bajaActivo);
-            ResultSet rs=ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Cliente cliente=new Cliente();
-                cliente.setIdCliente(rs.getInt("idCliente"));    
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idCliente"));
                 cliente.setApellido(rs.getString("apellido"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setDomicilio(rs.getString("domicilio"));
-                cliente.setTelefono(rs.getString("telefono"));             
-                cliente.setEstado(rs.getBoolean("estado")); 
-                cliente.setDni(rs.getInt("dni"));               
+                cliente.setTelefono(rs.getString("telefono"));
+                cliente.setEstado(rs.getBoolean("estado"));
+                cliente.setDni(rs.getInt("dni"));
                 // no se hace esta asignacion porque se entiende por defecto de que lo que 
                 // esta trayendo del sql son registros activos-true-
                 //alumno.setActivo(rs.getBoolean("estado"));
-                clientes.add(cliente);                
-            }            
+                clientes.add(cliente);
+            }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Cliente. No se pudo buscar el cliente");
-        }        
-        catch (Exception ex2) {
-            JOptionPane.showMessageDialog(null, "Error 2:"+ex2);
+        } catch (Exception ex2) {
+            JOptionPane.showMessageDialog(null, "Error 2:" + ex2);
         }
-        return clientes;        
-      };
+        return clientes;
+    }
+;
 
-      
 }

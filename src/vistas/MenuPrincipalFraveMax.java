@@ -1,8 +1,8 @@
-// 10/10 15:09
+// RAMA V2
+// Actualizado dia: 25/10/23 hs: 15:38
 package vistas;
 
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import java.awt.Graphics;
@@ -11,7 +11,6 @@ import javax.swing.ImageIcon;
 
 public class MenuPrincipalFraveMax extends javax.swing.JFrame {
 
-    
     // PARA PODER CREAR UN OPCION DE ELEGIR SI DESEA SALIR O NO CUANDO PRESIONA -SALIR o X-
     public void Cerrar(int tipo) {
         String botones[] = {"Cerrar", "Cancelar"};
@@ -34,14 +33,12 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         }
     }
 
-
-
     public MenuPrincipalFraveMax() {
         initComponents();
         this.setLocationRelativeTo(null);
         editarObloquearMenues(false, false, false, true);
         this.setTitle("FRAVEMAX - GRUPO 33");
-        
+
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("../images/Grupo332023.png"));
         setIconImage(iconoPropio);
         setVisible(true);
@@ -236,7 +233,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiGestionVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGestionVentasActionPerformed
-       jdpEscritorio.removeAll();
+        jdpEscritorio.removeAll();
         jdpEscritorio.repaint();
         JIFGestionVentas jifgestionventas = new JIFGestionVentas();
         jdpEscritorio.add(jifgestionventas);
@@ -250,10 +247,10 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiGestionVentasActionPerformed
 
     private void jmiListado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListado1ActionPerformed
-    
+
         jdpEscritorio.removeAll();
         jdpEscritorio.repaint();
-        JIFProductosVentaXFecha jifproductosventaxfecha = new JIFProductosVentaXFecha ();
+        JIFProductosVentaXFecha jifproductosventaxfecha = new JIFProductosVentaXFecha();
         jdpEscritorio.add(jifproductosventaxfecha);
         jifproductosventaxfecha.setVisible(true);
 
@@ -275,14 +272,13 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         jdpEscritorio.add(jiflogin);
         jiflogin.setVisible(true);
         //jdpEscritorio.moveToFront(jiflogin);
-        
 
         // Lineas para centrar el jInternalFrame dentro del desktopPane
         Dimension desktopSize = jdpEscritorio.getSize();
         Dimension jInternalFrameSize = jiflogin.getSize();
         jiflogin.setLocation((desktopSize.width - jInternalFrameSize.width) / 2,
                 (desktopSize.height - jInternalFrameSize.height) / 2);
-        
+
 //        jiflogin.requestFocus();
 //        jdpEscritorio.revalidate();
     }//GEN-LAST:event_jmiLoginActionPerformed
@@ -416,7 +412,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiSalir;
     // End of variables declaration//GEN-END:variables
 
-        // permite el bloqueo o habilitacion de los Jmenu
+    // permite el bloqueo o habilitacion de los Jmenu
     public void editarObloquearMenues(boolean txt1, boolean txt2, boolean txt3, boolean txt4) {
 
         if (txt1) {
@@ -439,9 +435,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         } else {
             jmiLogin.setEnabled(false);
         }
-       
 
     }
-
 
 }
