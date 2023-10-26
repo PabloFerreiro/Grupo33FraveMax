@@ -18,6 +18,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.toedter.calendar.JDateChooser;
 import entidades.Cliente;
 import entidades.DetalleVenta;
 import entidades.Producto;
@@ -36,6 +37,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -409,7 +412,7 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -420,23 +423,22 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
                                 .addComponent(jTFdni, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(47, 47, 47)
                                 .addComponent(jlEstadoCliente)
-                                .addGap(76, 76, 76)
+                                .addGap(32, 32, 32)
                                 .addComponent(jLabel20)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTFtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel18)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFdireccion))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTFapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(19, 19, 19)
-                                    .addComponent(jLabel14)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTFnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTFtelefono))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFdireccion))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTFapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel14)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTFnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -769,7 +771,8 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "SE REGISTRO CON EXITO LA VENTA", "Atencion-Ok",
                     JOptionPane.WARNING_MESSAGE);
             // permite generar un PDF con la factura de venta realizada
-            pdf();
+            //pdf();
+            pdf(jTFidventa,jDCFecha,jTFid,jTFdni,jTFapellido,jTFnombre,jTFtelefono,jTFdireccion,jTableDetalleVenta,jTFtotalventa,1);
             //pdf(jTFidventa,jDCFecha,jTFid,jTFdni,jTFapellido,jTFnombre,jTFtelefono,jTFdireccion,jTableDetalleVenta,jTFtotalventa);
             // procede a limpar toda la pantalla para una nueva venta
             inicializaValores();
@@ -1309,7 +1312,8 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
 
 // metodo que permite emitir un comprobante de la venta realizada en un PDF    
     //private void pdf(String jTFidventa,LocalDate jDCFecha,String jTFid,String jTFdni,String jTFapellido,String jTFnombre,String jTFtelefono,String jTFdireccion,jTableDetalleVenta,String jTFtotalventa)
-    private void pdf() {
+//    private void pdf() {
+    private void pdf(JTextField jTFidventa,JDateChooser jDCFecha,JTextField jTFid,JTextField jTFdni,JTextField jTFapellido,JTextField jTFnombre,JTextField jTFtelefono,JTextField jTFdireccion,JTable jTableDetalleVenta,JTextField jTFtotalventa, int original) {
         try {
             FileOutputStream archivo;
             File file = new File("src/reportesPdf/venta" + jTFidventa.getText() + ".pdf");
@@ -1327,8 +1331,16 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
             Date date = jDCFecha.getDate();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String fechaVta = formatter.format(date);
-            fecha.add("Factura Nro: " + jTFidventa.getText() + "\n" + "Fecha: " + fechaVta + "\n\n");
+            
+            if (original==1){
+            fecha.add("Factura Nro: " + jTFidventa.getText() + "\n" + "Fecha: " + fechaVta + "\n" + "(ORIGINAL)" + "\n");
 
+            
+            }else{
+            fecha.add("Factura Nro: " + jTFidventa.getText() + "\n" + "Fecha: " + fechaVta + "\n" + "(DUPLICADO)" + "\n");
+
+            } 
+           
             PdfPTable Encabezado = new PdfPTable(4);
             Encabezado.setWidthPercentage(100);
             Encabezado.getDefaultCell().setBorder(0);
