@@ -1,5 +1,5 @@
 // RAMA V2
-// Actualizado dia: 25/10/23 hs: 15:38
+// Actualizado dia: 27/10/23 hs: 10:40
 package vistas;
 
 import accesoADatos.ClienteData;
@@ -1212,12 +1212,12 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         modelo3.addColumn("Stock");
         jTableDetalleVenta.setModel(modelo3);
         columnModel3.getColumn(0).setPreferredWidth(40);
-        columnModel3.getColumn(1).setPreferredWidth(200);
-        columnModel3.getColumn(2).setPreferredWidth(300);
-        columnModel3.getColumn(3).setPreferredWidth(100);
-        columnModel3.getColumn(4).setPreferredWidth(90);
-        columnModel3.getColumn(5).setPreferredWidth(100);
-        columnModel3.getColumn(6).setPreferredWidth(50);
+        columnModel3.getColumn(1).setPreferredWidth(145);
+        columnModel3.getColumn(2).setPreferredWidth(250);
+        columnModel3.getColumn(3).setPreferredWidth(90);
+        columnModel3.getColumn(4).setPreferredWidth(60);
+        columnModel3.getColumn(5).setPreferredWidth(90);
+        columnModel3.getColumn(6).setPreferredWidth(30);
         // alinea al centro los datos en las columnas de las jtable
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);

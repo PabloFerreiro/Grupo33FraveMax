@@ -159,6 +159,7 @@ public class DetalleVentaData {
     public Venta proximoIdVenta() {
         String sql = "SELECT idVenta FROM venta ORDER BY idVenta DESC";
         Venta venta = null;
+        int inicial=0;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -166,7 +167,11 @@ public class DetalleVentaData {
                 venta = new Venta();
                 venta.setIdVenta(rs.getInt("idVenta"));
                 //JOptionPane.showMessageDialog(null, "IdVenta ENCONTRADA");             
+            }else{
+                venta = new Venta();
+                venta.setIdVenta(rs.getInt(inicial));
             }
+            
             /*
             else {
                 //JOptionPane.showMessageDialog(null, "No existe el idVenta");
@@ -174,7 +179,11 @@ public class DetalleVentaData {
              */
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Venta. No se pudo buscar el IdVenta");
+            if (inicial == 0) {
+                JOptionPane.showMessageDialog(null, "No Existen Registros de ventas, Ingrese el primer Registro");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Venta. No se pudo buscar el IdVenta");
+            }
         }
         return venta;
     }
