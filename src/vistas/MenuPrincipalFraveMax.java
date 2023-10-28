@@ -1,5 +1,5 @@
 // RAMA V2
-// Actualizado dia: 25/10/23 hs: 15:38
+// Actualizado dia: 28/10/23 hs: 14:25
 package vistas;
 
 import java.awt.Dimension;

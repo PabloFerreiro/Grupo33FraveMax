@@ -32,7 +32,6 @@
               </Border>
             </Property>
             <Property name="text" type="java.lang.String" value="GESTI&#xd3;N_ABMC"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="18" style="1"/>
             </Property>
@@ -73,7 +72,6 @@
               </Border>
             </Property>
             <Property name="text" type="java.lang.String" value="VENTAS"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="18" style="1"/>
             </Property>
@@ -100,7 +98,6 @@
               </Border>
             </Property>
             <Property name="text" type="java.lang.String" value="LISTADOS"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="18" style="1"/>
             </Property>
@@ -160,7 +157,6 @@
               </Border>
             </Property>
             <Property name="text" type="java.lang.String" value="LOGIN/SALIR"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="18" style="1"/>
             </Property>

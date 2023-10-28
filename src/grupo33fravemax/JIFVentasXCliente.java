@@ -1,7 +1,8 @@
 // RAMA V2
-// Actualizado dia: 28/10/23 hs: 14:25
-package vistas;
+// Actualizado dia: 25/10/23 hs: 15:38
+package grupo33fravemax;
 
+import vistas.*;
 import vistas.JIFGestionVentas;
 import accesoADatos.ClienteData;
 import accesoADatos.ProductoData;
@@ -109,6 +110,7 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
         jtIdListadoVentas = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         jLtotalcomprobante = new javax.swing.JLabel();
+        jLtotalVta = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtListadoDetalleVenta = new javax.swing.JTable();
         jLdetalleProductosVendidos = new javax.swing.JLabel();
@@ -120,9 +122,8 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
         xjTFnombre = new javax.swing.JTextField();
         xjTFtelefono = new javax.swing.JTextField();
         xjTFdireccion = new javax.swing.JTextField();
-        xjDCFecha = new javax.swing.JTextField();
-        jTFtotalVta = new javax.swing.JTextField();
         xjTFtotalventa = new javax.swing.JTextField();
+        xjDCFecha = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Ventas x cliente");
@@ -204,6 +205,8 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
         jLtotalcomprobante.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLtotalcomprobante.setText("Total de Ventas $");
 
+        jLtotalVta.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+
         jtListadoDetalleVenta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtListadoDetalleVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -230,14 +233,30 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jTFtotalVta.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        xjTFid.setText("jTextField1");
+
+        xjTFidventa.setText("jTextField1");
+
+        xjTFdni.setText("jTextField1");
+
+        xjTFapellido.setText("jTextField1");
+
+        xjTFnombre.setText("jTextField1");
+
+        xjTFtelefono.setText("jTextField1");
+
+        xjTFdireccion.setText("jTextField1");
+
+        xjTFtotalventa.setText("jTextField1");
+
+        xjDCFecha.setText("jTextField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -249,6 +268,35 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
                         .addComponent(jtfBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(xjTFidventa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(xjDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(xjTFid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(xjTFdni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(xjTFapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(xjTFnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(xjTFtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(xjTFdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(xjTFtotalventa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(466, 466, 466)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBduplicarPdf, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBsalir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLtotalcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLtotalVta, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -256,36 +304,7 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
                                 .addComponent(jScrollPane2))
                             .addComponent(jLdetalleProductosVendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(xjTFidventa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(xjDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(xjTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(xjTFdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(xjTFapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(xjTFnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(xjTFtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(xjTFdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(xjTFtotalventa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLtotalcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTFtotalVta, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBduplicarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBsalir)))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
@@ -316,28 +335,25 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLtotalcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTFtotalVta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(9, 9, 9))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(xjTFidventa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jLtotalcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLtotalVta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(xjTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(xjTFdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(xjTFapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(xjTFnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(xjTFtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(xjTFdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(xjTFtotalventa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(xjDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBsalir)
-                            .addComponent(jBduplicarPdf)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(xjTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(xjTFdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(xjTFapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(xjTFnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(xjTFtelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(xjTFdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(xjDCFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(xjTFtotalventa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                            .addComponent(jBduplicarPdf))
+                        .addGap(10, 10, 10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(xjTFidventa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -356,7 +372,7 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
         DefaultTableModel tablemodel1 = (DefaultTableModel) jtListadoClientes.getModel();
         tablemodel1.setRowCount(0);
         // limpio el total de ventas del cliente
-        jTFtotalVta.setText("");
+        jLtotalVta.setText("");
         if (jtfBuscarCliente.getText().isEmpty() || jtfBuscarCliente.getText() == null) {
             // borra los datos desde donde se eligio en la jtable
             tablemodel1.setRowCount(0);
@@ -430,10 +446,10 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
             Double ventaCliente = (Double) vtas.getTotalVenta();
             acumuladoDia = acumuladoDia + ventaCliente;
         }
-        // asigna el total vendido para porder verlo en jTFtotalVta        
-        // formatea el importe con decimales                
-        String importeFormateado = df.format(acumuladoDia);
-        jTFtotalVta.setText("            " + importeFormateado);
+        // asigna el total vendido para porder verlo en jLtotalVta
+        // captura el dato que esta en la columna del idVenta        
+        jLtotalVta.setText(df.format(acumuladoDia) + "");
+        //jLtotalVta.setText(acumuladoDia+"");
         // PARA CONSULTAR SI LA TABLA ESTA VACIA O NO                
         if (jtIdListadoVentas.getRowCount() == 0) {
             // se bloquearon para hacer mas practico la consulta
@@ -449,12 +465,15 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
 
     private void jtIdListadoVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtIdListadoVentasMouseClicked
         // captura la linea que se eligio en la tabla jtListadoClientes
-        filaSeleccionada1=jtIdListadoVentas.rowAtPoint(evt.getPoint());
+        filaSeleccionada1 = jtIdListadoVentas.rowAtPoint(evt.getPoint());
+        //System.out.println("filaseleccionada1: " + filaSeleccionada1);
         // captura el dato que esta en la columna del jtListadoClientes
-        int idVentaABuscar = (int) jtIdListadoVentas.getValueAt(filaSeleccionada1, 0);        
+        int idVentaABuscar = (int) jtIdListadoVentas.getValueAt(filaSeleccionada1, 0);
+        System.out.println("A:"+filaSeleccionada1);
+        System.out.println("b:"+idVentaABuscar);        
         // borra los datos de ventas
         DefaultTableModel tablemodel3 = (DefaultTableModel) jtListadoDetalleVenta.getModel();
-        tablemodel3.setRowCount(0);           
+        tablemodel3.setRowCount(0);
 //        modelo3.addColumn("Id");
 //        modelo3.addColumn("Nombre");
 //        modelo3.addColumn("Descripción");
@@ -462,17 +481,17 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
 //        modelo3.addColumn("Cantidad");
 //        modelo3.addColumn("Precio a Pagar");
 //        modelo3.addColumn("Stock");        
-        for (DetalleVenta dtavtas : lisdata.buscarDetalleProducto(idVentaABuscar, 1)) {            
+        for (DetalleVenta dtavtas : lisdata.buscarDetalleProducto(idVentaABuscar, 1)) {
             // toma el precio total de ventas
-            Double preTotVta = (Double) dtavtas.getPrecioVenta();                        
+            Double preTotVta = (Double) dtavtas.getPrecioVenta();
             // toma la cantidad vendida del producto
-            int cantVenta = (Integer) dtavtas.getCantidad();                        
+            int cantVenta = (Integer) dtavtas.getCantidad();
             // calcula el precio unitario segun ese total ventas
-            double precioUnitario = preTotVta / cantVenta;                                  
+            double precioUnitario = preTotVta / cantVenta;
             // formatea el importe con decimales                
-            String precioUnitarioForma = df.format(precioUnitario);                     
+            String precioUnitarioForma = df.format(precioUnitario);
             //formatea el total vendido de ese producto con decimales
-            String totVtaForma = df.format(preTotVta);                                                                
+            String totVtaForma = df.format(preTotVta);
             modelo3.addRow(new Object[]{
                 dtavtas.getProducto().getIdProducto(),
                 dtavtas.getProducto().getNombreProducto(),
@@ -480,22 +499,17 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
                 precioUnitarioForma,
                 cantVenta,
                 totVtaForma,
-                dtavtas.getProducto().getStock(),                                
-            });            
-        }        
-        if (jtIdListadoVentas.getRowCount() == 0)
-        {
+                dtavtas.getProducto().getStock(),});
+        }
+        if (jtIdListadoVentas.getRowCount() == 0) {
             // se bloquearon para hacer mas practico la consulta
             // bloqueo ests dos lineas para que no se amolesto el mensaje cuando no encuentre un dato
             //JOptionPane.showMessageDialog(null, "No Existen Datos de Clientes", "Advertencia",
             //JOptionPane.WARNING_MESSAGE);            
-        }        
-        else
-        {        
+        } else {
             //int linTabla = jtListadoProductos.getSelectedRow()+1;
             //int colTabla = jtListadoProductos.getSelectedColumn();            
-        }               
-
+        }
     }//GEN-LAST:event_jtIdListadoVentasMouseClicked
     
     
@@ -511,7 +525,7 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
         xjTFdireccion.setText(jtListadoClientes.getValueAt(filaSeleccionada, 4) + "");
         xjTFtelefono.setText(jtListadoClientes.getValueAt(filaSeleccionada, 5).toString());                
         xjTFidventa.setText(jtIdListadoVentas.getValueAt(filaSeleccionada1, 0).toString());                
-        xjTFtotalventa.setText("            " +jtIdListadoVentas.getValueAt(filaSeleccionada1, 2).toString());        
+        xjTFtotalventa.setText(jtIdListadoVentas.getValueAt(filaSeleccionada1, 2).toString());        
         String xjDCFecha = jtIdListadoVentas.getValueAt(filaSeleccionada1, 1).toString();
 
 //        String fechaString = jtIdListadoVentas.getValueAt(filaSeleccionada1, 1).toString();
@@ -537,11 +551,11 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLdetalleProductosVendidos;
+    private javax.swing.JLabel jLtotalVta;
     private javax.swing.JLabel jLtotalcomprobante;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTFtotalVta;
     private javax.swing.JTable jtIdListadoVentas;
     private javax.swing.JTable jtListadoClientes;
     private javax.swing.JTable jtListadoDetalleVenta;
@@ -660,8 +674,7 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
         tablemodel3.setRowCount(0);
 
         // limpiar el total calculado
-        jTFtotalVta.setText("");
-        jTFtotalVta.setEditable(false);
+        jLtotalVta.setText("");
         
         // limpia  algunos tfield        
         xjTFid.setVisible(false);
@@ -671,9 +684,8 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
         xjTFdireccion.setVisible(false);
         xjTFtelefono.setVisible(false);
         xjTFidventa.setVisible(false);
-        xjDCFecha.setVisible(false);
         xjTFtotalventa.setVisible(false);
-        
+        xjDCFecha.setVisible(false);
 //        
 //        
 //        
@@ -690,8 +702,8 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
     private void pdf(JTextField jTFidventa,String jDCFecha,JTextField jTFid,JTextField jTFdni,JTextField jTFapellido,JTextField jTFnombre,JTextField jTFtelefono,JTextField jTFdireccion,JTable jTableDetalleVenta,JTextField jTFtotalventa, int original) {
         try {
             FileOutputStream archivo;
-            File file = new File("src/reportesPdf/DUPLI" + jTFidventa.getText() + ".pdf");
-            //System.out.println("src/reportesPdf/DUPLI"+jTFidventa.getText()+".pdf");            
+            File file = new File("src/reportesPdf/venta" + jTFidventa.getText() + ".pdf");
+            //System.out.println("src/reportesPdf/venta"+jTFidventa.getText()+".pdf");            
             archivo = new FileOutputStream(file);
             Document doc = new Document();
             PdfWriter.getInstance(doc, archivo);
@@ -854,7 +866,7 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
             Paragraph info = new Paragraph();
             font = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
             info.add(Chunk.NEWLINE);
-            info.setFont(font);                                    
+            info.setFont(font);
             info.add("Total a Pagar: $ " + jTFtotalventa.getText());
             info.setAlignment(Element.ALIGN_RIGHT);
             doc.add(info);

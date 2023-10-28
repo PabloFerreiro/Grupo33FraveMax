@@ -1,5 +1,5 @@
 // RAMA V2
-// Actualizado dia: 27/10/23 hs: 10:40
+// Actualizado dia: 28/10/23 hs: 14:25
 package vistas;
 
 import accesoADatos.ClienteData;
@@ -797,7 +797,7 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
         jTFapellido.setText("");
         jTFnombre.setText("");
         jTFdireccion.setText("");
-        //jTFtotalventa.setText("");        
+        jTFtotalventa.setText("");        
         jlEstadoCliente.setText("");
         if (jTFbuscarclientedni.getText().isEmpty() || jTFbuscarclientedni.getText() == null) {
             // borra los datos desde donde se eligio en la jtable
