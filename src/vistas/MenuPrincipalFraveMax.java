@@ -1,5 +1,5 @@
 // RAMA V2
-// Actualizado dia: 28/10/23 hs: 14:25
+// Actualizado dia: 29/10/23 hs: 17:28
 package vistas;
 
 import java.awt.Dimension;
@@ -102,16 +102,20 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
             .addGap(0, 733, Short.MAX_VALUE)
         );
 
-        jmGestionABMC.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 15, true));
+        jMenuBar1.setBackground(new java.awt.Color(217, 216, 239));
+
+        jmGestionABMC.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(148, 157, 201), 15, true));
         jmGestionABMC.setText("GESTIÓN_ABMC");
-        jmGestionABMC.setBorderPainted(false);
+        jmGestionABMC.setBorderPainted(true);
         jmGestionABMC.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jmGestionABMC.setOpaque(true);
         jmGestionABMC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmGestionABMCActionPerformed(evt);
             }
         });
 
+        jmiClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jmiClientes.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiClientes.setText("Clientes");
         jmiClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +125,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         });
         jmGestionABMC.add(jmiClientes);
 
+        jmiProductos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jmiProductos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiProductos.setText("Productos");
         jmiProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -132,11 +137,13 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
 
         jMenuBar1.add(jmGestionABMC);
 
-        jmVentas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 15, true));
+        jmVentas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(113, 125, 183), 15, true));
         jmVentas.setText("VENTAS");
-        jmVentas.setBorderPainted(false);
+        jmVentas.setBorderPainted(true);
         jmVentas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jmVentas.setOpaque(true);
 
+        jmiGestionVentas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jmiGestionVentas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiGestionVentas.setText("Gestión de Ventas");
         jmiGestionVentas.addActionListener(new java.awt.event.ActionListener() {
@@ -148,11 +155,13 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
 
         jMenuBar1.add(jmVentas);
 
-        jmListados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 15, true));
+        jmListados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(90, 101, 163), 15, true));
         jmListados.setText("LISTADOS");
-        jmListados.setBorderPainted(false);
+        jmListados.setBorderPainted(true);
         jmListados.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jmListados.setOpaque(true);
 
+        jmiListado1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         jmiListado1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiListado1.setText("Productos de una venta x fecha");
         jmiListado1.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +171,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         });
         jmListados.add(jmiListado1);
 
+        jmiListado2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jmiListado2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiListado2.setText("Ventas x fecha");
         jmiListado2.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +181,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         });
         jmListados.add(jmiListado2);
 
+        jmiListado3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jmiListado3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiListado3.setText("Ventas x cliente");
         jmiListado3.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +191,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         });
         jmListados.add(jmiListado3);
 
+        jmiListado4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jmiListado4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiListado4.setText("Clientes x productos");
         jmiListado4.addActionListener(new java.awt.event.ActionListener() {
@@ -191,11 +203,13 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
 
         jMenuBar1.add(jmListados);
 
-        jmLoginsalir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 15, true));
+        jmLoginsalir.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(61, 58, 148), 15, true));
         jmLoginsalir.setText("LOGIN/SALIR");
-        jmLoginsalir.setBorderPainted(false);
+        jmLoginsalir.setBorderPainted(true);
         jmLoginsalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jmLoginsalir.setOpaque(true);
 
+        jmiLogin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jmiLogin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiLogin.setText("Login");
         jmiLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -205,6 +219,7 @@ public class MenuPrincipalFraveMax extends javax.swing.JFrame {
         });
         jmLoginsalir.add(jmiLogin);
 
+        jmiSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jmiSalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jmiSalir.setText("Salir");
         jmiSalir.addActionListener(new java.awt.event.ActionListener() {

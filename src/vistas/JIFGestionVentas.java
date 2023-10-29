@@ -814,10 +814,10 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
                 if (primerChar == '*') {
                     siTomar = "S";
                 } else {
-                    if ((cli.getApellido()).contains((jTFbuscarclientedni.getText()))
-                            || (cli.getNombre()).contains((jTFbuscarclientedni.getText()))
+                    if ((cli.getApellido().toUpperCase()).contains((jTFbuscarclientedni.getText().toUpperCase()))
+                            || (cli.getNombre().toUpperCase()).contains((jTFbuscarclientedni.getText().toUpperCase()))
                             || (String.valueOf(cli.getDni())).contains((jTFbuscarclientedni.getText()))
-                            || (cli.getDomicilio()).contains((jTFbuscarclientedni.getText()))
+                            || (cli.getDomicilio().toUpperCase()).contains((jTFbuscarclientedni.getText().toUpperCase()))
                             || (cli.getTelefono()).contains((jTFbuscarclientedni.getText()))) {
                         siTomar = "S";
                     }
@@ -931,9 +931,9 @@ public class JIFGestionVentas extends javax.swing.JInternalFrame {
                 if (primerChar == '*') {
                     siTomar = "S";
                 } else {
-                    if ((prod.getNombreProducto()).contains((jTFbuscarproducto.getText()))
-                            || (prod.getDescripcion()).contains((jTFbuscarproducto.getText()))
-                            || (prod.getNombreProducto() + " " + prod.getDescripcion()).contains((jTFbuscarproducto.getText()))) {
+                    if ((prod.getNombreProducto().toUpperCase()).contains((jTFbuscarproducto.getText().toUpperCase()))
+                            || (prod.getDescripcion().toUpperCase()).contains((jTFbuscarproducto.getText().toUpperCase()))
+                            || (prod.getNombreProducto().toUpperCase() + " " + prod.getDescripcion().toUpperCase()).contains((jTFbuscarproducto.getText().toUpperCase()))) {
                         siTomar = "S";
                     }
                 }

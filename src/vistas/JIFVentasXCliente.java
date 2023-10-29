@@ -368,12 +368,12 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
                 if (primerChar == '*') {
                     siTomar = "S";
                 } else {
-                    if ((cli.getApellido()).contains((jtfBuscarCliente.getText()))
-                            || (cli.getNombre()).contains((jtfBuscarCliente.getText()))
-                            || (cli.getApellido() + " " + cli.getNombre()).contains((jtfBuscarCliente.getText()))
+                    if (((cli.getApellido()).toUpperCase()).contains((jtfBuscarCliente.getText()).toUpperCase())
+                            || ((cli.getNombre()).toUpperCase()).contains((jtfBuscarCliente.getText().toUpperCase()))
+                            || (cli.getApellido().toUpperCase() + " " + cli.getNombre().toUpperCase()).contains((jtfBuscarCliente.getText()).toUpperCase())
                             || (String.valueOf(cli.getDni())).contains((jtfBuscarCliente.getText()))
                             || (String.valueOf(cli.getIdCliente())).contains((jtfBuscarCliente.getText()))
-                            || (cli.getDomicilio()).contains((jtfBuscarCliente.getText()))
+                            || (cli.getDomicilio().toUpperCase()).contains((jtfBuscarCliente.getText().toUpperCase()))
                             || (cli.getTelefono()).contains((jtfBuscarCliente.getText()))) {
                         siTomar = "S";
                     }
@@ -524,8 +524,7 @@ public class JIFVentasXCliente extends javax.swing.JInternalFrame {
 //        }
 //        xjDCFecha.setDate(date);
         
-        pdf(xjTFid,xjDCFecha,xjTFid,xjTFdni,xjTFapellido,xjTFnombre,xjTFtelefono,xjTFdireccion,jtListadoDetalleVenta,xjTFtotalventa,0);
-        
+        pdf(xjTFidventa,xjDCFecha,xjTFid,xjTFdni,xjTFapellido,xjTFnombre,xjTFtelefono,xjTFdireccion,jtListadoDetalleVenta,xjTFtotalventa,0);
 
     }//GEN-LAST:event_jBduplicarPdfActionPerformed
 
