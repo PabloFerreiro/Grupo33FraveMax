@@ -1,5 +1,5 @@
 // RAMA Pablo
-// Actualizado dia: 30/10/23 hs: 16:36
+// Actualizado dia: 30/10/23 hs:17:24
 package vistas;
 
 import java.awt.Dimension;
